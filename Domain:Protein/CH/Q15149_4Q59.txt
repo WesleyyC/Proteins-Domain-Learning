@@ -1,0 +1,1084 @@
+ID   PLEC_HUMAN              Reviewed;        4684 AA.
+AC   Q15149; Q15148; Q16640; Q6S376; Q6S377; Q6S378; Q6S379; Q6S380;
+AC   Q6S381; Q6S382; Q6S383;
+DT   01-JUN-2001, integrated into UniProtKB/Swiss-Prot.
+DT   14-OCT-2008, sequence version 3.
+DT   22-JUL-2015, entry version 180.
+DE   RecName: Full=Plectin;
+DE            Short=PCN;
+DE            Short=PLTN;
+DE   AltName: Full=Hemidesmosomal protein 1;
+DE            Short=HD1;
+DE   AltName: Full=Plectin-1;
+GN   Name=PLEC; Synonyms=PLEC1;
+OS   Homo sapiens (Human).
+OC   Eukaryota; Metazoa; Chordata; Craniata; Vertebrata; Euteleostomi;
+OC   Mammalia; Eutheria; Euarchontoglires; Primates; Haplorrhini;
+OC   Catarrhini; Hominidae; Homo.
+OX   NCBI_TaxID=9606;
+RN   [1]
+RP   NUCLEOTIDE SEQUENCE [GENOMIC DNA].
+RC   TISSUE=Placenta;
+RX   PubMed=8633055; DOI=10.1073/pnas.93.9.4278;
+RA   Liu C.-G., Maercker C., Castanon M.J., Hauptmann R., Wiche G.;
+RT   "Human plectin: organization of the gene, sequence analysis, and
+RT   chromosome localization (8q24).";
+RL   Proc. Natl. Acad. Sci. U.S.A. 93:4278-4283(1996).
+RN   [2]
+RP   NUCLEOTIDE SEQUENCE [GENOMIC DNA / MRNA] (ISOFORMS 2 AND 3), DISEASE,
+RP   AND VARIANT VAL-1321.
+RX   PubMed=8698233; DOI=10.1101/gad.10.14.1724;
+RA   McLean W.H.I., Pulkkinen L., Smith F.J.D., Rugg E.L., Lane E.B.,
+RA   Bullrich F., Burgeson R.E., Amano S., Hudson D.L., Owaribe K.,
+RA   McGrath J.A., McMillan J.R., Eady R.A.J., Leigh I.M., Christiano A.M.,
+RA   Uitto J.;
+RT   "Loss of plectin causes epidermolysis bullosa with muscular dystrophy:
+RT   cDNA cloning and genomic organization.";
+RL   Genes Dev. 10:1724-1735(1996).
+RN   [3]
+RP   NUCLEOTIDE SEQUENCE [MRNA] (ISOFORMS 1; 2; 4; 5; 6; 7; 8 AND 9).
+RX   PubMed=14672974; DOI=10.1101/gr.1225204;
+RA   Zhang T., Haws P., Wu Q.;
+RT   "Multiple variable first exons: a mechanism for cell- and tissue-
+RT   specific gene regulation.";
+RL   Genome Res. 14:79-89(2004).
+RN   [4]
+RP   NUCLEOTIDE SEQUENCE [LARGE SCALE GENOMIC DNA].
+RX   PubMed=16421571; DOI=10.1038/nature04406;
+RA   Nusbaum C., Mikkelsen T.S., Zody M.C., Asakawa S., Taudien S.,
+RA   Garber M., Kodira C.D., Schueler M.G., Shimizu A., Whittaker C.A.,
+RA   Chang J.L., Cuomo C.A., Dewar K., FitzGerald M.G., Yang X.,
+RA   Allen N.R., Anderson S., Asakawa T., Blechschmidt K., Bloom T.,
+RA   Borowsky M.L., Butler J., Cook A., Corum B., DeArellano K.,
+RA   DeCaprio D., Dooley K.T., Dorris L. III, Engels R., Gloeckner G.,
+RA   Hafez N., Hagopian D.S., Hall J.L., Ishikawa S.K., Jaffe D.B.,
+RA   Kamat A., Kudoh J., Lehmann R., Lokitsang T., Macdonald P.,
+RA   Major J.E., Matthews C.D., Mauceli E., Menzel U., Mihalev A.H.,
+RA   Minoshima S., Murayama Y., Naylor J.W., Nicol R., Nguyen C.,
+RA   O'Leary S.B., O'Neill K., Parker S.C.J., Polley A., Raymond C.K.,
+RA   Reichwald K., Rodriguez J., Sasaki T., Schilhabel M., Siddiqui R.,
+RA   Smith C.L., Sneddon T.P., Talamas J.A., Tenzin P., Topham K.,
+RA   Venkataraman V., Wen G., Yamazaki S., Young S.K., Zeng Q.,
+RA   Zimmer A.R., Rosenthal A., Birren B.W., Platzer M., Shimizu N.,
+RA   Lander E.S.;
+RT   "DNA sequence and analysis of human chromosome 8.";
+RL   Nature 439:331-335(2006).
+RN   [5]
+RP   PROTEIN SEQUENCE OF 14-21; 209-227; 237-248; 301-316; 329-336;
+RP   350-365; 372-417; 510-517; 588-597; 631-675; 697-706; 714-724;
+RP   734-740; 751-764; 857-869; 897-908; 927-934; 1029-1037; 1045-1052;
+RP   1076-1088; 1131-1139; 1166-1175; 1187-1210; 1216-1224; 1227-1243;
+RP   1251-1266; 1274-1291; 1318-1335; 1338-1344; 1351-1364; 1366-1382;
+RP   1411-1438; 1473-1479; 1499-1508; 1554-1563; 1596-1603; 1606-1616;
+RP   1628-1638; 1649-1657; 1671-1679; 1699-1709; 1732-1744; 1783-1792;
+RP   1825-1833; 1846-1854; 1867-1875; 1888-1908; 1976-1994; 2006-2014;
+RP   2048-2055; 2058-2068; 2079-2087; 2098-2108; 2130-2139; 2142-2150;
+RP   2172-2182; 2199-2217; 2310-2316; 2319-2329; 2340-2348; 2361-2379;
+RP   2402-2409; 2420-2429; 2432-2442; 2462-2473; 2483-2503; 2512-2521;
+RP   2565-2575; 2587-2594; 2651-2663; 2685-2693; 2705-2761; 2768-2787;
+RP   2795-2821; 2833-2841; 2847-2881; 2885-2903; 2942-2968; 2979-3007;
+RP   3028-3039; 3045-3053; 3095-3106; 3109-3127; 3132-3139; 3146-3154;
+RP   3175-3183; 3213-3231; 3244-3259; 3270-3285; 3289-3297; 3317-3335;
+RP   3356-3368; 3374-3384; 3424-3436; 3447-3469; 3477-3485; 3506-3513;
+RP   3519-3540; 3544-3568; 3601-3637; 3648-3661; 3667-3676; 3686-3702;
+RP   3739-3749; 3771-3781; 3784-3804; 3839-3878; 3887-3897; 3926-3963;
+RP   3969-3999; 4004-4018; 4027-4060; 4084-4091; 4122-4138; 4159-4167;
+RP   4179-4205; 4278-4296; 4339-4348; 4354-4360; 4384-4401; 4429-4447;
+RP   4467-4475; 4492-4500; 4543-4551; 4590-4627 AND 4668-4684,
+RP   PHOSPHORYLATION AT SER-4385, AND IDENTIFICATION BY MASS SPECTROMETRY.
+RC   TISSUE=Ovarian carcinoma;
+RA   Bienvenut W.V., Lilla S., von Kriegsheim A., Lempens A., Kolch W.;
+RL   Submitted (DEC-2008) to UniProtKB.
+RN   [6]
+RP   FUNCTION, INTERACTION WITH COL17A1, AND SUBCELLULAR LOCATION.
+RX   PubMed=12482924; DOI=10.1242/jcs.00241;
+RA   Koster J., Geerts D., Favre B., Borradori L., Sonnenberg A.;
+RT   "Analysis of the interactions between BP180, BP230, plectin and the
+RT   integrin alpha6beta4 important for hemidesmosome assembly.";
+RL   J. Cell Sci. 116:387-399(2003).
+RN   [7]
+RP   PHOSPHORYLATION [LARGE SCALE ANALYSIS] AT SER-125; SER-149; SER-720;
+RP   SER-1435; SER-1721; THR-4030 AND THR-4411, AND IDENTIFICATION BY MASS
+RP   SPECTROMETRY [LARGE SCALE ANALYSIS].
+RC   TISSUE=Cervix carcinoma;
+RX   PubMed=17081983; DOI=10.1016/j.cell.2006.09.026;
+RA   Olsen J.V., Blagoev B., Gnad F., Macek B., Kumar C., Mortensen P.,
+RA   Mann M.;
+RT   "Global, in vivo, and site-specific phosphorylation dynamics in
+RT   signaling networks.";
+RL   Cell 127:635-648(2006).
+RN   [8]
+RP   IDENTIFICATION BY MASS SPECTROMETRY [LARGE SCALE ANALYSIS].
+RC   TISSUE=Embryonic kidney;
+RX   PubMed=17525332; DOI=10.1126/science.1140321;
+RA   Matsuoka S., Ballif B.A., Smogorzewska A., McDonald E.R. III,
+RA   Hurov K.E., Luo J., Bakalarski C.E., Zhao Z., Solimini N.,
+RA   Lerenthal Y., Shiloh Y., Gygi S.P., Elledge S.J.;
+RT   "ATM and ATR substrate analysis reveals extensive protein networks
+RT   responsive to DNA damage.";
+RL   Science 316:1160-1166(2007).
+RN   [9]
+RP   INTERACTION WITH TOR1A.
+RX   PubMed=18827015; DOI=10.1242/jcs.029454;
+RA   Nery F.C., Zeng J., Niland B.P., Hewett J., Farley J., Irimia D.,
+RA   Li Y., Wiche G., Sonnenberg A., Breakefield X.O.;
+RT   "TorsinA binds the KASH domain of nesprins and participates in linkage
+RT   between nuclear envelope and cytoskeleton.";
+RL   J. Cell Sci. 121:3476-3486(2008).
+RN   [10]
+RP   IDENTIFICATION BY MASS SPECTROMETRY [LARGE SCALE ANALYSIS].
+RC   TISSUE=Cervix carcinoma;
+RX   PubMed=18220336; DOI=10.1021/pr0705441;
+RA   Cantin G.T., Yi W., Lu B., Park S.K., Xu T., Lee J.-D.,
+RA   Yates J.R. III;
+RT   "Combining protein-based IMAC, peptide-based IMAC, and MudPIT for
+RT   efficient phosphoproteomic analysis.";
+RL   J. Proteome Res. 7:1346-1351(2008).
+RN   [11]
+RP   IDENTIFICATION BY MASS SPECTROMETRY [LARGE SCALE ANALYSIS].
+RC   TISSUE=T-cell;
+RX   PubMed=19367720; DOI=10.1021/pr800500r;
+RA   Carrascal M., Ovelleiro D., Casas V., Gay M., Abian J.;
+RT   "Phosphorylation analysis of primary human T lymphocytes using
+RT   sequential IMAC and titanium oxide enrichment.";
+RL   J. Proteome Res. 7:5167-5176(2008).
+RN   [12]
+RP   PHOSPHORYLATION [LARGE SCALE ANALYSIS] AT SER-1435, AND IDENTIFICATION
+RP   BY MASS SPECTROMETRY [LARGE SCALE ANALYSIS].
+RC   TISSUE=Cervix carcinoma;
+RX   PubMed=18691976; DOI=10.1016/j.molcel.2008.07.007;
+RA   Daub H., Olsen J.V., Bairlein M., Gnad F., Oppermann F.S., Korner R.,
+RA   Greff Z., Keri G., Stemmann O., Mann M.;
+RT   "Kinase-selective enrichment enables quantitative phosphoproteomics of
+RT   the kinome across the cell cycle.";
+RL   Mol. Cell 31:438-448(2008).
+RN   [13]
+RP   PHOSPHORYLATION [LARGE SCALE ANALYSIS] AT SER-125; SER-149; SER-720;
+RP   SER-4382; SER-4385; SER-4386; SER-4389; SER-4390; SER-4391; SER-4392;
+RP   SER-4396; SER-4613; SER-4622; SER-4626 AND SER-4642, PHOSPHORYLATION
+RP   [LARGE SCALE ANALYSIS] AT SER-42 (ISOFORMS 2 AND 3), PHOSPHORYLATION
+RP   [LARGE SCALE ANALYSIS] AT SER-21 (ISOFORM 4), AND IDENTIFICATION BY
+RP   MASS SPECTROMETRY [LARGE SCALE ANALYSIS].
+RC   TISSUE=Cervix carcinoma;
+RX   PubMed=18669648; DOI=10.1073/pnas.0805139105;
+RA   Dephoure N., Zhou C., Villen J., Beausoleil S.A., Bakalarski C.E.,
+RA   Elledge S.J., Gygi S.P.;
+RT   "A quantitative atlas of mitotic phosphorylation.";
+RL   Proc. Natl. Acad. Sci. U.S.A. 105:10762-10767(2008).
+RN   [14]
+RP   IDENTIFICATION BY MASS SPECTROMETRY [LARGE SCALE ANALYSIS].
+RX   PubMed=19413330; DOI=10.1021/ac9004309;
+RA   Gauci S., Helbig A.O., Slijper M., Krijgsveld J., Heck A.J.,
+RA   Mohammed S.;
+RT   "Lys-N and trypsin cover complementary parts of the phosphoproteome in
+RT   a refined SCX-based approach.";
+RL   Anal. Chem. 81:4493-4501(2009).
+RN   [15]
+RP   PHOSPHORYLATION [LARGE SCALE ANALYSIS] AT SER-720; THR-4030 AND
+RP   SER-4626, AND IDENTIFICATION BY MASS SPECTROMETRY [LARGE SCALE
+RP   ANALYSIS].
+RX   PubMed=19369195; DOI=10.1074/mcp.M800588-MCP200;
+RA   Oppermann F.S., Gnad F., Olsen J.V., Hornberger R., Greff Z., Keri G.,
+RA   Mann M., Daub H.;
+RT   "Large-scale proteomics analysis of the human kinome.";
+RL   Mol. Cell. Proteomics 8:1751-1764(2009).
+RN   [16]
+RP   PHOSPHORYLATION [LARGE SCALE ANALYSIS] AT SER-4386; SER-4389;
+RP   SER-4396; SER-4613; SER-4618 AND SER-4626, PHOSPHORYLATION [LARGE
+RP   SCALE ANALYSIS] AT SER-42 (ISOFORMS 2 AND 3), AND IDENTIFICATION BY
+RP   MASS SPECTROMETRY [LARGE SCALE ANALYSIS].
+RC   TISSUE=Leukemic T-cell;
+RX   PubMed=19690332; DOI=10.1126/scisignal.2000007;
+RA   Mayya V., Lundgren D.H., Hwang S.-I., Rezaul K., Wu L., Eng J.K.,
+RA   Rodionov V., Han D.K.;
+RT   "Quantitative phosphoproteomic analysis of T cell receptor signaling
+RT   reveals system-wide modulation of protein-protein interactions.";
+RL   Sci. Signal. 2:RA46-RA46(2009).
+RN   [17]
+RP   ACETYLATION [LARGE SCALE ANALYSIS] AT LYS-3091 AND LYS-3420, AND
+RP   IDENTIFICATION BY MASS SPECTROMETRY [LARGE SCALE ANALYSIS].
+RX   PubMed=19608861; DOI=10.1126/science.1175371;
+RA   Choudhary C., Kumar C., Gnad F., Nielsen M.L., Rehman M.,
+RA   Walther T.C., Olsen J.V., Mann M.;
+RT   "Lysine acetylation targets protein complexes and co-regulates major
+RT   cellular functions.";
+RL   Science 325:834-840(2009).
+RN   [18]
+RP   FUNCTION OF ISOFORM 9, AND INVOLVEMENT IN LGMD2Q.
+RX   PubMed=21109228; DOI=10.1016/j.ajhg.2010.10.017;
+RA   Gundesli H., Talim B., Korkusuz P., Balci-Hayta B., Cirak S.,
+RA   Akarsu N.A., Topaloglu H., Dincer P.;
+RT   "Mutation in exon 1f of PLEC, leading to disruption of plectin isoform
+RT   1f, causes autosomal-recessive limb-girdle muscular dystrophy.";
+RL   Am. J. Hum. Genet. 87:834-841(2010).
+RN   [19]
+RP   INTERACTION WITH DST.
+RX   PubMed=19932097; DOI=10.1016/j.yexcr.2009.11.010;
+RA   Steiner-Champliaud M.F., Schneider Y., Favre B., Paulhe F.,
+RA   Praetzel-Wunder S., Faulkner G., Konieczny P., Raith M., Wiche G.,
+RA   Adebola A., Liem R.K., Langbein L., Sonnenberg A., Fontao L.,
+RA   Borradori L.;
+RT   "BPAG1 isoform-b: complex distribution pattern in striated and heart
+RT   muscle and association with plectin and alpha-actinin.";
+RL   Exp. Cell Res. 316:297-313(2010).
+RN   [20]
+RP   INVOLVEMENT IN MD-EBS AND EBS-PA.
+RX   PubMed=20665883; DOI=10.1002/humu.21330;
+RA   Natsuga K., Nishie W., Shinkuma S., Arita K., Nakamura H., Ohyama M.,
+RA   Osaka H., Kambara T., Hirako Y., Shimizu H.;
+RT   "Plectin deficiency leads to both muscular dystrophy and pyloric
+RT   atresia in epidermolysis bullosa simplex.";
+RL   Hum. Mutat. 31:E1687-E1698(2010).
+RN   [21]
+RP   PHOSPHORYLATION [LARGE SCALE ANALYSIS] AT THR-113; SER-125; SER-149;
+RP   SER-720; SER-1435; SER-1732; THR-4030; SER-4382; SER-4396; SER-4400;
+RP   SER-4613; SER-4622 AND SER-4642, PHOSPHORYLATION [LARGE SCALE
+RP   ANALYSIS] AT SER-42 (ISOFORMS 2 AND 3), PHOSPHORYLATION [LARGE SCALE
+RP   ANALYSIS] AT SER-20 AND SER-21 (ISOFORM 4), AND IDENTIFICATION BY MASS
+RP   SPECTROMETRY [LARGE SCALE ANALYSIS].
+RC   TISSUE=Cervix carcinoma;
+RX   PubMed=20068231; DOI=10.1126/scisignal.2000475;
+RA   Olsen J.V., Vermeulen M., Santamaria A., Kumar C., Miller M.L.,
+RA   Jensen L.J., Gnad F., Cox J., Jensen T.S., Nigg E.A., Brunak S.,
+RA   Mann M.;
+RT   "Quantitative phosphoproteomics reveals widespread full
+RT   phosphorylation site occupancy during mitosis.";
+RL   Sci. Signal. 3:RA3-RA3(2010).
+RN   [22]
+RP   IDENTIFICATION BY MASS SPECTROMETRY [LARGE SCALE ANALYSIS].
+RX   PubMed=21269460; DOI=10.1186/1752-0509-5-17;
+RA   Burkard T.R., Planyavsky M., Kaupe I., Breitwieser F.P.,
+RA   Buerckstuemmer T., Bennett K.L., Superti-Furga G., Colinge J.;
+RT   "Initial characterization of the human central proteome.";
+RL   BMC Syst. Biol. 5:17-17(2011).
+RN   [23]
+RP   INTERACTION WITH ANK3.
+RX   PubMed=21223964; DOI=10.1016/j.yexcr.2011.01.002;
+RA   Maiweilidan Y., Klauza I., Kordeli E.;
+RT   "Novel interactions of ankyrins-G at the costameres: the muscle-
+RT   specific Obscurin/Titin-Binding-related Domain (OTBD) binds plectin
+RT   and filamin C.";
+RL   Exp. Cell Res. 317:724-736(2011).
+RN   [24]
+RP   PHOSPHORYLATION [LARGE SCALE ANALYSIS] AT SER-1435, AND IDENTIFICATION
+RP   BY MASS SPECTROMETRY [LARGE SCALE ANALYSIS].
+RX   PubMed=21406692; DOI=10.1126/scisignal.2001570;
+RA   Rigbolt K.T., Prokhorova T.A., Akimov V., Henningsen J.,
+RA   Johansen P.T., Kratchmarova I., Kassem M., Mann M., Olsen J.V.,
+RA   Blagoev B.;
+RT   "System-wide temporal characterization of the proteome and
+RT   phosphoproteome of human embryonic stem cell differentiation.";
+RL   Sci. Signal. 4:RS3-RS3(2011).
+RN   [25]
+RP   PHOSPHORYLATION [LARGE SCALE ANALYSIS] AT SER-720; SER-1047; SER-1435;
+RP   SER-2631; SER-2782; SER-2802; THR-2886; SER-3036; THR-3785; THR-4030;
+RP   SER-4054; SER-4386; SER-4390; SER-4392; TYR-4393; SER-4396; SER-4400;
+RP   SER-4616; SER-4626 AND SER-4675, AND IDENTIFICATION BY MASS
+RP   SPECTROMETRY [LARGE SCALE ANALYSIS].
+RC   TISSUE=Liver;
+RX   PubMed=24275569; DOI=10.1016/j.jprot.2013.11.014;
+RA   Bian Y., Song C., Cheng K., Dong M., Wang F., Huang J., Sun D.,
+RA   Wang L., Ye M., Zou H.;
+RT   "An enzyme assisted RP-RPLC approach for in-depth analysis of human
+RT   liver phosphoproteome.";
+RL   J. Proteomics 96:253-262(2014).
+RN   [26]
+RP   X-RAY CRYSTALLOGRAPHY (2.05 ANGSTROMS) OF 409-640.
+RX   PubMed=17397861; DOI=10.1016/j.jmb.2007.02.090;
+RA   Sonnenberg A., Rojas A.M., de Pereda J.M.;
+RT   "The structure of a tandem pair of spectrin repeats of plectin reveals
+RT   a modular organization of the plakin domain.";
+RL   J. Mol. Biol. 368:1379-1391(2007).
+RN   [27]
+RP   X-RAY CRYSTALLOGRAPHY (2.15 ANGSTROMS) OF 159-403.
+RX   PubMed=12791251; DOI=10.1016/S0969-2126(03)00090-X;
+RA   Garcia-Alvarez B., Bobkov A., Sonnenberg A., de Pereda J.M.;
+RT   "Structural and functional analysis of the actin binding domain of
+RT   plectin suggests alternative mechanisms for binding to F-actin and
+RT   integrin beta4.";
+RL   Structure 11:615-625(2003).
+RN   [28]
+RP   VARIANT MD-EBS 1003-GLN--ALA-1005 DEL.
+RX   PubMed=8894687; DOI=10.1093/hmg/5.10.1539;
+RA   Pulkkinen L., Smith F.J.D., Shimizu H., Murata S., Yaoita H.,
+RA   Hachisuka H., Nishikawa T., McLean W.H.I., Uitto J.;
+RT   "Homozygous deletion mutations in the plectin gene (PLEC1) in patients
+RT   with epidermolysis bullosa simplex associated with late-onset muscular
+RT   dystrophy.";
+RL   Hum. Mol. Genet. 5:1539-1546(1996).
+RN   [29]
+RP   VARIANT MD-EBS LEU-429 INS.
+RX   PubMed=11159198; DOI=10.1016/S0002-9440(10)64003-5;
+RA   Bauer J.W., Rouan F., Kofler B., Rezniczek G.A., Kornacker I.,
+RA   Muss W., Hametner R., Klausegger A., Huber A., Pohla-Gubo G.,
+RA   Wiche G., Uitto J., Hintner H.;
+RT   "A compound heterozygous one amino-acid insertion/nonsense mutation in
+RT   the plectin gene causes epidermolysis bullosa simplex with plectin
+RT   deficiency.";
+RL   Am. J. Pathol. 158:617-625(2001).
+RN   [30]
+RP   VARIANT O-EBS TRP-2110.
+RX   PubMed=11851880; DOI=10.1046/j.0022-202x.2001.01591.x;
+RA   Koss-Harnes D., Hoeyheim B., Anton-Lamprecht I., Gjesti A.,
+RA   Joergensen R.S., Jahnsen F.L., Olaisen B., Wiche G.,
+RA   Gedde-Dahl T. Jr.;
+RT   "A site-specific plectin mutation causes dominant epidermolysis
+RT   bullosa simplex Ogna: two identical de novo mutations.";
+RL   J. Invest. Dermatol. 118:87-93(2002).
+RN   [31]
+RP   INVOLVEMENT IN EBS-PA.
+RX   PubMed=14675180; DOI=10.1111/j.1523-1747.2003.12639.x;
+RA   Charlesworth A., Gagnoux-Palacios L., Bonduelle M., Ortonne J.-P.,
+RA   De Raeve L., Meneguzzi G.;
+RT   "Identification of a lethal form of epidermolysis bullosa simplex
+RT   associated with a homozygous genetic mutation in plectin.";
+RL   J. Invest. Dermatol. 121:1344-1348(2003).
+CC   -!- FUNCTION: Interlinks intermediate filaments with microtubules and
+CC       microfilaments and anchors intermediate filaments to desmosomes or
+CC       hemidesmosomes. Could also bind muscle proteins such as actin to
+CC       membrane complexes in muscle. May be involved not only in the
+CC       filaments network, but also in the regulation of their dynamics.
+CC       Structural component of muscle. Isoform 9 plays a major role in
+CC       the maintenance of myofibers integrity.
+CC       {ECO:0000269|PubMed:12482924, ECO:0000269|PubMed:21109228}.
+CC   -!- SUBUNIT: Homodimer or homotetramer. Interacts (via actin-binding
+CC       domain) with SYNE3. Interacts (via CH 1 domain) with VIM (via rod
+CC       region). Interacts (via N-terminus) with DST isoform 2 (via N-
+CC       terminus). Interacts with FER. Interacts with TOR1A. Interacts
+CC       with ANK3. {ECO:0000269|PubMed:12482924,
+CC       ECO:0000269|PubMed:18827015, ECO:0000269|PubMed:19932097,
+CC       ECO:0000269|PubMed:21223964}.
+CC   -!- INTERACTION:
+CC       P35637:FUS; NbExp=4; IntAct=EBI-297903, EBI-400434;
+CC       P16144:ITGB4; NbExp=7; IntAct=EBI-297903, EBI-948678;
+CC   -!- SUBCELLULAR LOCATION: Cytoplasm, cytoskeleton
+CC       {ECO:0000269|PubMed:12482924}. Cell junction, hemidesmosome
+CC       {ECO:0000269|PubMed:12482924}.
+CC   -!- ALTERNATIVE PRODUCTS:
+CC       Event=Alternative splicing; Named isoforms=9;
+CC       Name=1; Synonyms=Plectin-6;
+CC         IsoId=Q15149-1; Sequence=Displayed;
+CC       Name=2; Synonyms=Plectin-1, 1c;
+CC         IsoId=Q15149-2; Sequence=VSP_005030;
+CC         Note=Contains a phosphoserine at position 42.
+CC         {ECO:0000269|PubMed:18669648, ECO:0000269|PubMed:19690332,
+CC         ECO:0000269|PubMed:20068231};
+CC       Name=3;
+CC         IsoId=Q15149-3; Sequence=VSP_005030, VSP_005031;
+CC         Note=Contains a phosphoserine at position 42.
+CC         {ECO:0000269|PubMed:18669648, ECO:0000269|PubMed:19690332,
+CC         ECO:0000269|PubMed:20068231};
+CC       Name=4; Synonyms=Plectin-11, 1a;
+CC         IsoId=Q15149-4; Sequence=VSP_023510;
+CC         Note=Contains a phosphotyrosine at position 26 (By similarity).
+CC         Contains a phosphoserine at position 21. Contains a
+CC         phosphoserine at position 20. {ECO:0000250,
+CC         ECO:0000269|PubMed:18669648, ECO:0000269|PubMed:20068231};
+CC       Name=5; Synonyms=Plectin-8, 1b;
+CC         IsoId=Q15149-5; Sequence=VSP_037103, VSP_037106;
+CC       Name=6; Synonyms=Plectin-10, 1g;
+CC         IsoId=Q15149-6; Sequence=VSP_037104, VSP_037105;
+CC       Name=7; Synonyms=Plectin-7, 1d;
+CC         IsoId=Q15149-7; Sequence=VSP_037100, VSP_037109;
+CC       Name=8; Synonyms=Plectin-3, 1e;
+CC         IsoId=Q15149-8; Sequence=VSP_037101, VSP_037108;
+CC       Name=9; Synonyms=Plectin-2, 1f;
+CC         IsoId=Q15149-9; Sequence=VSP_037102, VSP_037107;
+CC   -!- TISSUE SPECIFICITY: Widely expressed with highest levels in
+CC       muscle, heart, placenta and spinal cord.
+CC   -!- DOMAIN: The N-terminus interacts with actin, the C-terminus with
+CC       vimentin, desmin, GFAP, cytokeratins, lamin B; whereas both the N-
+CC       and the C-terminus can bind integrin beta-4.
+CC   -!- PTM: Phosphorylated by CDK1; regulates dissociation from
+CC       intermediate filaments during mitosis. {ECO:0000250}.
+CC   -!- DISEASE: Epidermolysis bullosa simplex with pyloric atresia (EBS-
+CC       PA) [MIM:612138]: Autosomal recessive genodermatosis characterized
+CC       by severe skin blistering at birth and congenital pyloric atresia.
+CC       Death usually occurs in infancy. This disorder is allelic to MD-
+CC       EBS. {ECO:0000269|PubMed:14675180, ECO:0000269|PubMed:20665883}.
+CC       Note=The disease is caused by mutations affecting the gene
+CC       represented in this entry.
+CC   -!- DISEASE: Epidermolysis bullosa simplex, with muscular dystrophy
+CC       (MD-EBS) [MIM:226670]: A form of epidermolysis bullosa
+CC       characterized by the association of blister formation at the level
+CC       of the hemidesmosome with late-onset muscular dystrophy.
+CC       {ECO:0000269|PubMed:11159198, ECO:0000269|PubMed:8894687}.
+CC       Note=The disease is caused by mutations affecting the gene
+CC       represented in this entry.
+CC   -!- DISEASE: Epidermolysis bullosa simplex, Ogna type (O-EBS)
+CC       [MIM:131950]: A form of intraepidermal epidermolysis bullosa
+CC       characterized by generalized skin bruising, skin fragility with
+CC       non-scarring blistering and small hemorrhagic blisters on hands.
+CC       At the ultrastructural level, it is differentiated from classical
+CC       cases of K-EBS, WC-EBS and DM-EBS, by the occurrence of blisters
+CC       originating in basal cells above hemidesmosomes, and abnormal
+CC       hemidesmosome intracellular attachment plates.
+CC       {ECO:0000269|PubMed:11851880}. Note=The disease is caused by
+CC       mutations affecting the gene represented in this entry.
+CC   -!- DISEASE: Limb-girdle muscular dystrophy 2Q (LGMD2Q) [MIM:613723]:
+CC       A form of limb-girdle muscular dystrophy characterized by early
+CC       childhood onset of proximal muscle weakness. Limb-girdle muscular
+CC       dystrophies are characterized by proximal weakness, weakness of
+CC       the hip and shoulder girdles and prominent asymmetrical quadriceps
+CC       femoris and biceps brachii atrophy. {ECO:0000269|PubMed:21109228}.
+CC       Note=The disease is caused by mutations affecting the gene
+CC       represented in this entry. A 9 bp deletion containing the
+CC       initiation codon in exon 1f of PLEC have been found in limb-girdle
+CC       muscular dystrophy patients. The mutation results in deficient
+CC       expression of isoform 9 and disorganization of the myofibers,
+CC       without any effect on the skin.
+CC   -!- SIMILARITY: Belongs to the plakin or cytolinker family.
+CC       {ECO:0000305}.
+CC   -!- SIMILARITY: Contains 1 actin-binding domain. {ECO:0000305}.
+CC   -!- SIMILARITY: Contains 2 CH (calponin-homology) domains.
+CC       {ECO:0000255|PROSITE-ProRule:PRU00044}.
+CC   -!- SIMILARITY: Contains 33 plectin repeats. {ECO:0000305}.
+CC   -!- SIMILARITY: Contains 4 spectrin repeats. {ECO:0000305}.
+CC   -!- WEB RESOURCE: Name=Wikipedia; Note=Plectin entry;
+CC       URL="http://en.wikipedia.org/wiki/Plectin";
+CC   -----------------------------------------------------------------------
+CC   Copyrighted by the UniProt Consortium, see http://www.uniprot.org/terms
+CC   Distributed under the Creative Commons Attribution-NoDerivs License
+CC   -----------------------------------------------------------------------
+DR   EMBL; Z54367; CAA91196.1; -; Genomic_DNA.
+DR   EMBL; U53204; AAB05427.1; -; mRNA.
+DR   EMBL; U63610; AAB05428.1; -; Genomic_DNA.
+DR   EMBL; U63609; AAB05428.1; JOINED; Genomic_DNA.
+DR   EMBL; X97053; CAA65765.1; -; mRNA.
+DR   EMBL; AY480044; AAR95677.1; -; mRNA.
+DR   EMBL; AY480045; AAR95678.1; -; mRNA.
+DR   EMBL; AY480046; AAR95679.1; -; mRNA.
+DR   EMBL; AY480047; AAR95680.1; -; mRNA.
+DR   EMBL; AY480048; AAR95681.1; -; mRNA.
+DR   EMBL; AY480049; AAR95682.1; -; mRNA.
+DR   EMBL; AY480050; AAR95683.1; -; mRNA.
+DR   EMBL; AY480051; AAR95684.1; -; mRNA.
+DR   EMBL; AC109322; -; NOT_ANNOTATED_CDS; Genomic_DNA.
+DR   CCDS; CCDS43769.1; -. [Q15149-2]
+DR   CCDS; CCDS43770.1; -. [Q15149-9]
+DR   CCDS; CCDS43771.1; -. [Q15149-8]
+DR   CCDS; CCDS43772.1; -. [Q15149-1]
+DR   CCDS; CCDS43773.1; -. [Q15149-5]
+DR   CCDS; CCDS43774.1; -. [Q15149-6]
+DR   CCDS; CCDS43775.1; -. [Q15149-4]
+DR   CCDS; CCDS47936.1; -. [Q15149-7]
+DR   PIR; C59404; A59404.
+DR   PIR; G02520; G02520.
+DR   RefSeq; NP_000436.2; NM_000445.4. [Q15149-2]
+DR   RefSeq; NP_958780.1; NM_201378.3. [Q15149-9]
+DR   RefSeq; NP_958781.1; NM_201379.2. [Q15149-8]
+DR   RefSeq; NP_958782.1; NM_201380.3. [Q15149-1]
+DR   RefSeq; NP_958783.1; NM_201381.2. [Q15149-7]
+DR   RefSeq; NP_958784.1; NM_201382.3. [Q15149-5]
+DR   RefSeq; NP_958785.1; NM_201383.2. [Q15149-6]
+DR   RefSeq; NP_958786.1; NM_201384.2. [Q15149-4]
+DR   UniGene; Hs.434248; -.
+DR   PDB; 1MB8; X-ray; 2.15 A; A=175-403.
+DR   PDB; 2ODU; X-ray; 2.30 A; A=410-640.
+DR   PDB; 2ODV; X-ray; 2.05 A; A=410-640.
+DR   PDB; 3F7P; X-ray; 2.75 A; A/B=175-403.
+DR   PDB; 3PDY; X-ray; 2.22 A; A/B=653-858.
+DR   PDB; 3PE0; X-ray; 2.95 A; A/B=750-1028.
+DR   PDB; 4GDO; X-ray; 1.70 A; A/B/C/D/E/F=1492-1530.
+DR   PDB; 4Q58; X-ray; 4.00 A; A/B=175-400.
+DR   PDB; 4Q59; X-ray; 2.30 A; A/B=175-400.
+DR   PDBsum; 1MB8; -.
+DR   PDBsum; 2ODU; -.
+DR   PDBsum; 2ODV; -.
+DR   PDBsum; 3F7P; -.
+DR   PDBsum; 3PDY; -.
+DR   PDBsum; 3PE0; -.
+DR   PDBsum; 4GDO; -.
+DR   PDBsum; 4Q58; -.
+DR   PDBsum; 4Q59; -.
+DR   ProteinModelPortal; Q15149; -.
+DR   SMR; Q15149; 5-101, 175-400, 413-630, 653-1025, 2782-3023, 3441-3681, 4021-4260, 4412-4605.
+DR   BioGrid; 111355; 62.
+DR   IntAct; Q15149; 28.
+DR   MINT; MINT-257064; -.
+DR   STRING; 9606.ENSP00000323856; -.
+DR   BindingDB; Q15149; -.
+DR   ChEMBL; CHEMBL1293240; -.
+DR   PhosphoSite; Q15149; -.
+DR   BioMuta; PLEC; -.
+DR   DMDM; 209572726; -.
+DR   MaxQB; Q15149; -.
+DR   PaxDb; Q15149; -.
+DR   PRIDE; Q15149; -.
+DR   Ensembl; ENST00000322810; ENSP00000323856; ENSG00000178209.
+DR   Ensembl; ENST00000345136; ENSP00000344848; ENSG00000178209. [Q15149-4]
+DR   Ensembl; ENST00000354589; ENSP00000346602; ENSG00000178209. [Q15149-5]
+DR   Ensembl; ENST00000354958; ENSP00000347044; ENSG00000178209. [Q15149-8]
+DR   Ensembl; ENST00000356346; ENSP00000348702; ENSG00000178209. [Q15149-9]
+DR   Ensembl; ENST00000357649; ENSP00000350277; ENSG00000178209. [Q15149-6]
+DR   Ensembl; ENST00000398774; ENSP00000381756; ENSG00000178209. [Q15149-7]
+DR   Ensembl; ENST00000436759; ENSP00000388180; ENSG00000178209. [Q15149-2]
+DR   Ensembl; ENST00000527096; ENSP00000434583; ENSG00000178209. [Q15149-3]
+DR   GeneID; 5339; -.
+DR   KEGG; hsa:5339; -.
+DR   UCSC; uc003zab.1; human. [Q15149-4]
+DR   UCSC; uc003zac.1; human. [Q15149-6]
+DR   UCSC; uc003zad.2; human. [Q15149-5]
+DR   UCSC; uc003zae.1; human. [Q15149-7]
+DR   UCSC; uc003zaf.1; human. [Q15149-1]
+DR   UCSC; uc003zag.1; human. [Q15149-8]
+DR   UCSC; uc003zah.2; human. [Q15149-9]
+DR   UCSC; uc003zaj.2; human. [Q15149-2]
+DR   CTD; 5339; -.
+DR   GeneCards; GC08M144989; -.
+DR   GeneReviews; PLEC; -.
+DR   H-InvDB; HIX0168901; -.
+DR   HGNC; HGNC:9069; PLEC.
+DR   HPA; CAB003847; -.
+DR   HPA; HPA025967; -.
+DR   HPA; HPA029906; -.
+DR   MIM; 131950; phenotype.
+DR   MIM; 226670; phenotype.
+DR   MIM; 601282; gene.
+DR   MIM; 612138; phenotype.
+DR   MIM; 613723; phenotype.
+DR   neXtProt; NX_Q15149; -.
+DR   Orphanet; 254361; Autosomal recessive limb-girdle muscular dystrophy type 2Q.
+DR   Orphanet; 257; Epidermolysis bullosa simplex with muscular dystrophy.
+DR   Orphanet; 158684; Epidermolysis bullosa simplex with pyloric atresia.
+DR   Orphanet; 79401; Epidermolysis bullosa simplex, Ogna type.
+DR   PharmGKB; PA33399; -.
+DR   eggNOG; COG5069; -.
+DR   GeneTree; ENSGT00760000119163; -.
+DR   HOVERGEN; HBG053616; -.
+DR   InParanoid; Q15149; -.
+DR   KO; K10388; -.
+DR   OMA; YLNKDTH; -.
+DR   PhylomeDB; Q15149; -.
+DR   TreeFam; TF335163; -.
+DR   Reactome; REACT_13541; Caspase-mediated cleavage of cytoskeletal proteins.
+DR   Reactome; REACT_150180; Assembly of collagen fibrils and other multimeric structures.
+DR   Reactome; REACT_20537; Type I hemidesmosome assembly.
+DR   ChiTaRS; PLEC; human.
+DR   EvolutionaryTrace; Q15149; -.
+DR   GeneWiki; Plectin; -.
+DR   GenomeRNAi; 5339; -.
+DR   NextBio; 20680; -.
+DR   PRO; PR:Q15149; -.
+DR   Proteomes; UP000005640; Chromosome 8.
+DR   Bgee; Q15149; -.
+DR   CleanEx; HS_PLEC1; -.
+DR   ExpressionAtlas; Q15149; baseline and differential.
+DR   Genevisible; Q15149; HS.
+DR   GO; GO:0005903; C:brush border; IEA:Ensembl.
+DR   GO; GO:0043034; C:costamere; TAS:BHF-UCL.
+DR   GO; GO:0005737; C:cytoplasm; IDA:HPA.
+DR   GO; GO:0005829; C:cytosol; TAS:Reactome.
+DR   GO; GO:0070062; C:extracellular exosome; IDA:UniProtKB.
+DR   GO; GO:0005925; C:focal adhesion; IDA:UniProtKB.
+DR   GO; GO:0030056; C:hemidesmosome; IDA:UniProtKB.
+DR   GO; GO:0045111; C:intermediate filament cytoskeleton; IDA:HPA.
+DR   GO; GO:0005886; C:plasma membrane; NAS:ProtInc.
+DR   GO; GO:0042383; C:sarcolemma; IDA:UniProtKB.
+DR   GO; GO:0016528; C:sarcoplasm; ISS:BHF-UCL.
+DR   GO; GO:0030506; F:ankyrin binding; IPI:BHF-UCL.
+DR   GO; GO:0044822; F:poly(A) RNA binding; IDA:UniProtKB.
+DR   GO; GO:0008307; F:structural constituent of muscle; IMP:UniProtKB.
+DR   GO; GO:0006915; P:apoptotic process; TAS:Reactome.
+DR   GO; GO:0034329; P:cell junction assembly; TAS:Reactome.
+DR   GO; GO:0006921; P:cellular component disassembly involved in execution phase of apoptosis; TAS:Reactome.
+DR   GO; GO:0030198; P:extracellular matrix organization; TAS:Reactome.
+DR   GO; GO:0031581; P:hemidesmosome assembly; IDA:UniProtKB.
+DR   GO; GO:0012501; P:programmed cell death; TAS:Reactome.
+DR   Gene3D; 1.10.418.10; -; 2.
+DR   Gene3D; 3.90.1290.10; -; 7.
+DR   InterPro; IPR001589; Actinin_actin-bd_CS.
+DR   InterPro; IPR001715; CH-domain.
+DR   InterPro; IPR030269; Plectin.
+DR   InterPro; IPR001101; Plectin_repeat.
+DR   InterPro; IPR005326; S10_plectin_N.
+DR   InterPro; IPR018159; Spectrin/alpha-actinin.
+DR   PANTHER; PTHR11915:SF247; PTHR11915:SF247; 1.
+DR   Pfam; PF00307; CH; 2.
+DR   Pfam; PF00681; Plectin; 18.
+DR   Pfam; PF03501; S10_plectin; 1.
+DR   SMART; SM00033; CH; 2.
+DR   SMART; SM00250; PLEC; 32.
+DR   SMART; SM00150; SPEC; 7.
+DR   SUPFAM; SSF47576; SSF47576; 1.
+DR   SUPFAM; SSF75399; SSF75399; 8.
+DR   PROSITE; PS00019; ACTININ_1; 1.
+DR   PROSITE; PS00020; ACTININ_2; 1.
+DR   PROSITE; PS50021; CH; 2.
+PE   1: Evidence at protein level;
+KW   3D-structure; Acetylation; Actin-binding; Alternative splicing;
+KW   Cell junction; Coiled coil; Complete proteome; Cytoplasm;
+KW   Cytoskeleton; Direct protein sequencing; Disease mutation;
+KW   Epidermolysis bullosa; Limb-girdle muscular dystrophy; Phosphoprotein;
+KW   Polymorphism; Reference proteome; Repeat.
+FT   CHAIN         1   4684       Plectin.
+FT                                /FTId=PRO_0000078135.
+FT   DOMAIN      175    400       Actin-binding.
+FT   DOMAIN      179    282       CH 1. {ECO:0000255|PROSITE-
+FT                                ProRule:PRU00044}.
+FT   DOMAIN      295    397       CH 2. {ECO:0000255|PROSITE-
+FT                                ProRule:PRU00044}.
+FT   REPEAT      645    710       Spectrin 1.
+FT   REPEAT      740    824       Spectrin 2.
+FT   REPEAT      837    930       Spectrin 3.
+FT   REPEAT     1315   1415       Spectrin 4.
+FT   REPEAT     2826   2863       Plectin 1.
+FT   REPEAT     2864   2901       Plectin 2.
+FT   REPEAT     2902   2939       Plectin 3.
+FT   REPEAT     2940   2977       Plectin 4.
+FT   REPEAT     2981   3015       Plectin 5.
+FT   REPEAT     3116   3153       Plectin 6.
+FT   REPEAT     3154   3191       Plectin 7.
+FT   REPEAT     3192   3229       Plectin 8.
+FT   REPEAT     3230   3267       Plectin 9.
+FT   REPEAT     3268   3305       Plectin 10.
+FT   REPEAT     3306   3343       Plectin 11.
+FT   REPEAT     3485   3522       Plectin 12.
+FT   REPEAT     3523   3560       Plectin 13.
+FT   REPEAT     3561   3598       Plectin 14.
+FT   REPEAT     3599   3636       Plectin 15.
+FT   REPEAT     3640   3674       Plectin 16.
+FT   REPEAT     3820   3857       Plectin 17.
+FT   REPEAT     3858   3895       Plectin 18.
+FT   REPEAT     3896   3933       Plectin 19.
+FT   REPEAT     3934   3971       Plectin 20.
+FT   REPEAT     3975   4008       Plectin 21.
+FT   REPEAT     4063   4100       Plectin 22.
+FT   REPEAT     4101   4138       Plectin 23.
+FT   REPEAT     4139   4176       Plectin 24.
+FT   REPEAT     4177   4214       Plectin 25.
+FT   REPEAT     4218   4252       Plectin 26.
+FT   REPEAT     4265   4305       Plectin 27.
+FT   REPEAT     4319   4356       Plectin 28.
+FT   REPEAT     4408   4445       Plectin 29.
+FT   REPEAT     4446   4483       Plectin 30.
+FT   REPEAT     4484   4521       Plectin 31.
+FT   REPEAT     4522   4559       Plectin 32.
+FT   REPEAT     4560   4597       Plectin 33.
+FT   REGION        1   1470       Globular 1.
+FT   REGION     1471   2755       Central fibrous rod domain.
+FT   REGION     2756   4684       Globular 2.
+FT   REGION     4250   4300       Binding to intermediate filaments.
+FT                                {ECO:0000250}.
+FT   REGION     4625   4640       4 X 4 AA tandem repeats of G-S-R-X.
+FT   COILED     1469   2756       {ECO:0000255}.
+FT   MOD_RES     113    113       Phosphothreonine.
+FT                                {ECO:0000269|PubMed:20068231}.
+FT   MOD_RES     125    125       Phosphoserine.
+FT                                {ECO:0000269|PubMed:17081983,
+FT                                ECO:0000269|PubMed:18669648,
+FT                                ECO:0000269|PubMed:20068231}.
+FT   MOD_RES     149    149       Phosphoserine.
+FT                                {ECO:0000269|PubMed:17081983,
+FT                                ECO:0000269|PubMed:18669648,
+FT                                ECO:0000269|PubMed:20068231}.
+FT   MOD_RES     720    720       Phosphoserine.
+FT                                {ECO:0000269|PubMed:17081983,
+FT                                ECO:0000269|PubMed:18669648,
+FT                                ECO:0000269|PubMed:19369195,
+FT                                ECO:0000269|PubMed:20068231,
+FT                                ECO:0000269|PubMed:24275569}.
+FT   MOD_RES    1047   1047       Phosphoserine.
+FT                                {ECO:0000269|PubMed:24275569}.
+FT   MOD_RES    1435   1435       Phosphoserine.
+FT                                {ECO:0000269|PubMed:17081983,
+FT                                ECO:0000269|PubMed:18691976,
+FT                                ECO:0000269|PubMed:20068231,
+FT                                ECO:0000269|PubMed:21406692,
+FT                                ECO:0000269|PubMed:24275569}.
+FT   MOD_RES    1721   1721       Phosphoserine.
+FT                                {ECO:0000269|PubMed:17081983}.
+FT   MOD_RES    1725   1725       N6-acetyllysine.
+FT                                {ECO:0000250|UniProtKB:Q9QXS1}.
+FT   MOD_RES    1732   1732       Phosphoserine.
+FT                                {ECO:0000269|PubMed:20068231}.
+FT   MOD_RES    2631   2631       Phosphoserine.
+FT                                {ECO:0000269|PubMed:24275569}.
+FT   MOD_RES    2636   2636       N6-acetyllysine.
+FT                                {ECO:0000250|UniProtKB:Q9QXS1}.
+FT   MOD_RES    2782   2782       Phosphoserine.
+FT                                {ECO:0000269|PubMed:24275569}.
+FT   MOD_RES    2802   2802       Phosphoserine.
+FT                                {ECO:0000269|PubMed:24275569}.
+FT   MOD_RES    2886   2886       Phosphothreonine.
+FT                                {ECO:0000269|PubMed:24275569}.
+FT   MOD_RES    3033   3033       Phosphotyrosine.
+FT                                {ECO:0000250|UniProtKB:Q9QXS1}.
+FT   MOD_RES    3036   3036       Phosphoserine.
+FT                                {ECO:0000269|PubMed:24275569}.
+FT   MOD_RES    3053   3053       N6-acetyllysine.
+FT                                {ECO:0000250|UniProtKB:Q9QXS1}.
+FT   MOD_RES    3091   3091       N6-acetyllysine.
+FT                                {ECO:0000269|PubMed:19608861}.
+FT   MOD_RES    3362   3362       Phosphotyrosine.
+FT                                {ECO:0000250|UniProtKB:Q9QXS1}.
+FT   MOD_RES    3420   3420       N6-acetyllysine.
+FT                                {ECO:0000269|PubMed:19608861}.
+FT   MOD_RES    3785   3785       Phosphothreonine.
+FT                                {ECO:0000269|PubMed:24275569}.
+FT   MOD_RES    4030   4030       Phosphothreonine.
+FT                                {ECO:0000269|PubMed:17081983,
+FT                                ECO:0000269|PubMed:19369195,
+FT                                ECO:0000269|PubMed:20068231,
+FT                                ECO:0000269|PubMed:24275569}.
+FT   MOD_RES    4054   4054       Phosphoserine.
+FT                                {ECO:0000269|PubMed:24275569}.
+FT   MOD_RES    4382   4382       Phosphoserine.
+FT                                {ECO:0000269|PubMed:18669648,
+FT                                ECO:0000269|PubMed:20068231}.
+FT   MOD_RES    4384   4384       Phosphoserine.
+FT                                {ECO:0000250|UniProtKB:P30427}.
+FT   MOD_RES    4385   4385       Phosphoserine.
+FT                                {ECO:0000269|PubMed:18669648,
+FT                                ECO:0000269|Ref.5}.
+FT   MOD_RES    4386   4386       Phosphoserine.
+FT                                {ECO:0000269|PubMed:18669648,
+FT                                ECO:0000269|PubMed:19690332,
+FT                                ECO:0000269|PubMed:24275569}.
+FT   MOD_RES    4389   4389       Phosphoserine.
+FT                                {ECO:0000269|PubMed:18669648,
+FT                                ECO:0000269|PubMed:19690332}.
+FT   MOD_RES    4390   4390       Phosphoserine.
+FT                                {ECO:0000269|PubMed:18669648,
+FT                                ECO:0000269|PubMed:24275569}.
+FT   MOD_RES    4391   4391       Phosphoserine.
+FT                                {ECO:0000269|PubMed:18669648}.
+FT   MOD_RES    4392   4392       Phosphoserine.
+FT                                {ECO:0000269|PubMed:18669648,
+FT                                ECO:0000269|PubMed:24275569}.
+FT   MOD_RES    4393   4393       Phosphotyrosine.
+FT                                {ECO:0000269|PubMed:24275569}.
+FT   MOD_RES    4396   4396       Phosphoserine.
+FT                                {ECO:0000269|PubMed:18669648,
+FT                                ECO:0000269|PubMed:19690332,
+FT                                ECO:0000269|PubMed:20068231,
+FT                                ECO:0000269|PubMed:24275569}.
+FT   MOD_RES    4400   4400       Phosphoserine.
+FT                                {ECO:0000269|PubMed:20068231,
+FT                                ECO:0000269|PubMed:24275569}.
+FT   MOD_RES    4411   4411       Phosphothreonine.
+FT                                {ECO:0000269|PubMed:17081983}.
+FT   MOD_RES    4539   4539       Phosphothreonine; by CDK1. {ECO:0000250}.
+FT   MOD_RES    4613   4613       Phosphoserine.
+FT                                {ECO:0000269|PubMed:18669648,
+FT                                ECO:0000269|PubMed:19690332,
+FT                                ECO:0000269|PubMed:20068231}.
+FT   MOD_RES    4615   4615       Phosphotyrosine.
+FT                                {ECO:0000250|UniProtKB:Q9QXS1}.
+FT   MOD_RES    4616   4616       Phosphoserine.
+FT                                {ECO:0000269|PubMed:24275569}.
+FT   MOD_RES    4618   4618       Phosphoserine.
+FT                                {ECO:0000269|PubMed:19690332}.
+FT   MOD_RES    4622   4622       Phosphoserine.
+FT                                {ECO:0000269|PubMed:18669648,
+FT                                ECO:0000269|PubMed:20068231}.
+FT   MOD_RES    4626   4626       Phosphoserine.
+FT                                {ECO:0000269|PubMed:18669648,
+FT                                ECO:0000269|PubMed:19369195,
+FT                                ECO:0000269|PubMed:19690332,
+FT                                ECO:0000269|PubMed:24275569}.
+FT   MOD_RES    4642   4642       Phosphoserine.
+FT                                {ECO:0000269|PubMed:18669648,
+FT                                ECO:0000269|PubMed:20068231}.
+FT   MOD_RES    4675   4675       Phosphoserine.
+FT                                {ECO:0000269|PubMed:24275569}.
+FT   VAR_SEQ       1    174       MVAGMLMPRDQLRAIYEVLFREGVMVAKKDRRPRSLHPHVP
+FT                                GVTNLQVMRAMASLRARGLVRETFAWCHFYWYLTNEGIAHL
+FT                                RQYLHLPPEIVPASLQRVRRPVAMVMPARRTPHVQAVQGPL
+FT                                GSPPKRGPLPTEEQRVYRRKELEEVSPETPVVPATTQRTLA
+FT                                RPGPEPAPAT -> MSGEDAEVRAVSEDVSNGSSGSPSPGD
+FT                                TLPWNLGKTQRSRRSGGGAGSNGSVLDPAERAVIRIA (in
+FT                                isoform 2 and isoform 3).
+FT                                {ECO:0000303|PubMed:14672974,
+FT                                ECO:0000303|PubMed:8698233}.
+FT                                /FTId=VSP_005030.
+FT   VAR_SEQ       1    174       MVAGMLMPRDQLRAIYEVLFREGVMVAKKDRRPRSLHPHVP
+FT                                GVTNLQVMRAMASLRARGLVRETFAWCHFYWYLTNEGIAHL
+FT                                RQYLHLPPEIVPASLQRVRRPVAMVMPARRTPHVQAVQGPL
+FT                                GSPPKRGPLPTEEQRVYRRKELEEVSPETPVVPATTQRTLA
+FT                                RPGPEPAPAT -> MSQHQLRVPQPEGLGRKRTSSEDNLYL
+FT                                AVLRASEGKK (in isoform 4).
+FT                                {ECO:0000303|PubMed:14672974}.
+FT                                /FTId=VSP_023510.
+FT   VAR_SEQ       1    169       Missing (in isoform 7).
+FT                                {ECO:0000303|PubMed:14672974}.
+FT                                /FTId=VSP_037100.
+FT   VAR_SEQ       1    159       Missing (in isoform 8).
+FT                                {ECO:0000303|PubMed:14672974}.
+FT                                /FTId=VSP_037101.
+FT   VAR_SEQ       1    151       Missing (in isoform 9).
+FT                                {ECO:0000303|PubMed:14672974}.
+FT                                /FTId=VSP_037102.
+FT   VAR_SEQ       1    137       Missing (in isoform 5).
+FT                                {ECO:0000303|PubMed:14672974}.
+FT                                /FTId=VSP_037103.
+FT   VAR_SEQ       1    133       Missing (in isoform 6).
+FT                                {ECO:0000303|PubMed:14672974}.
+FT                                /FTId=VSP_037104.
+FT   VAR_SEQ     134    174       TEEQRVYRRKELEEVSPETPVVPATTQRTLARPGPEPAPAT
+FT                                -> MSGAGGAFASPREVLLERPCWLDGGCEPARRGYLYQQL
+FT                                CCV (in isoform 6).
+FT                                {ECO:0000303|PubMed:14672974}.
+FT                                /FTId=VSP_037105.
+FT   VAR_SEQ     138    174       RVYRRKELEEVSPETPVVPATTQRTLARPGPEPAPAT ->
+FT                                MEPSGSLFPSLVVVGHVVTLAAVWHWRRGRRWAQDEQ (in
+FT                                isoform 5).
+FT                                {ECO:0000303|PubMed:14672974}.
+FT                                /FTId=VSP_037106.
+FT   VAR_SEQ     152    174       TPVVPATTQRTLARPGPEPAPAT -> MAGPLPDEQDFIQA
+FT                                YEEVREKYK (in isoform 9).
+FT                                {ECO:0000303|PubMed:14672974}.
+FT                                /FTId=VSP_037107.
+FT   VAR_SEQ     160    174       QRTLARPGPEPAPAT -> MDPSRAIQNEISSLK (in
+FT                                isoform 8).
+FT                                {ECO:0000303|PubMed:14672974}.
+FT                                /FTId=VSP_037108.
+FT   VAR_SEQ     170    174       PAPAT -> MKIVP (in isoform 7).
+FT                                {ECO:0000303|PubMed:14672974}.
+FT                                /FTId=VSP_037109.
+FT   VAR_SEQ     409    412       Missing (in isoform 3).
+FT                                {ECO:0000303|PubMed:8698233}.
+FT                                /FTId=VSP_005031.
+FT   VARIANT     429    429       L -> LL (in MD-EBS).
+FT                                {ECO:0000269|PubMed:11159198}.
+FT                                /FTId=VAR_011336.
+FT   VARIANT     641    641       A -> V (in dbSNP:rs11136336).
+FT                                /FTId=VAR_053585.
+FT   VARIANT    1003   1005       Missing (in MD-EBS).
+FT                                {ECO:0000269|PubMed:8894687}.
+FT                                /FTId=VAR_011337.
+FT   VARIANT    1321   1321       L -> V (in dbSNP:rs3135109).
+FT                                {ECO:0000269|PubMed:8698233}.
+FT                                /FTId=VAR_060088.
+FT   VARIANT    1386   1386       R -> Q (in dbSNP:rs11136334).
+FT                                /FTId=VAR_060089.
+FT   VARIANT    1459   1459       H -> R (in dbSNP:rs55895668).
+FT                                /FTId=VAR_062133.
+FT   VARIANT    2110   2110       R -> W (in O-EBS).
+FT                                {ECO:0000269|PubMed:11851880}.
+FT                                /FTId=VAR_015817.
+FT   VARIANT    2150   2150       R -> W (in dbSNP:rs34893635).
+FT                                /FTId=VAR_053586.
+FT   VARIANT    2194   2194       A -> V (in dbSNP:rs7002002).
+FT                                /FTId=VAR_053587.
+FT   VARIANT    2791   2791       S -> P (in dbSNP:rs7833924).
+FT                                /FTId=VAR_053588.
+FT   VARIANT    2821   2821       R -> W (in dbSNP:rs35723243).
+FT                                /FTId=VAR_053589.
+FT   VARIANT    2969   2969       R -> H (in dbSNP:rs6558407).
+FT                                /FTId=VAR_053590.
+FT   VARIANT    3162   3162       V -> I (in dbSNP:rs35027700).
+FT                                /FTId=VAR_053591.
+FT   VARIANT    3171   3171       A -> V (in dbSNP:rs35858667).
+FT                                /FTId=VAR_053592.
+FT   VARIANT    3486   3486       T -> M (in dbSNP:rs34725742).
+FT                                /FTId=VAR_053593.
+FT   VARIANT    3490   3490       G -> A (in dbSNP:rs35261863).
+FT                                /FTId=VAR_053594.
+FT   CONFLICT     71     71       Y -> F (in Ref. 1; CAA91196).
+FT                                {ECO:0000305}.
+FT   CONFLICT     94     94       P -> A (in Ref. 1; CAA91196).
+FT                                {ECO:0000305}.
+FT   CONFLICT    139    139       V -> L (in Ref. 1; CAA91196).
+FT                                {ECO:0000305}.
+FT   CONFLICT    185    185       F -> S (in Ref. 1; CAA91196).
+FT                                {ECO:0000305}.
+FT   CONFLICT    259    259       N -> D (in Ref. 2; AAB05427/AAB05428).
+FT                                {ECO:0000305}.
+FT   CONFLICT    550    550       N -> H (in Ref. 1; CAA91196).
+FT                                {ECO:0000305}.
+FT   CONFLICT    560    560       V -> I (in Ref. 1; CAA91196).
+FT                                {ECO:0000305}.
+FT   CONFLICT    706    706       R -> Q (in Ref. 1; CAA91196).
+FT                                {ECO:0000305}.
+FT   CONFLICT    886    886       Y -> N (in Ref. 1; CAA91196).
+FT                                {ECO:0000305}.
+FT   CONFLICT   1002   1002       A -> V (in Ref. 1; CAA91196).
+FT                                {ECO:0000305}.
+FT   CONFLICT   1309   1309       V -> L (in Ref. 2; AAB05427/AAB05428).
+FT                                {ECO:0000305}.
+FT   CONFLICT   1334   1334       V -> L (in Ref. 2; AAB05427/AAB05428).
+FT                                {ECO:0000305}.
+FT   CONFLICT   1534   1534       M -> I (in Ref. 1; CAA91196).
+FT                                {ECO:0000305}.
+FT   CONFLICT   1662   1662       A -> T (in Ref. 2; AAB05427/AAB05428).
+FT                                {ECO:0000305}.
+FT   CONFLICT   1688   1690       RLR -> WLC (in Ref. 1; CAA91196).
+FT                                {ECO:0000305}.
+FT   CONFLICT   1767   1767       E -> Q (in Ref. 1; CAA91196).
+FT                                {ECO:0000305}.
+FT   CONFLICT   1789   1789       A -> L (in Ref. 1; CAA91196).
+FT                                {ECO:0000305}.
+FT   CONFLICT   1910   1910       R -> K (in Ref. 1; CAA91196).
+FT                                {ECO:0000305}.
+FT   CONFLICT   2154   2154       K -> N (in Ref. 2; AAB05427/AAB05428/
+FT                                CAA65765 and 3; AAR95680/AAR95682/
+FT                                AAR95683). {ECO:0000305}.
+FT   CONFLICT   2160   2160       R -> S (in Ref. 1; CAA91196).
+FT                                {ECO:0000305}.
+FT   CONFLICT   2215   2215       Q -> R (in Ref. 1; CAA91196).
+FT                                {ECO:0000305}.
+FT   CONFLICT   2244   2244       S -> A (in Ref. 1; CAA91196 and 2;
+FT                                AAB05427/AAB05428/CAA65765).
+FT                                {ECO:0000305}.
+FT   CONFLICT   3027   3027       K -> E (in Ref. 2; AAB05427/AAB05428).
+FT                                {ECO:0000305}.
+FT   CONFLICT   3310   3310       A -> E (in Ref. 1; CAA91196).
+FT                                {ECO:0000305}.
+FT   CONFLICT   3361   3361       L -> F (in Ref. 1; CAA91196).
+FT                                {ECO:0000305}.
+FT   CONFLICT   3408   3408       L -> F (in Ref. 1; CAA91196).
+FT                                {ECO:0000305}.
+FT   CONFLICT   3447   3447       A -> S (in Ref. 1; CAA91196).
+FT                                {ECO:0000305}.
+FT   CONFLICT   3531   3531       A -> G (in Ref. 1; CAA91196).
+FT                                {ECO:0000305}.
+FT   CONFLICT   3580   3580       S -> R (in Ref. 1; CAA91196).
+FT                                {ECO:0000305}.
+FT   CONFLICT   3589   3589       Q -> K (in Ref. 1; CAA91196).
+FT                                {ECO:0000305}.
+FT   CONFLICT   3596   3596       Q -> E (in Ref. 1; CAA91196).
+FT                                {ECO:0000305}.
+FT   CONFLICT   3616   3616       H -> N (in Ref. 1; CAA91196).
+FT                                {ECO:0000305}.
+FT   CONFLICT   3686   3686       A -> V (in Ref. 1; CAA91196).
+FT                                {ECO:0000305}.
+FT   CONFLICT   3786   3786       A -> G (in Ref. 1; CAA91196).
+FT                                {ECO:0000305}.
+FT   CONFLICT   3808   3808       R -> K (in Ref. 1; CAA91196).
+FT                                {ECO:0000305}.
+FT   CONFLICT   3816   3816       A -> G (in Ref. 1; CAA91196).
+FT                                {ECO:0000305}.
+FT   CONFLICT   3821   3821       C -> F (in Ref. 1; CAA91196).
+FT                                {ECO:0000305}.
+FT   CONFLICT   3915   3915       Q -> K (in Ref. 1; CAA91196).
+FT                                {ECO:0000305}.
+FT   CONFLICT   3999   3999       R -> K (in Ref. 1; CAA91196).
+FT                                {ECO:0000305}.
+FT   CONFLICT   4007   4007       T -> S (in Ref. 1; CAA91196).
+FT                                {ECO:0000305}.
+FT   CONFLICT   4467   4467       F -> L (in Ref. 1; CAA91196).
+FT                                {ECO:0000305}.
+FT   HELIX       175    193       {ECO:0000244|PDB:1MB8}.
+FT   HELIX       194    196       {ECO:0000244|PDB:4Q59}.
+FT   TURN        203    209       {ECO:0000244|PDB:1MB8}.
+FT   HELIX       211    221       {ECO:0000244|PDB:1MB8}.
+FT   HELIX       233    249       {ECO:0000244|PDB:1MB8}.
+FT   HELIX       260    263       {ECO:0000244|PDB:1MB8}.
+FT   HELIX       267    282       {ECO:0000244|PDB:1MB8}.
+FT   TURN        283    285       {ECO:0000244|PDB:4Q59}.
+FT   HELIX       297    308       {ECO:0000244|PDB:1MB8}.
+FT   TURN        309    311       {ECO:0000244|PDB:1MB8}.
+FT   HELIX       322    324       {ECO:0000244|PDB:1MB8}.
+FT   HELIX       328    337       {ECO:0000244|PDB:1MB8}.
+FT   HELIX       339    341       {ECO:0000244|PDB:1MB8}.
+FT   HELIX       344    347       {ECO:0000244|PDB:1MB8}.
+FT   HELIX       352    367       {ECO:0000244|PDB:1MB8}.
+FT   HELIX       375    378       {ECO:0000244|PDB:1MB8}.
+FT   STRAND      380    382       {ECO:0000244|PDB:1MB8}.
+FT   HELIX       385    398       {ECO:0000244|PDB:1MB8}.
+FT   HELIX       414    440       {ECO:0000244|PDB:2ODV}.
+FT   HELIX       448    464       {ECO:0000244|PDB:2ODV}.
+FT   HELIX       466    488       {ECO:0000244|PDB:2ODV}.
+FT   STRAND      490    492       {ECO:0000244|PDB:2ODU}.
+FT   HELIX       500    562       {ECO:0000244|PDB:2ODV}.
+FT   TURN        563    566       {ECO:0000244|PDB:2ODV}.
+FT   HELIX       572    598       {ECO:0000244|PDB:2ODV}.
+FT   HELIX       604    628       {ECO:0000244|PDB:2ODV}.
+FT   HELIX       656    678       {ECO:0000244|PDB:3PDY}.
+FT   HELIX       685    714       {ECO:0000244|PDB:3PDY}.
+FT   HELIX       715    718       {ECO:0000244|PDB:3PDY}.
+FT   HELIX       721    778       {ECO:0000244|PDB:3PDY}.
+FT   HELIX       788    821       {ECO:0000244|PDB:3PDY}.
+FT   HELIX       827    854       {ECO:0000244|PDB:3PDY}.
+FT   HELIX       893    900       {ECO:0000244|PDB:3PE0}.
+FT   HELIX       904    925       {ECO:0000244|PDB:3PE0}.
+FT   HELIX       932    934       {ECO:0000244|PDB:3PE0}.
+FT   STRAND      944    948       {ECO:0000244|PDB:3PE0}.
+FT   STRAND      964    970       {ECO:0000244|PDB:3PE0}.
+FT   STRAND      975    979       {ECO:0000244|PDB:3PE0}.
+FT   STRAND      985    989       {ECO:0000244|PDB:3PE0}.
+FT   HELIX       990    992       {ECO:0000244|PDB:3PE0}.
+FT   HELIX      1000   1024       {ECO:0000244|PDB:3PE0}.
+FT   HELIX      1493   1527       {ECO:0000244|PDB:4GDO}.
+SQ   SEQUENCE   4684 AA;  531791 MW;  04772E4F70A304C8 CRC64;
+     MVAGMLMPRD QLRAIYEVLF REGVMVAKKD RRPRSLHPHV PGVTNLQVMR AMASLRARGL
+     VRETFAWCHF YWYLTNEGIA HLRQYLHLPP EIVPASLQRV RRPVAMVMPA RRTPHVQAVQ
+     GPLGSPPKRG PLPTEEQRVY RRKELEEVSP ETPVVPATTQ RTLARPGPEP APATDERDRV
+     QKKTFTKWVN KHLIKAQRHI SDLYEDLRDG HNLISLLEVL SGDSLPREKG RMRFHKLQNV
+     QIALDYLRHR QVKLVNIRND DIADGNPKLT LGLIWTIILH FQISDIQVSG QSEDMTAKEK
+     LLLWSQRMVE GYQGLRCDNF TSSWRDGRLF NAIIHRHKPL LIDMNKVYRQ TNLENLDQAF
+     SVAERDLGVT RLLDPEDVDV PQPDEKSIIT YVSSLYDAMP RVPDVQDGVR ANELQLRWQE
+     YRELVLLLLQ WMRHHTAAFE ERRFPSSFEE IEILWSQFLK FKEMELPAKE ADKNRSKGIY
+     QSLEGAVQAG QLKVPPGYHP LDVEKEWGKL HVAILEREKQ LRSEFERLEC LQRIVTKLQM
+     EAGLCEEQLN QADALLQSDV RLLAAGKVPQ RAGEVERDLD KADSMIRLLF NDVQTLKDGR
+     HPQGEQMYRR VYRLHERLVA IRTEYNLRLK AGVAAPATQV AQVTLQSVQR RPELEDSTLR
+     YLQDLLAWVE ENQHRVDGAE WGVDLPSVEA QLGSHRGLHQ SIEEFRAKIE RARSDEGQLS
+     PATRGAYRDC LGRLDLQYAK LLNSSKARLR SLESLHSFVA AATKELMWLN EKEEEEVGFD
+     WSDRNTNMTA KKESYSALMR ELELKEKKIK ELQNAGDRLL REDHPARPTV ESFQAALQTQ
+     WSWMLQLCCC IEAHLKENAA YFQFFSDVRE AEGQLQKLQE ALRRKYSCDR SATVTRLEDL
+     LQDAQDEKEQ LNEYKGHLSG LAKRAKAVVQ LKPRHPAHPM RGRLPLLAVC DYKQVEVTVH
+     KGDECQLVGP AQPSHWKVLS SSGSEAAVPS VCFLVPPPNQ EAQEAVTRLE AQHQALVTLW
+     HQLHVDMKSL LAWQSLRRDV QLIRSWSLAT FRTLKPEEQR QALHSLELHY QAFLRDSQDA
+     GGFGPEDRLM AEREYGSCSH HYQQLLQSLE QGAQEESRCQ RCISELKDIR LQLEACETRT
+     VHRLRLPLDK EPARECAQRI AEQQKAQAEV EGLGKGVARL SAEAEKVLAL PEPSPAAPTL
+     RSELELTLGK LEQVRSLSAI YLEKLKTISL VIRGTQGAEE VLRAHEEQLK EAQAVPATLP
+     ELEATKASLK KLRAQAEAQQ PTFDALRDEL RGAQEVGERL QQRHGERDVE VERWRERVAQ
+     LLERWQAVLA QTDVRQRELE QLGRQLRYYR ESADPLGAWL QDARRRQEQI QAMPLADSQA
+     VREQLRQEQA LLEEIERHGE KVEECQRFAK QYINAIKDYE LQLVTYKAQL EPVASPAKKP
+     KVQSGSESVI QEYVDLRTHY SELTTLTSQY IKFISETLRR MEEEERLAEQ QRAEERERLA
+     EVEAALEKQR QLAEAHAQAK AQAEREAKEL QQRMQEEVVR REEAAVDAQQ QKRSIQEELQ
+     QLRQSSEAEI QAKARQAEAA ERSRLRIEEE IRVVRLQLEA TERQRGGAEG ELQALRARAE
+     EAEAQKRQAQ EEAERLRRQV QDESQRKRQA EVELASRVKA EAEAAREKQR ALQALEELRL
+     QAEEAERRLR QAEVERARQV QVALETAQRS AEAELQSKRA SFAEKTAQLE RSLQEEHVAV
+     AQLREEAERR AQQQAEAERA REEAERELER WQLKANEALR LRLQAEEVAQ QKSLAQAEAE
+     KQKEEAEREA RRRGKAEEQA VRQRELAEQE LEKQRQLAEG TAQQRLAAEQ ELIRLRAETE
+     QGEQQRQLLE EELARLQREA AAATQKRQEL EAELAKVRAE MEVLLASKAR AEEESRSTSE
+     KSKQRLEAEA GRFRELAEEA ARLRALAEEA KRQRQLAEED AARQRAEAER VLAEKLAAIG
+     EATRLKTEAE IALKEKEAEN ERLRRLAEDE AFQRRRLEEQ AAQHKADIEE RLAQLRKASD
+     SELERQKGLV EDTLRQRRQV EEEILALKAS FEKAAAGKAE LELELGRIRS NAEDTLRSKE
+     QAELEAARQR QLAAEEERRR REAEERVQKS LAAEEEAARQ RKAALEEVER LKAKVEEARR
+     LRERAEQESA RQLQLAQEAA QKRLQAEEKA HAFAVQQKEQ ELQQTLQQEQ SVLDQLRGEA
+     EAARRAAEEA EEARVQAERE AAQSRRQVEE AERLKQSAEE QAQARAQAQA AAEKLRKEAE
+     QEAARRAQAE QAALRQKQAA DAEMEKHKKF AEQTLRQKAQ VEQELTTLRL QLEETDHQKN
+     LLDEELQRLK AEATEAARQR SQVEEELFSV RVQMEELSKL KARIEAENRA LILRDKDNTQ
+     RFLQEEAEKM KQVAEEAARL SVAAQEAARL RQLAEEDLAQ QRALAEKMLK EKMQAVQEAT
+     RLKAEAELLQ QQKELAQEQA RRLQEDKEQM AQQLAEETQG FQRTLEAERQ RQLEMSAEAE
+     RLKLRVAEMS RAQARAEEDA QRFRKQAEEI GEKLHRTELA TQEKVTLVQT LEIQRQQSDH
+     DAERLREAIA ELEREKEKLQ QEAKLLQLKS EEMQTVQQEQ LLQETQALQQ SFLSEKDSLL
+     QRERFIEQEK AKLEQLFQDE VAKAQQLREE QQRQQQQMEQ ERQRLVASME EARRRQHEAE
+     EGVRRKQEEL QQLEQQRRQQ EELLAEENQR LREQLQLLEE QHRAALAHSE EVTASQVAAT
+     KTLPNGRDAL DGPAAEAEPE HSFDGLRRKV SAQRLQEAGI LSAEELQRLA QGHTTVDELA
+     RREDVRHYLQ GRSSIAGLLL KATNEKLSVY AALQRQLLSP GTALILLEAQ AASGFLLDPV
+     RNRRLTVNEA VKEGVVGPEL HHKLLSAERA VTGYKDPYTG QQISLFQAMQ KGLIVREHGI
+     RLLEAQIATG GVIDPVHSHR VPVDVAYRRG YFDEEMNRVL ADPSDDTKGF FDPNTHENLT
+     YLQLLERCVE DPETGLCLLP LTDKAAKGGE LVYTDSEARD VFEKATVSAP FGKFQGKTVT
+     IWEIINSEYF TAEQRRDLLR QFRTGRITVE KIIKIIITVV EEQEQKGRLC FEGLRSLVPA
+     AELLESRVID RELYQQLQRG ERSVRDVAEV DTVRRALRGA NVIAGVWLEE AGQKLSIYNA
+     LKKDLLPSDM AVALLEAQAG TGHIIDPATS ARLTVDEAVR AGLVGPEFHE KLLSAEKAVT
+     GYRDPYTGQS VSLFQALKKG LIPREQGLRL LDAQLSTGGI VDPSKSHRVP LDVACARGCL
+     DEETSRALSA PRADAKAYSD PSTGEPATYG ELQQRCRPDQ LTGLSLLPLS EKAARARQEE
+     LYSELQARET FEKTPVEVPV GGFKGRTVTV WELISSEYFT AEQRQELLRQ FRTGKVTVEK
+     VIKILITIVE EVETLRQERL SFSGLRAPVP ASELLASGVL SRAQFEQLKD GKTTVKDLSE
+     LGSVRTLLQG SGCLAGIYLE DTKEKVSIYE AMRRGLLRAT TAALLLEAQA ATGFLVDPVR
+     NQRLYVHEAV KAGVVGPELH EQLLSAEKAV TGYRDPYSGS TISLFQAMQK GLVLRQHGIR
+     LLEAQIATGG IIDPVHSHRV PVDVAYQRGY FSEEMNRVLA DPSDDTKGFF DPNTHENLTY
+     RQLLERCVED PETGLRLLPL KGAEKAEVVE TTQVYTEEET RRAFEETQID IPGGGSHGGS
+     TMSLWEVMQS DLIPEEQRAQ LMADFQAGRV TKERMIIIII EIIEKTEIIR QQGLASYDYV
+     RRRLTAEDLF EARIISLETY NLLREGTRSL REALEAESAW CYLYGTGSVA GVYLPGSRQT
+     LSIYQALKKG LLSAEVARLL LEAQAATGFL LDPVKGERLT VDEAVRKGLV GPELHDRLLS
+     AERAVTGYRD PYTEQTISLF QAMKKELIPT EEALRLLDAQ LATGGIVDPR LGFHLPLEVA
+     YQRGYLNKDT HDQLSEPSEV RSYVDPSTDE RLSYTQLLRR CRRDDGTGQL LLPLSDARKL
+     TFRGLRKQIT MEELVRSQVM DEATALQLRE GLTSIEEVTK NLQKFLEGTS CIAGVFVDAT
+     KERLSVYQAM KKGIIRPGTA FELLEAQAAT GYVIDPIKGL KLTVEEAVRM GIVGPEFKDK
+     LLSAERAVTG YKDPYSGKLI SLFQAMKKGL ILKDHGIRLL EAQIATGGII DPEESHRLPV
+     EVAYKRGLFD EEMNEILTDP SDDTKGFFDP NTEENLTYLQ LMERCITDPQ TGLCLLPLKE
+     KKRERKTSSK SSVRKRRVVI VDPETGKEMS VYEAYRKGLI DHQTYLELSE QECEWEEITI
+     SSSDGVVKSM IIDRRSGRQY DIDDAIAKNL IDRSALDQYR AGTLSITEFA DMLSGNAGGF
+     RSRSSSVGSS SSYPISPAVS RTQLASWSDP TEETGPVAGI LDTETLEKVS ITEAMHRNLV
+     DNITGQRLLE AQACTGGIID PSTGERFPVT DAVNKGLVDK IMVDRINLAQ KAFCGFEDPR
+     TKTKMSAAQA LKKGWLYYEA GQRFLEVQYL TGGLIEPDTP GRVPLDEALQ RGTVDARTAQ
+     KLRDVGAYSK YLTCPKTKLK ISYKDALDRS MVEEGTGLRL LEAAAQSTKG YYSPYSVSGS
+     GSTAGSRTGS RTGSRAGSRR GSFDATGSGF SMTFSSSSYS SSGYGRRYAS GSSASLGGPE
+     SAVA
+//
