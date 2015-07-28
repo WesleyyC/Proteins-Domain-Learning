@@ -54,7 +54,7 @@ function [ match_matrix ] = graph_matching( ARG1,ARG2 )
     if connected_rate<0.4
         
         % for low connected rate
-        weight_handle = @(edge)edge.atrs;
+        weight_handle = @(edge)edge.weight;
         [i_1,j_1,~] = find(sparse(cellfun(weight_handle,ARG1.edges)));
         [i_2,j_2,~] = find(sparse(cellfun(weight_handle,ARG2.edges)));
         arg1_edges_num = length(i_1);

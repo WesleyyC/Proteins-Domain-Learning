@@ -12,14 +12,12 @@ function [c] = node_compatibility(node1, node2)
     
     % assume node1 and node2 are node object
     
-    weight_range = 10;  % update with RandomGraphTest.m
+    weight_range = 15;  % update with RandomGraphTest.m
     
     c=0;
     
     if ~node1.hasAtrs()||~node2.hasAtrs()
         return;  % if either of the nodes has NaN attribute, set similarity to 0
-    elseif node1.numberOfAtrs() ~= node2.numberOfAtrs()    
-        return;  % if the nodes have different number of attributes, set similarity to 0
     else
         
         % get number of attributes

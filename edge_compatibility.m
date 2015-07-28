@@ -12,21 +12,17 @@ function [c] = edge_compatibility(edge1, edge2)
     
     % assume node1 and node2 are node object
     
-    weight_range = 10;  %update with RandomGraphTestValue
+    weight_range = 80;  %update with RandomGraphTestValue
+    
+    c = 0;
     
     %The range of the edge rate
-    if edge1.weight==0||edge2.weight==0
-        c = 0;  % if either of the edge is not true edge
+    if ~edge1.trueEdge()||~edge2.trueEdge()
+        return;
     else     
         %normalize the score
         c = 1-3*abs(edge1.weight-edge2.weight)/weight_range;
     end
-
-    % edge.trueEdge() function takes a lot of time, so we use a simpler
-    % compatability fucntion
-    
-%     c = 1-3*abs(edge1.weight-edge2.weight)/weight_range;
-
 
 end
 

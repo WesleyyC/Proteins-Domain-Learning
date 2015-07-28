@@ -25,7 +25,7 @@ classdef ARG < handle
             
             % Throw error if the graph matrix and the nodes_atrs does not
             % match
-            if all(~isnan(nodes_atrs)) && length(M)~=length(nodes_atrs)
+            if length(M)~=length(nodes_atrs)
                     error "AtrributeArrasySizeNotMatch";
             end
             
@@ -36,15 +36,9 @@ classdef ARG < handle
             self.nodes = cell(1,self.num_nodes);
             self.edges = cell(self.num_nodes,self.num_nodes);
             
-            % Check if the nodes_atrs is NaN, if it is, we will need to
-            % make a NaN array for the loop
-            if isnan(nodes_atrs)
-                nodes_atrs = NaN(1,self.num_nodes);
-            end
-            
             % Create Nodes
             for ID = 1:self.num_nodes
-                self.nodes{ID}=node(ID,nodes_atrs(ID));
+                self.nodes{ID}=node(ID,nodes_atrs{ID});
             end
             
             % Create Edge

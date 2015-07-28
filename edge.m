@@ -26,12 +26,7 @@ classdef edge < handle
         
         % Get the similarity between two edges
         function [c] = compatibility(obj,obj2)
-            
-            if ~isa(obj2,'edge')% obj2 has to be a node too
-                c = NaN;
-            else
-                c = edge_compatibility(obj,obj2);
-            end
+            c = edge_compatibility(obj,obj2);
         end
         
         function [tf] = trueEdge(obj)
