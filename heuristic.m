@@ -37,12 +37,16 @@ function [ M ] = heuristic( M, A, I )
     % clean up
     for i = 1:row
         % get the index
-        [~,index] = max(M(i,:));
-        % set the row to zero
-        M(i,:)=zeros(size(M(i,:)));
-        M(:,index)=zeros(size(M(:,index)));
-        % set the max to 1
-        M(i,index)=1;
+        if any(M(i,:))
+            [~,index] = max(M(i,:));
+            index=index(1);
+            % set the row to zero
+            M(i,:)=zeros(size(M(i,:)));
+            M(:,index)=zeros(size(M(:,index)));
+            % set the max to 1
+            M(i,index)=1;
+        end
+        
     end
     
     M=M(1:A-1,1:I-1);

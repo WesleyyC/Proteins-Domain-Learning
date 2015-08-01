@@ -1,4 +1,4 @@
-function [ match_matrix ] = graph_matching( ARG1,ARG2 )
+function [ match_matrix ] = graph_matching( ARG1,ARG2,BLOSUM )
 %   GRADUATED_ASSIGN_ALGORITHM is a function that compute the best match
 %   matrix with two ARGs
 
@@ -39,7 +39,7 @@ function [ match_matrix ] = graph_matching( ARG1,ARG2 )
     
     % pre-calculate the node compatability
     % create an function handle for calculating compatibility
-    node_compat_handle=@(node1,node2)node1.compatibility(node2);
+    node_compat_handle=@(node1,node2)node1.compatibility(node2,BLOSUM);
     % calculate the compatibility
     C_n=cellfun(node_compat_handle,repmat(ARG1.nodes',1,I),repmat(ARG2.nodes,A,1));
     % times the alpha weight
@@ -132,13 +132,13 @@ function [ match_matrix ] = graph_matching( ARG1,ARG2 )
                 %normalize the row
                 s=sum(m_Head,2);
                 n=repmat(s,1,I+1);
-                n(A+1,:)=ones(size(n(A+1,:)));
+                %n(A+1,:)=ones(size(n(A+1,:)));
                 m_One=m_Head./n;
                 
                 % normalize the column
                 s=sum(m_One,1);
                 n=repmat(s,A+1,1);
-                n(:,I+1)=ones(size(n(:,I+1)));
+                %n(:,I+1)=ones(size(n(:,I+1)));
                 m_Head=m_One./n;
                 
                 % check convergence
@@ -152,7 +152,8 @@ function [ match_matrix ] = graph_matching( ARG1,ARG2 )
     end
     
     % get the match_matrix in real size
-    match_matrix = heuristic(m_Head,A,I);
+    match_matrix=m_Head;
+%     match_matrix = heuristic(m_Head,A,I);
 
 end
 

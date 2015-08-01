@@ -1,4 +1,4 @@
-function [c] = node_compatibility(node1, node2)
+function [c] = node_compatibility(node1, node2, BLOSUM)
     % node_compatibility function is used to calculate the similarity
     % between node1 and node2
     
@@ -11,32 +11,13 @@ function [c] = node_compatibility(node1, node2)
     % c(N,n)=1-3|N-n|;
     
     % assume node1 and node2 are node object
-    
-    weight_range = 15;  % update with RandomGraphTest.m
-    
+        
     c=0;
     
     if ~node1.hasAtrs()||~node2.hasAtrs()
         return;  % if either of the nodes has NaN attribute, set similarity to 0
     else
-        
-        % get number of attributes
-        no_atrs = node1.numberOfAtrs();
-    
-        % get the attributes
-        node1_atrs = node1.atrs;
-        node2_atrs = node2.atrs;
-        
-        % sum up the score for each attributes
-        penalty_func = @(val1,val2)1-3*abs(val1-val2)/weight_range;
-        
-        c=sum(bsxfun(penalty_func,node1_atrs,node2_atrs));
-        
-        % normalize the score
-        c = c/no_atrs;
+        c=BLOSUM(min(node1.atrs,node2.atrs),max(node1.atrs,node2.atrs));
     end
-
-    
-
 end
 

@@ -57,8 +57,8 @@ if noise_rate~=0
 end
 
 % Generate the Graph
-ARG1 = ARG(M,nodes_atrs);
-ARG2 = ARG(test_M,test_nodes_atrs);
+ARG1 = ARG(M,num2cell(nodes_atrs));
+ARG2 = ARG(test_M,num2cell(test_nodes_atrs));
 
 % Do the match algorithm
 match = graph_matching(ARG2,ARG1);

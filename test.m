@@ -26,7 +26,7 @@ nodes_atrs = [1,10,20];
 
 %% Build the 1st ARG
 
-ARG1 = ARG(M,nodes_atrs);
+ARG1 = ARG(M,num2cell(nodes_atrs));
 
 %% Create the 2nd matrix
 
@@ -49,7 +49,7 @@ nodes_atrs = [1,10,20,50,30];
 %nodes_atrs = NaN;
 %% Build the 2nd ARG
 
-ARG2 = ARG(M,nodes_atrs);
+ARG2 = ARG(M,num2cell(nodes_atrs));
 
 %% Try to Match
 tic()

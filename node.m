@@ -34,8 +34,8 @@ classdef node < handle
         end
 
         % Get the similarity between two nodes
-        function [c] = compatibility(obj,obj2)
-            c = node_compatibility(obj,obj2);
+        function [c] = compatibility(obj,obj2,BLOSUM)
+            c = node_compatibility(obj,obj2,BLOSUM);
         end
         
     end

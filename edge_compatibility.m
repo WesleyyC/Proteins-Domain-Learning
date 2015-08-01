@@ -12,7 +12,7 @@ function [c] = edge_compatibility(edge1, edge2)
     
     % assume node1 and node2 are node object
     
-    weight_range = 80;  %update with RandomGraphTestValue
+    weight_range = 9;  %update with GenerateProteinARGs
     
     c = 0;
     
