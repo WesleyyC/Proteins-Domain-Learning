@@ -9,7 +9,7 @@ distance_cutoff = 9;
 
 start_sequence = 1;
 
-end_sequence = 115;
+end_sequence = 50;
 
 
 %% Generate BLOSSUM
