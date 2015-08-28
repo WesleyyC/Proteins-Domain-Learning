@@ -5,7 +5,7 @@
 
 BLOSUM_Sigma = 2;
 
-distance_cutoff = 9;
+distance_cutoff = 12;
 
 start_sequence = 1;
 
