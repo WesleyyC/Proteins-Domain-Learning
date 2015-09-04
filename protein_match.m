@@ -10,12 +10,12 @@ distance_cutoff = 13;   % edge attribute cut off
 %% Set Up Protein
 
 proteinOneFile = 'new_4Q59.csv';
-start_sequence_one = 1;
-end_sequence_one = 50;
+start_sequence_one = 180;
+end_sequence_one = 250;
 
 proteinTwoFile = 'new_4D1E.csv';
-start_sequence_two = 1;
-end_sequence_two = 60;
+start_sequence_two = 180;
+end_sequence_two = 250;
 
 proteinOneARG = GenerateProteinARGs(start_sequence_one,end_sequence_one, proteinOneFile,distance_cutoff);
 proteinTwoARG = GenerateProteinARGs(start_sequence_two,end_sequence_two, proteinTwoFile,distance_cutoff);
@@ -58,12 +58,12 @@ BLOSUM=BLOSUM./n;
 
 match = graph_matching(proteinOneARG, proteinTwoARG,BLOSUM);
 figure; imshow(match*2);
-% 
-% %% Save the result
-% datetime=datestr(now);
-% datetime=strrep(datetime,':','_'); %Replace colon with underscore
-% datetime=strrep(datetime,'-','_');%Replace minus sign with underscore
-% datetime=strrep(datetime,' ','_');%Replace space with underscore
-% 
-% save (datetime)
+
+%% Save the result
+datetime=datestr(now);
+datetime=strrep(datetime,':','_'); %Replace colon with underscore
+datetime=strrep(datetime,'-','_');%Replace minus sign with underscore
+datetime=strrep(datetime,' ','_');%Replace space with underscore
+
+save (datetime)
 
