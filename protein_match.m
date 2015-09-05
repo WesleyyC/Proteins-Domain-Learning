@@ -10,12 +10,12 @@ distance_cutoff = 13;   % edge attribute cut off
 %% Set Up Protein
 
 proteinOneFile = 'new_4Q59.csv';
-start_sequence_one = 180;
-end_sequence_one = 250;
+start_sequence_one = 100;
+end_sequence_one = 300;
 
 proteinTwoFile = 'new_4D1E.csv';
-start_sequence_two = 180;
-end_sequence_two = 250;
+start_sequence_two = 100;
+end_sequence_two = 300;
 
 proteinOneARG = GenerateProteinARGs(start_sequence_one,end_sequence_one, proteinOneFile,distance_cutoff);
 proteinTwoARG = GenerateProteinARGs(start_sequence_two,end_sequence_two, proteinTwoFile,distance_cutoff);
