@@ -1,4 +1,4 @@
-function [ match_matrix ] = graph_matching( ARG1,ARG2,BLOSUM )
+function [ match_matrix, match_score ] = graph_matching( ARG1,ARG2,BLOSUM )
 %   GRADUATED_ASSIGN_ALGORITHM is a function that compute the best match
 %   matrix with two ARGs
 
@@ -17,10 +17,12 @@ function [ match_matrix ] = graph_matching( ARG1,ARG2,BLOSUM )
     alpha = 1;
     
     % make sure ARG1 is always the smaller graph
+    flip = 0;
     if ARG1.num_nodes>ARG2.num_nodes
         tmp = ARG1;
         ARG1 = ARG2;
         ARG2 = tmp;
+        flip=1;
     end
     % the size of the real matchin matrix
     A=ARG1.num_nodes;
@@ -152,8 +154,11 @@ function [ match_matrix ] = graph_matching( ARG1,ARG2,BLOSUM )
     end
     
     % get the match_matrix in real size
-    match_matrix=m_Head;
-%     match_matrix = heuristic(m_Head,A,I);
+    match_matrix = heuristic(m_Head,A,I);
+    match_score = m_Head;
 
+    if(flip)
+        match_matrix=match_matrix';
+    end
 end
 

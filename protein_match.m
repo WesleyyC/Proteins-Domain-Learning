@@ -1,5 +1,6 @@
 %% Script for matching the protein
 
+draw_flag = 1;
 
 %% Set Up Edge and Node Attribute
 
@@ -7,18 +8,20 @@ BLOSUM_Sigma = 2;   % node attribute
 
 distance_cutoff = 13;   % edge attribute cut off
 
+save = 0;
+
 %% Set Up Protein
 
-proteinOneFile = 'new_4Q59.csv';
-start_sequence_one = 100;
-end_sequence_one = 300;
+proteinOneFile = 'new_4D1E_CH.csv';
+start_sequence_one = 180;
+end_sequence_one = 250;
 
-proteinTwoFile = 'new_4D1E.csv';
-start_sequence_two = 100;
-end_sequence_two = 300;
+proteinTwoFile = 'new_4Q59_CH.csv';
+start_sequence_two = 180;
+end_sequence_two = 250;
 
-proteinOneARG = GenerateProteinARGs(start_sequence_one,end_sequence_one, proteinOneFile,distance_cutoff);
-proteinTwoARG = GenerateProteinARGs(start_sequence_two,end_sequence_two, proteinTwoFile,distance_cutoff);
+[proteinOneARG,p1] = GenerateProteinARGs(start_sequence_one,end_sequence_one, proteinOneFile,distance_cutoff);
+[proteinTwoARG,p2] = GenerateProteinARGs(start_sequence_two,end_sequence_two, proteinTwoFile,distance_cutoff);
 
 
 %% Generate BLOSSUM
@@ -56,14 +59,19 @@ BLOSUM=BLOSUM./n;
 
 %% Match the prote
 
-match = graph_matching(proteinOneARG, proteinTwoARG,BLOSUM);
-figure; imshow(match*2);
+[match,score] = graph_matching(proteinOneARG, proteinTwoARG,BLOSUM);
+figure; imshow(match);
+if(draw_flag)
+    draw(p1,p2,match,score);
+end
 
 %% Save the result
-datetime=datestr(now);
-datetime=strrep(datetime,':','_'); %Replace colon with underscore
-datetime=strrep(datetime,'-','_');%Replace minus sign with underscore
-datetime=strrep(datetime,' ','_');%Replace space with underscore
+if (save)
+    datetime=datestr(now);
+    datetime=strrep(datetime,':','_'); %Replace colon with underscore
+    datetime=strrep(datetime,'-','_');%Replace minus sign with underscore
+    datetime=strrep(datetime,' ','_');%Replace space with underscore
 
-save (datetime)
+    save (datetime) 
+end
 

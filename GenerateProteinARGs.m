@@ -1,4 +1,4 @@
-function [ proteinARG ] = GenerateProteinARGs( start_sequence,end_sequence, fileName,distance_cutoff)
+function [ proteinARG,protein ] = GenerateProteinARGs( start_sequence,end_sequence, fileName,distance_cutoff)
     
     protein = csvread(fileName);
     protein = protein(start_sequence:end_sequence,:);
