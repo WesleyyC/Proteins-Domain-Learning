@@ -1,6 +1,6 @@
 %% Script for matching the protein
 
-draw_flag = 1;
+draw_flag = 0;
 
 %% Set Up Edge and Node Attribute
 
@@ -13,12 +13,12 @@ save = 0;
 %% Set Up Protein
 
 proteinOneFile = 'new_4D1E_CH.csv';
-start_sequence_one = 180;
-end_sequence_one = 250;
+start_sequence_one = 1;
+end_sequence_one = 50;
 
 proteinTwoFile = 'new_4Q59_CH.csv';
-start_sequence_two = 180;
-end_sequence_two = 250;
+start_sequence_two = 1;
+end_sequence_two = 50;
 
 [proteinOneARG,p1] = GenerateProteinARGs(start_sequence_one,end_sequence_one, proteinOneFile,distance_cutoff);
 [proteinTwoARG,p2] = GenerateProteinARGs(start_sequence_two,end_sequence_two, proteinTwoFile,distance_cutoff);

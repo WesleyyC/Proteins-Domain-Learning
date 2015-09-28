@@ -57,7 +57,8 @@ function [] = draw(p1,p2,match,score,matchStart,matchEnd)
         z1=p1(i,5);
         p2i = find(match(i,:));
         color_depth = score(i, p2i);
-        color_depth = floor(3*color_depth)/3;
+        % round color_depth to 0.33/0.66/0.99
+        color_depth = ceil(3*color_depth)/3;
         if ~isempty(p2i)
             x2=p2(p2i,3);
             y2=p2(p2i,4);
