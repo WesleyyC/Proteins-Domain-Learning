@@ -1,4 +1,4 @@
-function [ match_matrix, match_score ] = graph_matching( ARG1,ARG2,BLOSUM )
+ function [ match_matrix, C_n, C_e] = graph_matching( ARG1,ARG2,BLOSUM )
 %   GRADUATED_ASSIGN_ALGORITHM is a function that compute the best match
 %   matrix with two ARGs
 
@@ -141,11 +141,17 @@ function [ match_matrix, match_score ] = graph_matching( ARG1,ARG2,BLOSUM )
     
     % get the match_matrix in real size
     match_matrix = heuristic(m_Head,A,I);
-    match_score = m_Head;
-
+    
     if(flip)
         match_matrix=match_matrix';
+        C_n = C_n';
+        C_e = C_e';
+        tmp=A;
+        A=I;
+        I=tmp;
     end
+    C_n = C_n/alpha;
+    C_e = mat2cell(full(C_e),ones([1,A])*A,ones([1,I])*I);
     
     
     
