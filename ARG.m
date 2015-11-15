@@ -38,7 +38,7 @@ classdef ARG < handle
             
             % Create Nodes
             for ID = 1:self.num_nodes
-                self.nodes{ID}=node(ID,nodes_atrs(ID));
+                self.nodes{ID}=node(ID,nodes_atrs{ID});
             end
             
             % Create Edge

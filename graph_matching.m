@@ -18,7 +18,7 @@
     
     % make sure ARG1 is always the smaller graph
     flip = 0;
-    if ARG1.num_nodes>ARG2.num_nodes
+    if ~isa(ARG2,'mdl_ARG')
         tmp = ARG1;
         ARG1 = ARG2;
         ARG2 = tmp;
@@ -166,54 +166,42 @@
     end
 
     function [c] = inner_node_compatibility(node1, node2)
-        % node_compatibility function is used to calculate the similarity
-        % between node1 and node2
-
-        % the score is between [0,1]
-
-        % the higher the score, the more similiarity are there between node1
-        % and node2
-
-        % this function can be define by the user, but in our case is
-        % c(N,n)=1-3|N-n|;
-
-        % assume node1 and node2 are node object
 
         c=0;
 
         if ~node1.hasAtrs()||~node2.hasAtrs()
             return;  % if either of the nodes has NaN attribute, set similarity to 0
         else
-            c=BLOSUM(min(node1.atrs,node2.atrs),max(node1.atrs,node2.atrs));
+            c=node2.atrs*BLOSUM*node1.atrs';
+            % same thing
+            %c=sum(sum(BLOSUM.*(node2.atrs'*node1.atrs)));
         end
     end
 
-    function [c] = inner_edge_compatibility(edge1, edge2)
-        % edge_compatibility function is used to calculate the similarity
-        % between edges
+    function [c] = inner_edge_compatibility(edge, mdl_edge)
+    % node_compatibility function is used to calculate the similarity
+    % between node1 and node2
+    
+        c=0;
 
-        % the score is between [0,1]
+        if ~edge.trueEdge()||~mdl_edge.trueEdge()
+            return;  % if either of the edge does not exist or has NaN attribute
+        else
 
-        % the higher the score, the more similiarity are there between edge1
-        % and edge2
+            % get number of attributes
+            num_atrs = mdl_edge.numberOfAtrs();
 
-        % this function can be define by the user, but in our case is
-        % c(E,e)=1-3|E-e|;
+            % get the mean of attributes
+            edge_atrs = edge.weight;
+            mdl_edge_atrs = mdl_edge.weight;
+            % get the covariance matrix of model node
+            mdl_edge_cov = mdl_edge.cov;
+            mdl_edge_cov_inv = mdl_edge.cov_inv;
 
-        % assume node1 and node2 are node object
-
-        weight_range = 9;  %update with GenerateProteinARGs
-
-        c = 0;
-
-        %The range of the edge rate
-        if ~edge1.trueEdge()||~edge2.trueEdge()
-            return;
-        else     
-            %normalize the score
-            c = 1-3*abs(edge1.weight-edge2.weight)/weight_range;
+            % calculate the score
+            c=exp(-(edge_atrs-mdl_edge_atrs)*mdl_edge_cov_inv*(edge_atrs-mdl_edge_atrs)')/...
+                ((2*pi)^(num_atrs/2)*sqrt(det(mdl_edge_cov)));
         end
-
     end
      
 end

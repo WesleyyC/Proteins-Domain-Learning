@@ -37,6 +37,11 @@ classdef edge < handle
         function [tf] = trueEdge(obj)
             tf=obj.weight~=0;
         end
+        
+        % Get number of attributes
+        function [no] = numberOfAtrs(obj)
+            no=length(obj.weight);
+        end
     end
     
 end

@@ -1,31 +1,11 @@
-%% Script for matching the protein
-tic();
-draw_flag = 0;
+%% 
 
-%% Set Up Edge and Node Attribute
+clear
 
-BLOSUM_Sigma = 2;   % node attribute
-
-distance_cutoff = 13;   % edge attribute cut off
-
-save = 0;
-
-%% Set Up Protein
-
-proteinOneFile = 'new_4D1E_CH.csv';
-start_sequence_one = 1;
-end_sequence_one = 50;
-
-proteinTwoFile = 'new_4Q59_CH.csv';
-start_sequence_two = 1;
-end_sequence_two = 50;
-
-[proteinOneARG,p1] = GenerateProteinARGs(start_sequence_one,end_sequence_one, proteinOneFile,distance_cutoff);
-[proteinTwoARG,p2] = GenerateProteinARGs(start_sequence_two,end_sequence_two, proteinTwoFile,distance_cutoff);
+%% Blosum
 
 
-%% Generate BLOSSUM
-
+BLOSUM_Sigma = 2;
 C=[9,-1,-1,-3,0,-3,-3,-3,-4,-3,-3,-3,-3,-1,-1,-1,-1,-2,-2,-2];
 S=[-1,4,1,-1,1,0,1,0,0,0,-1,-1,0,-1,-2,-2,-2,-2,-2,-3];
 T=[-1,1,4,1,-1,1,0,1,0,0,0,-1,0,-1,-2,-2,-2,-2,-2,-3];
@@ -46,33 +26,26 @@ V=[-1,-2,-2,-2,0,-3,-3,-3,-2,-2,-3,-3,-2,1,3,1,4,-1,-1,-3];
 F=[-2,-2,-2,-4,-2,-3,-3,-3,-3,-3,-1,-3,-3,0,0,0,-1,6,3,1];
 Y=[-2,-2,-2,-3,-2,-3,-2,-3,-2,-1,2,-2,-2,-1,-1,-1,-1,3,7,2];
 W=[-2,-3,-3,-4,-3,-2,-4,-4,-3,-2,-2,-3,-3,-1,-3,-2,-3,1,2,11];
-
 BLOSUM=[C',S',T',P',A',G',N',D',E',Q',H',R',K',M',I',L',V',F',Y',W'];
-
 BLOSUM=exp(BLOSUM/BLOSUM_Sigma);
-
 % normalize the symmetric matrix
 % Not perfect
 % s=sum(BLOSUM,2);
 % n=repmat(s,1,20);
 % BLOSUM=BLOSUM./n;
 
-%% Match the prote
+%% PCA
 
-[match,score] = graph_matching(proteinOneARG, proteinTwoARG,BLOSUM);
-figure; imshow(match);
-if(draw_flag)
-    draw(p1,p2,match,score);
+[eigenvectors,scores,variances] = pca(BLOSUM);
+
+%%
+num_features=1:length(variances);
+percentage=zeros(size(num_features));
+
+for i = 2:length(variances)
+    percentage(i) = sum(variances(1:i-1))/sum(variances);
 end
 
-%% Save the result
-if (save)
-    datetime=datestr(now);
-    datetime=strrep(datetime,':','_'); %Replace colon with underscore
-    datetime=strrep(datetime,'-','_');%Replace minus sign with underscore
-    datetime=strrep(datetime,' ','_');%Replace space with underscore
-
-    save (datetime) 
-end
-
-toc()
+figure(1)
+clf
+plot(num_features,percentage);

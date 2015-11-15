@@ -2,6 +2,9 @@ function [ match_matrix, match_score ] = graph_matching( ARG1,ARG2,BLOSUM )
 %   GRADUATED_ASSIGN_ALGORITHM is a function that compute the best match
 %   matrix with two ARGs
 
+    % parallel computing flag
+    pFlag = 0;
+
     % set up condition and variable
     % beta is the converging for getting the maximize number
     beta_0 = 0.5;
@@ -48,36 +51,24 @@ function [ match_matrix, match_score ] = graph_matching( ARG1,ARG2,BLOSUM )
     % times the alpha weight
     C_n=alpha*C_n;
     
+    tic()
+    
     % pre-calculate the edge compatability
     C_e = sparse(A*A,I*I);  
     
-%     %option1
-%     weight_handle = @(edge)edge.weight;
-%     [i_1,j_1,~] = find(sparse(cellfun(weight_handle,ARG1.edges)));
-%     [i_2,j_2,~] = find(sparse(cellfun(weight_handle,ARG2.edges)));
-%     arg1_edges_num = length(i_1);
-%     arg2_edges_num = length(i_2);
-%     ARG1_edge_index = mat2cell([i_1,j_1],ones([1,arg1_edges_num]));
-%     ARG2_edge_index = mat2cell([i_2,j_2],ones([1,arg2_edges_num]));
-%    
-%     for z = 1:arg1_edges_num
-%         for y = 1:arg2_edges_num
-%             index1 = ARG1_edge_index{z};
-%             index2 = ARG2_edge_index{y};
-%             C_e(((index1(1)-1)*A+index1(2)),((index2(1)-1)*I+index2(2))) = inner_edge_compatibility(ARG1.edges{index1(1),index1(2)},ARG2.edges{index2(1),index2(2)});
-%         end
-%     end 
-    
-    % option 2
-    edge_compat_handle=@(edge1,edge2)inner_edge_compatibility(edge1,edge2);
-    for a = 1:A
-        for i = 1:I
-            C_e(((a-1)*A+1):((a-1)*A+A),((i-1)*I+1):((i-1)*I+I))=cellfun(edge_compat_handle,...
-                repmat(ARG1.edges(a,:)',1,I),...
-                repmat(ARG2.edges(i,:),A,1));
+    if pFlag
+        fill_Ce_handle = @(a,i)fill_Ce(a,i);
+        parfor p = 1:A*I
+            fill_Ce_handle(floor((p-1)/I)+1,p-(floor((p-1)/I))*I);
+        end
+    else
+        for p = 1:A*I
+            fill_Ce(floor((p-1)/I)+1,p-(floor((p-1)/I))*I);
         end
     end
-
+    toc()
+    
+    
     % start matching  
     while beta<beta_f   % do A until beta is less than beta_f
         
@@ -209,6 +200,12 @@ function [ match_matrix, match_score ] = graph_matching( ARG1,ARG2,BLOSUM )
         end
 
     end
-     
+
+    function [] = fill_Ce(a,i)
+        edge_compat_handle=@(edge1,edge2)inner_edge_compatibility(edge1,edge2);
+        C_e(((a-1)*A+1):((a-1)*A+A),((i-1)*I+1):((i-1)*I+I))=cellfun(edge_compat_handle,...
+            repmat(ARG1.edges(a,:)',1,I),...
+            repmat(ARG2.edges(i,:),A,1));
+    end
 end
 

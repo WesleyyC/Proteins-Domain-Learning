@@ -45,7 +45,7 @@ classdef sprMDL < handle & matlab.mixin.Copyable
         % so choose such number carefully
         % e_delete_base - e_delete_iter^iter
         e_delete_base = 1;
-        e_delete_iter = 0.5;
+        e_delete_iter = 0.95;
     end
     
     methods
@@ -103,9 +103,10 @@ classdef sprMDL < handle & matlab.mixin.Copyable
             BLOSUM=exp(BLOSUM/BLOSUM_Sigma);
             % normalize the symmetric matrix
             % Not perfect
-            s=sum(BLOSUM,2);
-            n=repmat(s,1,20);
-            obj.BLOSUM=BLOSUM./n;
+%             s=sum(BLOSUM,2);
+%             n=repmat(s,1,20);
+%             obj.BLOSUM=BLOSUM./n;
+            obj.BLOSUM = BLOSUM;
             
             % Train the model with the sample
             obj.trainModel();
@@ -221,8 +222,6 @@ classdef sprMDL < handle & matlab.mixin.Copyable
             obj.updateComponentNodeFrequency();
             % update the atrs for each component node
             obj.updateComponentNodeAtrs();
-            % update the covariance matrix for each component node
-            obj.updateComponentNodeCov();
             % update the atrs for each component edge
             obj.updateComponentEdgeAtrs();
             % update the covariance matrix for each component edge
@@ -332,41 +331,6 @@ classdef sprMDL < handle & matlab.mixin.Copyable
             
         end
         
-        % update the covariance matrix for each component node
-        % # this function can be easier, but I can think of a better way to
-        % do this yet since atrs can be vector and cell operation is not
-        % fast/easy
-        function updateComponentNodeCov(obj)
-            % for each component
-            for h = 1:obj.number_of_components
-                % for each node
-                for n = 1:obj.mdl_ARGs{h}.num_nodes
-                    if any(obj.mdl_ARGs{h}.nodes{n}.atrs)
-                        cov = 0;
-                        denominator=0;
-                        % we go over the sample
-                        for i = 1:obj.number_of_sample
-                            current_sample_cov = 0;
-                            current_sample_denominator = 0;
-                            % and finds its matching node, calculate the
-                            % average atrs
-                            for m =  1:obj.sampleARGs{i}.num_nodes
-                                if any(obj.sampleARGs{i}.nodes{m}.atrs)
-                                    x_atrs = obj.sampleARGs{i}.nodes{m}.atrs-obj.mdl_ARGs{h}.nodes{n}.atrs;
-                                    current_sample_cov=current_sample_cov+x_atrs'*x_atrs*obj.node_match_scores{i,h}(m,n);
-                                    current_sample_denominator = current_sample_denominator + obj.node_match_scores{i,h}(m,n);
-                                end
-                            end
-                            cov = cov + current_sample_cov*obj.sample_component_matching_probs(i,h);
-                            denominator = denominator + current_sample_denominator*obj.sample_component_matching_probs(i,h);
-                        end
-                        % udpate the value
-                        obj.mdl_ARGs{h}.nodes{n}.updateCov(cov/denominator);
-                    end
-                end
-            end       
-        end
-        
         % update the atrs for each component node
         % # this function can be easier, but I can think of a better way to
         % do this yet since atrs can be vector and cell operation is not
@@ -395,7 +359,9 @@ classdef sprMDL < handle & matlab.mixin.Copyable
                             denominator = denominator + current_sample_denominator*obj.sample_component_matching_probs(i,h);
                         end
                         % udpate the value
-                        obj.mdl_ARGs{h}.nodes{n}.updateAtrs(round(atrs/denominator));
+                        newAtr = atrs/denominator;
+                        newAtr = newAtr/sum(newAtr);
+                        obj.mdl_ARGs{h}.nodes{n}.updateAtrs(newAtr);
                     end
                 end
             end       

@@ -6,11 +6,13 @@ function [ proteinARG,protein ] = GenerateProteinARGs( start_sequence,end_sequen
 
     proteinStructure = zeros(number_of_AA);
 
-    proteinAtrs = zeros([number_of_AA,1]);
+    proteinAtrs = cell([number_of_AA,1]);
 
     for i = 1:number_of_AA
 
-        proteinAtrs(i) = protein(i,2);
+        atr = zeros(1,20);
+        atr(protein(i,2)) = 1;
+        proteinAtrs{i} = atr;
 
         for j = i+1:number_of_AA
             x1=protein(i,3);
