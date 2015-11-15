@@ -3,7 +3,7 @@ function [ match_matrix, match_score ] = graph_matching( ARG1,ARG2,BLOSUM )
 %   matrix with two ARGs
 
     % parallel computing flag
-    pFlag = 0;
+    pFlag = 1;
 
     % set up condition and variable
     % beta is the converging for getting the maximize number
@@ -51,15 +51,18 @@ function [ match_matrix, match_score ] = graph_matching( ARG1,ARG2,BLOSUM )
     % times the alpha weight
     C_n=alpha*C_n;
     
+    weight_range = 9;
+    
     tic()
     
     % pre-calculate the edge compatability
-    C_e = sparse(A*A,I*I);  
+    C_e = zeros(A*A,I*I);  
     
     if pFlag
-        fill_Ce_handle = @(a,i)fill_Ce(a,i);
-        parfor p = 1:A*I
-            fill_Ce_handle(floor((p-1)/I)+1,p-(floor((p-1)/I))*I);
+        edges_ARG1 = flattern_matrix(ARG1.edges);
+        edges_ARG2 = flattern_matrix(ARG2.edges);
+        parfor p = 1:A*A
+            C_e(p,:)=(1-3*abs(edges_ARG2-edges_ARG1(p))/weight_range).*(edges_ARG2>0)*(edges_ARG1(p)>0);        
         end
     else
         for p = 1:A*I
@@ -173,39 +176,19 @@ function [ match_matrix, match_score ] = graph_matching( ARG1,ARG2,BLOSUM )
         end
     end
 
-    function [c] = inner_edge_compatibility(edge1, edge2)
-        % edge_compatibility function is used to calculate the similarity
-        % between edges
-
-        % the score is between [0,1]
-
-        % the higher the score, the more similiarity are there between edge1
-        % and edge2
-
-        % this function can be define by the user, but in our case is
-        % c(E,e)=1-3|E-e|;
-
-        % assume node1 and node2 are node object
-
-        weight_range = 9;  %update with GenerateProteinARGs
-
-        c = 0;
-
-        %The range of the edge rate
-        if ~edge1.trueEdge()||~edge2.trueEdge()
-            return;
-        else     
-            %normalize the score
-            c = 1-3*abs(edge1.weight-edge2.weight)/weight_range;
-        end
-
-    end
-
     function [] = fill_Ce(a,i)
-        edge_compat_handle=@(edge1,edge2)inner_edge_compatibility(edge1,edge2);
+        edge_compat_handle=@(edge1,edge2)(1-3*abs(edge1.weight-edge2.weight)/weight_range).*(edge1.weight>0)*(edge2.weight>0);
         C_e(((a-1)*A+1):((a-1)*A+A),((i-1)*I+1):((i-1)*I+I))=cellfun(edge_compat_handle,...
             repmat(ARG1.edges(a,:)',1,I),...
             repmat(ARG2.edges(i,:),A,1));
+    end
+
+    function [flat] = flattern_matrix(edges)
+        len = length(edges);
+        flat = zeros (1, len*len);
+        for flat_p = 1:len*len
+            flat(flat_p)=edges{floor((flat_p-1)/len)+1,flat_p-(floor((flat_p-1)/len))*len}.weight;
+        end
     end
 end
 
