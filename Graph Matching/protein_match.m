@@ -14,11 +14,11 @@ save = 0;
 
 proteinOneFile = 'new_4D1E_CH.csv';
 start_sequence_one = 1;
-end_sequence_one = 200;
+end_sequence_one = 100;
 
 proteinTwoFile = 'new_4Q59_CH.csv';
 start_sequence_two = 1;
-end_sequence_two = 200;
+end_sequence_two = 100;
 
 [proteinOneARG,p1] = GenerateProteinARGs(start_sequence_one,end_sequence_one, proteinOneFile,distance_cutoff);
 [proteinTwoARG,p2] = GenerateProteinARGs(start_sequence_two,end_sequence_two, proteinTwoFile,distance_cutoff);

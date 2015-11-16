@@ -101,11 +101,6 @@ classdef sprMDL < handle & matlab.mixin.Copyable
             W=[-2,-3,-3,-4,-3,-2,-4,-4,-3,-2,-2,-3,-3,-1,-3,-2,-3,1,2,11];
             BLOSUM=[C',S',T',P',A',G',N',D',E',Q',H',R',K',M',I',L',V',F',Y',W'];
             BLOSUM=exp(BLOSUM/BLOSUM_Sigma);
-            % normalize the symmetric matrix
-            % Not perfect
-%             s=sum(BLOSUM,2);
-%             n=repmat(s,1,20);
-%             obj.BLOSUM=BLOSUM./n;
             obj.BLOSUM = BLOSUM;
             
             % Train the model with the sample

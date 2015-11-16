@@ -2,6 +2,9 @@
 %   GRADUATED_ASSIGN_ALGORITHM is a function that compute the best match
 %   matrix with two ARGs
 
+    % parallel computing flag
+    pFlag=1;
+
     % set up condition and variable
     % beta is the converging for getting the maximize number
     beta_0 = 0.5;
@@ -16,7 +19,6 @@
     % node attriubute compatability weight
     alpha = 1;
     
-    % make sure ARG1 is always the smaller graph
     flip = 0;
     if ~isa(ARG2,'mdl_ARG')
         tmp = ARG1;
@@ -48,35 +50,30 @@
     % times the alpha weight
     C_n=alpha*C_n;
     
+    tic()
     % pre-calculate the edge compatability
-    C_e = sparse(A*A,I*I);  
+    C_e = zeros(A*A,I*I);  
     
-%     %option1
-%     weight_handle = @(edge)edge.weight;
-%     [i_1,j_1,~] = find(sparse(cellfun(weight_handle,ARG1.edges)));
-%     [i_2,j_2,~] = find(sparse(cellfun(weight_handle,ARG2.edges)));
-%     arg1_edges_num = length(i_1);
-%     arg2_edges_num = length(i_2);
-%     ARG1_edge_index = mat2cell([i_1,j_1],ones([1,arg1_edges_num]));
-%     ARG2_edge_index = mat2cell([i_2,j_2],ones([1,arg2_edges_num]));
-%    
-%     for z = 1:arg1_edges_num
-%         for y = 1:arg2_edges_num
-%             index1 = ARG1_edge_index{z};
-%             index2 = ARG2_edge_index{y};
-%             C_e(((index1(1)-1)*A+index1(2)),((index2(1)-1)*I+index2(2))) = inner_edge_compatibility(ARG1.edges{index1(1),index1(2)},ARG2.edges{index2(1),index2(2)});
-%         end
-%     end 
-    
-    % option 2
-    edge_compat_handle=@(edge1,edge2)inner_edge_compatibility(edge1,edge2);
-    for a = 1:A
-        for i = 1:I
-            C_e(((a-1)*A+1):((a-1)*A+A),((i-1)*I+1):((i-1)*I+I))=cellfun(edge_compat_handle,...
-                repmat(ARG1.edges(a,:)',1,I),...
-                repmat(ARG2.edges(i,:),A,1));
+    if pFlag
+        edges_atrs = flattern_matrix_weight(ARG1.edges);
+        mdl_edges_atrs = flattern_matrix_weight(ARG2.edges);
+        mdl_edges_cov = flattern_matrix_cov(ARG2.edges);
+        mdl_edges_cov_inv = flattern_matrix_cov_inv(ARG2.edges);
+        edge_num_atrs = 1;
+        parfor p = 1:A*A
+            % because edge atr is a single number, we can do some
+            % modification to our orignal formula
+            C_e(p,:)=(exp(-(edges_atrs(p)-mdl_edges_atrs).*mdl_edges_cov_inv.*(edges_atrs(p)-mdl_edges_atrs))./...
+                ((2*pi)^(edge_num_atrs/2)*sqrt(mdl_edges_cov)))...
+                .*(edges_atrs(p)>0).*(mdl_edges_atrs>0);      
+        end
+        
+    else
+        for p = 1:A*I
+            fill_Ce(floor((p-1)/I)+1,p-(floor((p-1)/I))*I);
         end
     end
+    toc()
 
     % start matching  
     while beta<beta_f   % do A until beta is less than beta_f
@@ -203,6 +200,36 @@
                 ((2*pi)^(num_atrs/2)*sqrt(det(mdl_edge_cov)));
         end
     end
-     
+
+    function [] = fill_Ce(a,i)
+        edge_compat_handle=@(edge1,edge2)inner_edge_compatibility(edge1,edge2);
+        C_e(((a-1)*A+1):((a-1)*A+A),((i-1)*I+1):((i-1)*I+I))=cellfun(edge_compat_handle,...
+            repmat(ARG1.edges(a,:)',1,I),...
+            repmat(ARG2.edges(i,:),A,1));
+    end
+
+    function [flat] = flattern_matrix_weight(edges)
+        len = length(edges);
+        flat = zeros (1, len*len);
+        for flat_p = 1:len*len
+            flat(flat_p)=edges{floor((flat_p-1)/len)+1,flat_p-(floor((flat_p-1)/len))*len}.weight;
+        end
+    end
+
+    function [flat] = flattern_matrix_cov(edges)
+        len = length(edges);
+        flat = zeros (1, len*len);
+        for flat_p = 1:len*len
+            flat(flat_p)=edges{floor((flat_p-1)/len)+1,flat_p-(floor((flat_p-1)/len))*len}.cov;
+        end
+    end
+
+    function [flat] = flattern_matrix_cov_inv(edges)
+        len = length(edges);
+        flat = zeros (1, len*len);
+        for flat_p = 1:len*len
+            flat(flat_p)=edges{floor((flat_p-1)/len)+1,flat_p-(floor((flat_p-1)/len))*len}.cov_inv;
+        end
+    end
 end
 
