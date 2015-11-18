@@ -26,5 +26,11 @@ function [ proteinARG,protein ] = GenerateProteinARGs( start_sequence,end_sequen
         end
     end
     
+    id = 1;
+    for i = 1:number_of_AA
+        protein(i,1)=id;
+        id=id+1;
+    end
+    
     proteinARG = ARG(proteinStructure,proteinAtrs);
 end

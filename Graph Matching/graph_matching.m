@@ -56,13 +56,13 @@ function [ match_matrix, match_score ] = graph_matching( ARG1,ARG2,BLOSUM )
     tic()
     
     % pre-calculate the edge compatability
-    C_e = zeros(A*A,I*I);  
+    C_e = sparse(A*A,I*I);  
     
     if pFlag
-        edges_ARG1 = flattern_matrix(ARG1.edges);
-        edges_ARG2 = flattern_matrix(ARG2.edges);
+        edges_ARG1 = sparse(flattern_matrix(ARG1.edges));
+        edges_ARG2 = sparse(flattern_matrix(ARG2.edges));
         parfor p = 1:A*A
-            C_e(p,:)=(1-3*abs(edges_ARG2-edges_ARG1(p))/weight_range).*(edges_ARG2>0)*(edges_ARG1(p)>0);        
+            C_e(p,:)=sparse((1-3*abs(edges_ARG2-edges_ARG1(p))/weight_range).*(edges_ARG2>0)*(edges_ARG1(p)>0));        
         end
     else
         for p = 1:A*I
