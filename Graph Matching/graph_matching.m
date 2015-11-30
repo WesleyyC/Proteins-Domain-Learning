@@ -136,9 +136,10 @@ function [ match_matrix, match_score ] = graph_matching( ARG1,ARG2,BLOSUM )
     % get the match_matrix in real size
     match_matrix = heuristic(m_Head,A,I);
     match_score = m_Head;
-
+    
     if(flip)
         match_matrix=match_matrix';
+        match_score=match_score';
     end
     
     

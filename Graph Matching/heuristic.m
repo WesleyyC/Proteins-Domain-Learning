@@ -33,16 +33,21 @@ function [ M ] = heuristic( M, A, I )
     
     % get the number of row in M
     row = length(M(:,1));
-        
+    endL = length(M);
+    count = 0;
     % clean up
     for i = 1:row
         % get the index
         if any(M(i,:))
-            [maxVal,index] = max(M(i,:));
+            [~,index] = max(M(i,:));
             index=index(1);
             % set the row to zero
             M(i,:)=zeros(size(M(i,:)));
-            M(:,index)=zeros(size(M(:,index)));
+            % set the column to zero
+            if(index~=endL)
+                count=count+1;
+                M(:,index)=zeros(size(M(:,index)));
+            end
             % set the max to 1
             M(i,index)=1;
         end
