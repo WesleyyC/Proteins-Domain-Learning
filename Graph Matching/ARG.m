@@ -7,7 +7,8 @@ classdef ARG < handle
         num_nodes = NaN;
         nodes = {};
         edges = {};
-        matrix = NaN;
+        edges_matrix = NaN;
+        nodes_vector = NaN;
         
     end
     
@@ -34,21 +35,23 @@ classdef ARG < handle
             
             % Allocate memory for nodes and edges
             self.nodes = cell(1,self.num_nodes);
+            self.nodes_vector = cell(1,self.num_nodes);
             self.edges = cell(self.num_nodes,self.num_nodes);
             
             % Create Nodes
             for ID = 1:self.num_nodes
-                self.nodes{ID}=node(ID,nodes_atrs(ID));
+                self.nodes{ID}=node(ID,self);
+                self.nodes_vector{ID}= nodes_atrs(ID);
             end
             
             % Create Edge
             for i = 1:self.num_nodes
                 for j = 1:self.num_nodes
-                    self.edges{i,j}=edge(M(i,j),i,j,self.nodes);
+                    self.edges{i,j}=edge(self,i,j,self.nodes);
                 end
             end
             
-            self.matrix = M;
+            self.edges_matrix = M;
 
         end
         

@@ -173,7 +173,7 @@ function [ match_matrix, match_score ] = graph_matching( ARG1,ARG2,BLOSUM )
         if ~node1.hasAtrs()||~node2.hasAtrs()
             return;  % if either of the nodes has NaN attribute, set similarity to 0
         else
-            c=BLOSUM(min(node1.atrs,node2.atrs),max(node1.atrs,node2.atrs));
+            c=BLOSUM(min(node1.getAtr(),node2.getAtr()),max(node1.getAtr(),node2.getAtr()));
         end
     end
 
@@ -188,7 +188,7 @@ function [ match_matrix, match_score ] = graph_matching( ARG1,ARG2,BLOSUM )
         len = length(edges);
         flat = zeros (1, len*len);
         for flat_p = 1:len*len
-            flat(flat_p)=edges{floor((flat_p-1)/len)+1,flat_p-(floor((flat_p-1)/len))*len}.weight;
+            flat(flat_p)=edges{floor((flat_p-1)/len)+1,flat_p-(floor((flat_p-1)/len))*len}.getAtr();
         end
     end
 end
