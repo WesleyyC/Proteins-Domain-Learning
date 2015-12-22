@@ -1,9 +1,12 @@
 classdef mdl_ARG < handle
     %   mdl_ARG represetns a component in our model
-    properties (GetAccess=public,SetAccess=private)
+    properties (GetAccess=public,SetAccess=public)
         num_nodes = NaN;
         nodes = {};
         edges = {};
+        nodes_vector = NaN;
+        nodes_frequency = NaN;
+        edges_matrix = NaN;
     end
     
     methods
@@ -21,13 +24,18 @@ classdef mdl_ARG < handle
             
             % Allocate memory for nodes and edges
             self.nodes = cell(1,self.num_nodes);
+            self.nodes_vector = cell(1,self.num_nodes);
             self.edges = cell(self.num_nodes,self.num_nodes);
+            
+            % Get the edge matrix
+            self.edges_matrix = ARG.edges_matrix;
             
             % Initial frequency to 1
             freq = 1/self.num_nodes;
+            self.nodes_frequency = ones(1,self.num_nodes)*freq;
             
             % Convert ARG node to mdl_node
-            mdl_node_handle=@(node)mdl_node(node.ID,node.atrs,freq);
+            mdl_node_handle=@(node)mdl_node(node.ID,self);
             self.nodes(1:self.num_nodes-1) = cellfun(mdl_node_handle,ARG.nodes,'UniformOutput',false);
             
             % Convert ARG edge to mdl_edge
@@ -35,7 +43,8 @@ classdef mdl_ARG < handle
             self.edges(1:self.num_nodes-1,1:self.num_nodes-1) = cellfun(mdl_edge_handle,ARG.edges,'UniformOutput',false);
             
             % Add null for background
-            self.nodes{self.num_nodes} = mdl_node(self.num_nodes,0,freq);
+            self.nodes{self.num_nodes} = mdl_node(self.num_nodes, self);
+            self.nodes_frequency(self.num_nodes) = 0;
             for i=1:self.num_nodes
                 self.edges{self.num_nodes,i}=mdl_edge(0,self.num_nodes,i,self.nodes);
                 self.edges{i,self.num_nodes}=mdl_edge(0,i,self.num_nodes,self.nodes);
@@ -45,9 +54,7 @@ classdef mdl_ARG < handle
         
         % update the nodes frequency in the model
         function updateNodeFrequency(obj,frequencies)
-            for i =1:obj.num_nodes
-                obj.nodes{i}.updateFrequency(frequencies(i));
-            end
+            obj.nodes_frequency = frequencies;
         end
         
         % delete nodes in the model according to the given indexes
@@ -60,8 +67,7 @@ classdef mdl_ARG < handle
         
         % return a vector of nodes frequency
         function frequencies = getNodeFrequency(obj)
-           getFrequency = @(node)node.frequency;
-           frequencies=cellfun(getFrequency,obj.nodes);
+           frequencies = obj.nodes_frequency;
         end
         
         % show the model ARG in matrix

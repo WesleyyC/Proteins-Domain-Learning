@@ -8,18 +8,18 @@ BLOSUM_Sigma = 2;   % node attribute
 
 distance_cutoff = 13;   % edge attribute cut off
 
-save = 1;
+save_flag = 1;
 
 %% Set Up Protein
 
 proteinOneFile = 'new_4D1E_CH.csv';
-start_sequence_one = 60;
-end_sequence_one = 150;
+start_sequence_one = 1;
+end_sequence_one = 30;
 [proteinOneARG,~] = GenerateProteinARGs(start_sequence_one,end_sequence_one, proteinOneFile,distance_cutoff);
 
 proteinTwoFile = 'new_4Q59_CH.csv';
-start_sequence_two = 10;
-end_sequence_two = 90;
+start_sequence_two = 1;
+end_sequence_two = 30;
 [proteinTwoARG,~] = GenerateProteinARGs(start_sequence_two,end_sequence_two, proteinTwoFile,distance_cutoff);
 
 
@@ -35,10 +35,10 @@ MDL = sprMDL(trainingSample,2);
 toc()
 
 %% Save the result
-if (save)
+if (save_flag)
     datetime=datestr(now);
     datetime=strrep(datetime,':','_'); %Replace colon with underscore
     datetime=strrep(datetime,'-','_');%Replace minus sign with underscore
     datetime=strrep(datetime,' ','_');%Replace space with underscore
-    save (['Data/' datetime '.mat']) 
+    save (['Data/' datetime '.mat']); 
 end

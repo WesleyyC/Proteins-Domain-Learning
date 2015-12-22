@@ -1,3 +1,5 @@
+
+
 classdef sprMDL < handle & matlab.mixin.Copyable
     %   SpatialPatternMDL is a generalization model of a kind of spatail
     %   pattern providing by a set of sample ARGs   
@@ -335,7 +337,7 @@ classdef sprMDL < handle & matlab.mixin.Copyable
             for h = 1:obj.number_of_components
                 % for each node
                 for n = 1:obj.mdl_ARGs{h}.num_nodes
-                    if any(obj.mdl_ARGs{h}.nodes{n}.atrs)
+                    if any(obj.mdl_ARGs{h}.nodes{n}.getAtrs())
                         atrs = 0;
                         denominator=0;
                         % we go over the sample
