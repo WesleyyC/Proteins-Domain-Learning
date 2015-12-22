@@ -8,7 +8,7 @@ BLOSUM_Sigma = 2;   % node attribute
 
 distance_cutoff = 13;   % edge attribute cut off
 
-save_flag = 1;
+save_flag = 0;
 
 %% Set Up Protein
 

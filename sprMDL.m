@@ -347,8 +347,8 @@ classdef sprMDL < handle & matlab.mixin.Copyable
                             % and finds its matching node, calculate the
                             % average atrs
                             for m =  1:obj.sampleARGs{i}.num_nodes
-                                if any(obj.sampleARGs{i}.nodes{m}.atrs)
-                                    current_sample_atrs=current_sample_atrs+obj.sampleARGs{i}.nodes{m}.atrs*obj.node_match_scores{i,h}(m,n);
+                                if any(obj.sampleARGs{i}.nodes{m}.getAtrs())
+                                    current_sample_atrs=current_sample_atrs+obj.sampleARGs{i}.nodes{m}.getAtrs()*obj.node_match_scores{i,h}(m,n);
                                     current_sample_denominator = current_sample_denominator + obj.node_match_scores{i,h}(m,n);
                                 end
                             end

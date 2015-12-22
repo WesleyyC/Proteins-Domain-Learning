@@ -7,6 +7,8 @@ classdef mdl_ARG < handle
         nodes_vector = NaN;
         nodes_frequency = NaN;
         edges_matrix = NaN;
+        edges_cov = NaN;
+        edges_cov_inv = NaN;
     end
     
     methods
@@ -33,10 +35,13 @@ classdef mdl_ARG < handle
             % Initial frequency to 1
             freq = 1/self.num_nodes;
             self.nodes_frequency = ones(1,self.num_nodes)*freq;
+            self.nodes_frequency(self.num_nodes) = 0;
             
             % Convert ARG node to mdl_node
             mdl_node_handle=@(node)mdl_node(node.ID,self);
+            self.nodes_vector(1:self.num_nodes-1)=ARG.nodes_vector;
             self.nodes(1:self.num_nodes-1) = cellfun(mdl_node_handle,ARG.nodes,'UniformOutput',false);
+            self.nodes_vector{self.num_nodes}=zeros(1,20);
             
             % Convert ARG edge to mdl_edge
             mdl_edge_handle=@(edge)mdl_edge(edge.weight,edge.node1ID,edge.node2ID,self.nodes);
@@ -44,7 +49,6 @@ classdef mdl_ARG < handle
             
             % Add null for background
             self.nodes{self.num_nodes} = mdl_node(self.num_nodes, self);
-            self.nodes_frequency(self.num_nodes) = 0;
             for i=1:self.num_nodes
                 self.edges{self.num_nodes,i}=mdl_edge(0,self.num_nodes,i,self.nodes);
                 self.edges{i,self.num_nodes}=mdl_edge(0,i,self.num_nodes,self.nodes);

@@ -169,7 +169,7 @@
         if ~node1.hasAtrs()||~node2.hasAtrs()
             return;  % if either of the nodes has NaN attribute, set similarity to 0
         else
-            c=node2.atrs*BLOSUM*node1.atrs';
+            c=node2.getAtrs()*BLOSUM*node1.getAtrs()';
             % same thing
             %c=sum(sum(BLOSUM.*(node2.atrs'*node1.atrs)));
         end
