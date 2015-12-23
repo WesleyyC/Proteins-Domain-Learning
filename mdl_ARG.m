@@ -28,9 +28,15 @@ classdef mdl_ARG < handle
             self.nodes = cell(1,self.num_nodes);
             self.nodes_vector = cell(1,self.num_nodes);
             self.edges = cell(self.num_nodes,self.num_nodes);
+            self.edges_cov = cell(self.num_nodes,self.num_nodes);
+            self.edges_cov_inv = cell(self.num_nodes,self.num_nodes);
             
             % Get the edge matrix
             self.edges_matrix = ARG.edges_matrix;
+            for i=1:self.num_nodes
+                self.edges_matrix(self.num_nodes,i)=0;
+                self.edges_matrix(i,self.num_nodes)=0;
+            end
             
             % Initial frequency to 1
             freq = 1/self.num_nodes;
@@ -42,17 +48,22 @@ classdef mdl_ARG < handle
             self.nodes_vector(1:self.num_nodes-1)=ARG.nodes_vector;
             self.nodes(1:self.num_nodes-1) = cellfun(mdl_node_handle,ARG.nodes,'UniformOutput',false);
             self.nodes_vector{self.num_nodes}=zeros(1,20);
+            self.nodes{self.num_nodes} = mdl_node(self.num_nodes, self);
             
             % Convert ARG edge to mdl_edge
-            mdl_edge_handle=@(edge)mdl_edge(edge.weight,edge.node1ID,edge.node2ID,self.nodes);
+            mdl_edge_handle=@(edge)mdl_edge(self,self.nodes{edge.node1.ID},self.nodes{edge.node2.ID});
             self.edges(1:self.num_nodes-1,1:self.num_nodes-1) = cellfun(mdl_edge_handle,ARG.edges,'UniformOutput',false);
             
-            % Add null for background
-            self.nodes{self.num_nodes} = mdl_node(self.num_nodes, self);
             for i=1:self.num_nodes
-                self.edges{self.num_nodes,i}=mdl_edge(0,self.num_nodes,i,self.nodes);
-                self.edges{i,self.num_nodes}=mdl_edge(0,i,self.num_nodes,self.nodes);
+                self.edges{self.num_nodes,i}=mdl_edge(self,self.nodes{self.num_nodes},self.nodes{i});
+                self.edges{i,self.num_nodes}=mdl_edge(self,self.nodes{i},self.nodes{self.num_nodes});
             end
+            
+            mdl_edge_cov_handle = @(edge)eye(length(edge.getAtrs()));
+            self.edges_cov = cellfun(mdl_edge_cov_handle,self.edges,'UniformOutput',false);
+            
+            mdl_edge_cov_inv_handle = @(edge)inv(edge.getCov());
+            self.edges_cov_inv = cellfun(mdl_edge_cov_inv_handle,self.edges,'UniformOutput',false);
                 
         end
         

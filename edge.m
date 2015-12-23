@@ -4,29 +4,25 @@ classdef edge < handle
     
     properties (GetAccess=public,SetAccess=protected)
         % The attributes
-        weight = NaN;   % the weight for the link, and be NaN if there is no link between node1 and node2
+        ARG = NaN;   % the weight for the link, and be NaN if there is no link between node1 and node2
         node1 = NaN;
         node2 = NaN;
-        node1ID = NaN;
-        node2ID = NaN;
     end
     
     methods
         % Constructor for the class
-        function  self = edge(weight,node1ID,node2ID,sortedNodes)
+        function  self = edge(ARG,node1,node2)
             % Throw error if not enough argument
-            if nargin < 4
+            if nargin < 3
                 error "NotEnoughArgument";
             end
             
             % Otherwise, we process the argument
-            self.weight = weight;
+            self.ARG = ARG;
             
-            self.node1 = sortedNodes{node1ID};
-            self.node2 = sortedNodes{node2ID};
+            self.node1 = node1;
+            self.node2 = node2;
             
-            self.node1ID = node1ID;
-            self.node2ID = node2ID;
         end
         
         % Get the similarity between two edges
@@ -35,12 +31,16 @@ classdef edge < handle
         end
         
         function [tf] = trueEdge(obj)
-            tf=obj.weight~=0;
+            tf=obj.getAtrs()~=0;
+        end
+        
+        function [val] = getAtrs(obj)
+            val=obj.ARG.edges_matrix(obj.node1.ID,obj.node2.ID);
         end
         
         % Get number of attributes
         function [no] = numberOfAtrs(obj)
-            no=length(obj.weight);
+            no=length(obj.getAtrs());
         end
     end
     

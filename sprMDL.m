@@ -261,7 +261,7 @@ classdef sprMDL < handle & matlab.mixin.Copyable
                 %for each edge 
                 for o = 1:obj.mdl_ARGs{h}.num_nodes
                     for t = o+1:obj.mdl_ARGs{h}.num_nodes
-                        if any(obj.mdl_ARGs{h}.edges{o,t}.weight)
+                        if any(obj.mdl_ARGs{h}.edges{o,t}.getAtrs())
                             atrs = 0;
                             denominator=0;
                             %for each sample
@@ -271,9 +271,9 @@ classdef sprMDL < handle & matlab.mixin.Copyable
                                 %for each edge in sample
                                 for c =  1:obj.sampleARGs{i}.num_nodes
                                     for d =  1:obj.sampleARGs{i}.num_nodes
-                                        if any(obj.sampleARGs{i}.edges{c,d}.weight)
+                                        if any(obj.sampleARGs{i}.edges{c,d}.getAtrs())
                                             current_sample_atrs=current_sample_atrs+...
-                                                obj.sampleARGs{i}.edges{c,d}.weight*obj.node_match_scores{i,h}(c,o)*obj.node_match_scores{i,h}(d,t);
+                                                obj.sampleARGs{i}.edges{c,d}.getAtrs()*obj.node_match_scores{i,h}(c,o)*obj.node_match_scores{i,h}(d,t);
                                             current_sample_denominator=current_sample_denominator+obj.node_match_scores{i,h}(c,o)*obj.node_match_scores{i,h}(d,t);
                                         end
                                     end
@@ -297,7 +297,7 @@ classdef sprMDL < handle & matlab.mixin.Copyable
                 %for each edge 
                 for o = 1:obj.mdl_ARGs{h}.num_nodes
                     for t = o+1:obj.mdl_ARGs{h}.num_nodes
-                        if any(obj.mdl_ARGs{h}.edges{o,t}.weight)
+                        if any(obj.mdl_ARGs{h}.edges{o,t}.getAtrs())
                             cov = 0;
                             denominator=0;
                             %for each sample
@@ -307,8 +307,8 @@ classdef sprMDL < handle & matlab.mixin.Copyable
                                 %for each edge in sample
                                 for c =  1:obj.sampleARGs{i}.num_nodes
                                     for d =  1:obj.sampleARGs{i}.num_nodes
-                                        if any(obj.sampleARGs{i}.edges{c,d}.weight)
-                                            z_atrs=obj.sampleARGs{i}.edges{c,d}.weight-obj.mdl_ARGs{h}.edges{o,t}.weight;
+                                        if any(obj.sampleARGs{i}.edges{c,d}.getAtrs())
+                                            z_atrs=obj.sampleARGs{i}.edges{c,d}.getAtrs()-obj.mdl_ARGs{h}.edges{o,t}.getAtrs();
                                             current_sample_cov=current_sample_cov+...
                                                 z_atrs'*z_atrs*obj.node_match_scores{i,h}(c,o)*obj.node_match_scores{i,h}(d,t);
                                             current_sample_denominator=current_sample_denominator+obj.node_match_scores{i,h}(c,o)*obj.node_match_scores{i,h}(d,t);

@@ -212,7 +212,7 @@
         len = length(edges);
         flat = zeros (1, len*len);
         for flat_p = 1:len*len
-            flat(flat_p)=edges{floor((flat_p-1)/len)+1,flat_p-(floor((flat_p-1)/len))*len}.weight;
+            flat(flat_p)=edges{floor((flat_p-1)/len)+1,flat_p-(floor((flat_p-1)/len))*len}.getAtrs();
         end
     end
 
@@ -220,7 +220,7 @@
         len = length(edges);
         flat = zeros (1, len*len);
         for flat_p = 1:len*len
-            flat(flat_p)=edges{floor((flat_p-1)/len)+1,flat_p-(floor((flat_p-1)/len))*len}.cov;
+            flat(flat_p)=edges{floor((flat_p-1)/len)+1,flat_p-(floor((flat_p-1)/len))*len}.getCov();
         end
     end
 
@@ -228,7 +228,7 @@
         len = length(edges);
         flat = zeros (1, len*len);
         for flat_p = 1:len*len
-            flat(flat_p)=edges{floor((flat_p-1)/len)+1,flat_p-(floor((flat_p-1)/len))*len}.cov_inv;
+            flat(flat_p)=edges{floor((flat_p-1)/len)+1,flat_p-(floor((flat_p-1)/len))*len}.getCovInv();
         end
     end
 end

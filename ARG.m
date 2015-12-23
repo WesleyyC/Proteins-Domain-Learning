@@ -47,7 +47,7 @@ classdef ARG < handle
             % Create Edge
             for i = 1:self.num_nodes
                 for j = 1:self.num_nodes
-                    self.edges{i,j}=edge(M(i,j),i,j,self.nodes);
+                    self.edges{i,j}=edge(self,self.nodes{i},self.nodes{j});
                 end
             end
             

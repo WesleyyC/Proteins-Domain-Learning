@@ -34,7 +34,7 @@ classdef edge < handle
         end
         
         function [tf] = trueEdge(obj)
-            tf=obj.getAtr~=0;
+            tf=obj.getAtr()~=0;
         end
     end
     
