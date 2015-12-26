@@ -29,17 +29,17 @@ classdef mdl_edge < edge
         end
         
         function [val] = getCov(obj)
-            val=obj.ARG.edges_cov{obj.node1.ID,obj.node2.ID};
+            val=obj.ARG.edges_cov(obj.node1.ID,obj.node2.ID);
         end
         
         function [val] = getCovInv(obj)
-            val=obj.ARG.edges_cov_inv{obj.node1.ID,obj.node2.ID};
+            val=obj.ARG.edges_cov_inv(obj.node1.ID,obj.node2.ID);
         end
         
         % Update Covariance Matrix
         function updateCov(obj,cov)
-            obj.ARG.edges_cov{obj.node1.ID,obj.node2.ID} = cov;
-            obj.ARG.edges_cov_inv{obj.node1.ID,obj.node2.ID} = mdl_edge.inverse(cov);
+            obj.ARG.edges_cov(obj.node1.ID,obj.node2.ID) = cov;
+            obj.ARG.edges_cov_inv(obj.node1.ID,obj.node2.ID) = obj.inverse(cov);
         end
     end
     

@@ -3,7 +3,7 @@ classdef node < handle
     %   node will have edge (also class) connected to it and its own
     %   attributes value represented with a vector
     
-    properties (GetAccess=public,SetAccess=protected)
+    properties (GetAccess=public,SetAccess=private)
         % The attributes
         ID = NaN;   % ID needs to start with 1 and increment by 1 every new nodes
         ARG = NaN
@@ -37,11 +37,6 @@ classdef node < handle
             no=length(obj.getAtrs());
         end
 
-        % Get the similarity between two nodes
-        function [c] = compatibility(obj,obj2,BLOSUM)
-            c = node_compatibility(obj,obj2,BLOSUM);
-        end
-        
     end
     
 end

@@ -1,5 +1,4 @@
 %% Script for matching the protein
-tic();
 draw_flag = 0;
 
 %% Set Up Edge and Node Attribute
@@ -31,8 +30,6 @@ trainingSample{2} = proteinTwoARG;
 %% Build the model
 
 MDL = sprMDL(trainingSample,2);
-
-toc()
 
 %% Save the result
 if (save_flag)
