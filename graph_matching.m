@@ -50,6 +50,7 @@
     % times the alpha weight
     C_n=alpha*C_n;
     
+    tic()
     % pre-calculate the edge compatability
     C_e = zeros(A*A,I*I);  
     
@@ -72,6 +73,7 @@
             fill_Ce(floor((p-1)/I)+1,p-(floor((p-1)/I))*I);
         end
     end
+    toc()
 
     % start matching  
     while beta<beta_f   % do A until beta is less than beta_f
@@ -167,7 +169,7 @@
         if ~node1.hasAtrs()||~node2.hasAtrs()
             return;  % if either of the nodes has NaN attribute, set similarity to 0
         else
-            c=node2.getAtrs()*BLOSUM*node1.getAtrs()';
+            c=node2.atrs*BLOSUM*node1.atrs';
             % same thing
             %c=sum(sum(BLOSUM.*(node2.atrs'*node1.atrs)));
         end
@@ -210,7 +212,7 @@
         len = length(edges);
         flat = zeros (1, len*len);
         for flat_p = 1:len*len
-            flat(flat_p)=edges{floor((flat_p-1)/len)+1,flat_p-(floor((flat_p-1)/len))*len}.getAtrs();
+            flat(flat_p)=edges{floor((flat_p-1)/len)+1,flat_p-(floor((flat_p-1)/len))*len}.weight;
         end
     end
 
@@ -218,7 +220,7 @@
         len = length(edges);
         flat = zeros (1, len*len);
         for flat_p = 1:len*len
-            flat(flat_p)=edges{floor((flat_p-1)/len)+1,flat_p-(floor((flat_p-1)/len))*len}.getCov();
+            flat(flat_p)=edges{floor((flat_p-1)/len)+1,flat_p-(floor((flat_p-1)/len))*len}.cov;
         end
     end
 
@@ -226,7 +228,7 @@
         len = length(edges);
         flat = zeros (1, len*len);
         for flat_p = 1:len*len
-            flat(flat_p)=edges{floor((flat_p-1)/len)+1,flat_p-(floor((flat_p-1)/len))*len}.getCovInv();
+            flat(flat_p)=edges{floor((flat_p-1)/len)+1,flat_p-(floor((flat_p-1)/len))*len}.cov_inv;
         end
     end
 end
