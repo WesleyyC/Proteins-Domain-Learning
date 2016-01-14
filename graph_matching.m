@@ -50,7 +50,6 @@
     % times the alpha weight
     C_n=alpha*C_n;
     
-    tic()
     % pre-calculate the edge compatability
     C_e = zeros(A*A,I*I);  
     
@@ -73,7 +72,6 @@
             fill_Ce(floor((p-1)/I)+1,p-(floor((p-1)/I))*I);
         end
     end
-    toc()
 
     % start matching  
     while beta<beta_f   % do A until beta is less than beta_f
