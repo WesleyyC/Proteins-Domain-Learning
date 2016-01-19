@@ -3,7 +3,7 @@
 clear
 
 %% Set up testing flags
-view_pattern = 0;
+node_id = 1;
 
 %% Set up the testing pattern
 
@@ -24,18 +24,19 @@ pattern = pattern.*connected_nodes;
 pattern = pattern + pattern'; % make it symmetric
 % Generate a random vector represented the node atrs
 pattern_nodes_atrs = rand([1,pattern_size])*node_atr_weight_range;
+round(pattern_nodes_atrs(node_id))
 
 %% Set up the training sample
 
 % Number of Sample
-number_of_training_samples = 25;
+number_of_training_samples = 45;
 % Set up the sample size range
 maximum_sample_size = pattern_size*2;
 size_range = pattern_size:maximum_sample_size;
 % Set up the sample connected rate
 sample_connected_rate = pattern_connected_rate;
 % Preallocate samples cell array
-training_samples=cell([1,number_of_training_samples]);
+training_samples=zeros([1,number_of_training_samples]);
 % Noise Level
 noise_rate = 0.05;
 
@@ -67,47 +68,17 @@ for i = 1:number_of_training_samples
     inject_range = inject_starting_index:(inject_starting_index+pattern_size-1);
     sampleM(inject_range,inject_range)=sample_pattern;
     sample_nodes_atrs(inject_range)=sample_pattern_nodes_atrs;
-    
-    % Permutate the sample
-    idx = randperm(sample_size);
-    sampleM = sampleM(idx,idx);
-    sample_nodes_atrs = sample_nodes_atrs(idx);
         
     % Build up the sample ARG
-    training_samples{i} = ARG(sampleM, protein_atr(sample_nodes_atrs));
+    training_samples(i) = round(sample_nodes_atrs(inject_starting_index-1+node_id));
 end
 
-%% Generate a model
-
-% Set up model
-number_of_component = 4;
-trainStart=tic();
-
-mdl = sprMDL(training_samples,number_of_component);
-
-toc(trainStart);
-
-%% Test Result
-
-% check if the model can detect the base pattern
-detect_pattern = mdl.checkSamePattern(ARG(pattern,protein_atr(pattern_nodes_atrs)))
-
-% show the pattern and model pattern if the flag is up
-if view_pattern
-    pattern_bg = biograph(sparse(triu(pattern)),[],'ShowArrows','off','ShowWeights','on');
-
-    view(pattern_bg)
-
-    for i = 1:number_of_component
-        view(mdl.mdl_ARGs{i}.showARG.bg)
-    end
-end
 %% Set up the testing sample
 
 % Number of Sample
 number_of_testing_samples = 80;
 % Preallocate samples cell array
-testing_samples=cell([1,number_of_testing_samples]);
+testing_samples=zeros([1,number_of_testing_samples]);
 
 for i = 1:number_of_testing_samples
     % Permute pattern
@@ -136,27 +107,18 @@ for i = 1:number_of_testing_samples
     inject_range = inject_starting_index:(inject_starting_index+pattern_size-1);
     sampleM(inject_range,inject_range)=sample_pattern;
     sample_nodes_atrs(inject_range)=sample_pattern_nodes_atrs;
-    
-    % Permutate the sample
-    idx = randperm(sample_size);
-    sampleM = sampleM(idx,idx);
-    sample_nodes_atrs = sample_nodes_atrs(idx);
-        
+
     % Build up the sample ARG
-    testing_samples{i} = ARG(sampleM, protein_atr(sample_nodes_atrs));
+    testing_samples(i) = round(sample_nodes_atrs(inject_starting_index-1+node_id));
 end
 
-% check the testing sample
-checkPatternHandle=@(ARG)mdl.checkSamePattern(ARG);
-detect_result = cellfun(checkPatternHandle, testing_samples);
-test_correct_rate = sum(detect_result)/length(detect_result)
 
 
 %% Set Up Random Test Sample
 
 % Number of Sample
 number_of_random_samples = number_of_testing_samples;
-random_samples=cell([1,number_of_random_samples]);
+random_samples=zeros([1,number_of_random_samples]);
 
 for i = 1:number_of_random_samples
     % Build Sample
@@ -170,9 +132,5 @@ for i = 1:number_of_random_samples
     % Generate a random vector represented the node atrs
     sample_nodes_atrs = rand([1,sample_size])*node_atr_weight_range;
     % Create the sample
-    random_samples{i} = ARG(sampleM, protein_atr(sample_nodes_atrs));
+    random_samples(i) = round(sample_nodes_atrs(inject_starting_index-1+node_id));
 end
-
-% check the random sample
-random_detect_result = cellfun(checkPatternHandle, random_samples);
-random_correct_rate = sum(random_detect_result)/length(random_detect_result)
