@@ -3,7 +3,8 @@
 clear
 
 %% Set up testing flags
-node_id = 1;
+node_id_1 = 6;
+node_id_2 = 4;
 
 %% Set up the testing pattern
 
@@ -24,7 +25,6 @@ pattern = pattern.*connected_nodes;
 pattern = pattern + pattern'; % make it symmetric
 % Generate a random vector represented the node atrs
 pattern_nodes_atrs = rand([1,pattern_size])*node_atr_weight_range;
-round(pattern_nodes_atrs(node_id))
 
 %% Set up the training sample
 
@@ -38,8 +38,8 @@ sample_connected_rate = pattern_connected_rate;
 % Preallocate samples cell array
 training_samples=zeros([1,number_of_training_samples]);
 % Noise Level
-node_noise_std = 0.4;
-edge_noise_std = 1;
+node_noise_std = 0.3;
+edge_noise_std = 0.5;
 
 
 for i = 1:number_of_training_samples
@@ -71,13 +71,13 @@ for i = 1:number_of_training_samples
     sample_nodes_atrs(inject_range)=sample_pattern_nodes_atrs;
         
     % Build up the sample ARG
-    training_samples(i) = round(sample_nodes_atrs(inject_starting_index-1+node_id));
+    training_samples(i) = sampleM(inject_starting_index-1+node_id_1,inject_starting_index-1+node_id_2);
 end
 
 %% Set up the testing sample
 
 % Number of Sample
-number_of_testing_samples = 80;
+number_of_testing_samples = 10000;
 % Preallocate samples cell array
 testing_samples=zeros([1,number_of_testing_samples]);
 
@@ -110,7 +110,7 @@ for i = 1:number_of_testing_samples
     sample_nodes_atrs(inject_range)=sample_pattern_nodes_atrs;
 
     % Build up the sample ARG
-    testing_samples(i) = round(sample_nodes_atrs(inject_starting_index-1+node_id));
+    testing_samples(i) = round(sampleM(inject_starting_index-1+node_id_1,inject_starting_index-1+node_id_2));
 end
 
 
@@ -133,5 +133,5 @@ for i = 1:number_of_random_samples
     % Generate a random vector represented the node atrs
     sample_nodes_atrs = rand([1,sample_size])*node_atr_weight_range;
     % Create the sample
-    random_samples(i) = round(sample_nodes_atrs(inject_starting_index-1+node_id));
+    random_samples(i) = round(sampleM(inject_starting_index-1+node_id_1,inject_starting_index-1+node_id_2));
 end
