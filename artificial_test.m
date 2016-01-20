@@ -28,7 +28,7 @@ pattern_nodes_atrs = rand([1,pattern_size])*node_atr_weight_range;
 %% Set up the training sample
 
 % Number of Sample
-number_of_training_samples = 25;
+number_of_training_samples = 40;
 % Set up the sample size range
 maximum_sample_size = pattern_size*2;
 size_range = pattern_size:maximum_sample_size;
@@ -37,18 +37,19 @@ sample_connected_rate = pattern_connected_rate;
 % Preallocate samples cell array
 training_samples=cell([1,number_of_training_samples]);
 % Noise Level
-noise_rate = 0.05;
+node_noise_std = 0.3;
+edge_noise_std = 0.5;
 
 
 for i = 1:number_of_training_samples
     % Permute pattern
     % add noise to the pattern
-    edge_noise = rand(pattern_size)*2-1; %-1~1
-    edge_noise = edge_noise*edge_atr_weight_range*noise_rate;
+    edge_noise = normrnd(0,1,pattern_size,pattern_size); %-1~1
+    edge_noise = edge_noise*edge_noise_std;
     sample_pattern = pattern + edge_noise.*(pattern~=0);
     % adding noise to node
-    node_noise = rand([1,pattern_size])*2-1;
-    node_noise = node_noise*node_atr_weight_range*noise_rate;
+    node_noise = normrnd(0,1,1,pattern_size);
+    node_noise = node_noise*node_noise_std;
     sample_pattern_nodes_atrs = pattern_nodes_atrs+node_noise;
     
     % Build Sample
@@ -80,7 +81,7 @@ end
 %% Generate a model
 
 % Set up model
-number_of_component = 4;
+number_of_component =6;
 trainStart=tic();
 
 mdl = sprMDL(training_samples,number_of_component);
@@ -112,12 +113,12 @@ testing_samples=cell([1,number_of_testing_samples]);
 for i = 1:number_of_testing_samples
     % Permute pattern
     % add noise to the pattern
-    edge_noise = rand(pattern_size)*2-1; %-1~1
-    edge_noise = edge_noise*edge_atr_weight_range*noise_rate;
+    edge_noise = normrnd(0,1,pattern_size,pattern_size); %-1~1
+    edge_noise = edge_noise*edge_noise_std;
     sample_pattern = pattern + edge_noise.*(pattern~=0);
     % adding noise to node
-    node_noise = rand([1,pattern_size])*2-1;
-    node_noise = node_noise*node_atr_weight_range*noise_rate;
+    node_noise = normrnd(0,1,1,pattern_size);
+    node_noise = node_noise*node_noise_std;
     sample_pattern_nodes_atrs = pattern_nodes_atrs+node_noise;
     
     % Build Sample
