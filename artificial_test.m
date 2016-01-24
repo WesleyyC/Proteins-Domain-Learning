@@ -8,7 +8,7 @@ view_pattern = 0;
 %% Set up the testing pattern
 
 % Pattern Size
-pattern_size = 20;
+pattern_size = 10;
 pattern_connected_rate = 4/pattern_size;
 % Node 
 node_atr_size = 1;
@@ -28,7 +28,7 @@ pattern_nodes_atrs = rand([1,pattern_size])*node_atr_weight_range;
 %% Set up the training sample
 
 % Number of Sample
-number_of_training_samples = 40;
+number_of_training_samples = 20;
 % Set up the sample size range
 maximum_sample_size = pattern_size*2;
 size_range = pattern_size:maximum_sample_size;
@@ -81,7 +81,7 @@ end
 %% Generate a model
 
 % Set up model
-number_of_component =6;
+number_of_component =4;
 trainStart=tic();
 
 mdl = sprMDL(training_samples,number_of_component);
