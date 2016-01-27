@@ -154,13 +154,12 @@ classdef sprMDL < handle & matlab.mixin.Copyable
         
         % Detect if a ARG has the same pattern
         function tf = checkSamePattern(obj, ARG)
-            score = 0;
-            for i = 1:obj.number_of_components
+            scores = zeros(1,obj.number_of_components);
+            parfor i = 1:obj.number_of_components
                [node_match_score,node_compatibility,edge_compatibility]=graph_matching(ARG,obj.mdl_ARGs{i},obj.BLOSUM);
-                score = score + ...
-                    sprMDL.component_score(node_match_score,node_compatibility,edge_compatibility,false) * obj.weight(i);
+               scores(i) = sprMDL.component_score(node_match_score,node_compatibility,edge_compatibility,false) * obj.weight(i);
             end
-            tf = score>=obj.thredshold_score;
+            tf = sum(scores)>=obj.thredshold_score;
         end
         
         % showing the pattern that this model summarized
@@ -233,16 +232,18 @@ classdef sprMDL < handle & matlab.mixin.Copyable
         function updateComponentStructure(obj,iter)
             % for each component
             for w = 1:obj.number_of_components
-                av_frequency=0;
-                prob_sum = 0;
+                av_frequency=zeros(obj.number_of_sample,obj.mdl_ARGs{w}.num_nodes);
+                prob_sum = zeros(1,obj.number_of_sample);
                 % for each sample
-                for j = 1:obj.number_of_sample
+                parfor j = 1:obj.number_of_sample
                     % we calculate the component node frequency in this
                     % specific sample
                     current_freq =sum(obj.node_match_scores{j,w});
-                    av_frequency=av_frequency+current_freq*obj.sample_component_matching_probs(j,w);
-                    prob_sum=prob_sum+obj.sample_component_matching_probs(j,w);
+                    av_frequency(j,:)=current_freq*obj.sample_component_matching_probs(j,w);
+                    prob_sum(j)=obj.sample_component_matching_probs(j,w);
                 end
+                av_frequency=sum(av_frequency);
+                prob_sum=sum(prob_sum);
                 % get the average matching probability
                 av_matching_prob = av_frequency/prob_sum;
                 % delet the node that is less tha the threshold 1-e^iter
@@ -291,6 +292,28 @@ classdef sprMDL < handle & matlab.mixin.Copyable
                 end
             end                     
         end
+        
+%         function updateComponentEdgeAtrs(obj)
+%             update_result = cell(1,obj.number_of_components);
+%             
+%             %for each component
+%             parfor h = 1:obj.number_of_components
+%                 sum_atrs = 0;
+%                 sum_denominator = 0;
+%                 %for each sample
+%                 for i = 1:obj.number_of_sample              
+%                     sum_atrs=sum_atrs+obj.node_match_scores{i,h}'*obj.sampleARGs{i}.edges_matrix*obj.node_match_scores{i,h}*obj.sample_component_matching_probs(i,h);
+%                     sum_denominator=sum_denominator+obj.node_match_scores{i,h}'*obj.node_match_scores{i,h}*obj.sample_component_matching_probs(i,h);
+%                 end
+%                 
+%                 % update the value
+%                 update_result{h}=sum_atrs./sum_denominator;
+%             end
+%             
+%             for h = 1:obj.number_of_components
+%                 obj.mdl_ARGs{h}.edges_matrix=update_result{h};
+%             end
+%         end
         
         % update the covariance matrix for each component edge
         function updateComponentEdgeCov(obj)
@@ -370,18 +393,20 @@ classdef sprMDL < handle & matlab.mixin.Copyable
         function updateComponentNodeFrequency(obj)
             % for each component
             for i = 1:obj.number_of_components
-                frequency=0;
-                sample_node_sum = 0;
+                frequency=zeros(obj.number_of_sample,obj.mdl_ARGs{i}.num_nodes);
+                sample_node_sum = zeros(1,obj.number_of_sample);
                 % for each sample
-                for j = 1:obj.number_of_sample
+                parfor j = 1:obj.number_of_sample
                     % we calculate the component node frequency in this
                     % specific sample
                     current_freq =sum(obj.node_match_scores{j,i});
-                    frequency=frequency+current_freq*obj.sample_component_matching_probs(j,i);
-                    sample_node_sum=sample_node_sum+obj.sampleARGs{j}.num_nodes*obj.sample_component_matching_probs(j,i);
+                    frequency(j,:)=current_freq*obj.sample_component_matching_probs(j,i);
+                    sample_node_sum(j)=obj.sampleARGs{j}.num_nodes*obj.sample_component_matching_probs(j,i);
                 end
                 % update the frequency for all the nodes in the model in
                 % the same time
+                frequency=sum(frequency);
+                sample_node_sum=sum(sample_node_sum);
                 obj.mdl_ARGs{i}.updateNodeFrequency(frequency/sample_node_sum);
             end    
         end
@@ -412,12 +437,18 @@ classdef sprMDL < handle & matlab.mixin.Copyable
             obj.edge_compatibilities = cell(size(obj.node_match_scores));
             
             for i=1:obj.number_of_sample
-                for j = 1:obj.number_of_components
+                i_node_match_scores=cell(1,obj.number_of_components);
+                i_node_compatibilities=cell(1,obj.number_of_components);
+                i_edge_compatibilities=cell(1,obj.number_of_components);
+                parfor j = 1:obj.number_of_components
                     [node_match_score,node_compatibility,edge_compatibility] = graph_matching(obj.sampleARGs{i},obj.mdl_ARGs{j},obj.BLOSUM);
-                    obj.node_match_scores{i,j}=node_match_score;
-                    obj.node_compatibilities{i,j}=node_compatibility;
-                    obj.edge_compatibilities{i,j}=edge_compatibility;
+                    i_node_match_scores{j}=node_match_score;
+                    i_node_compatibilities{j}=node_compatibility;
+                    i_edge_compatibilities{j}=edge_compatibility;
                 end
+                obj.node_match_scores(i,:)=i_node_match_scores;
+                obj.node_compatibilities(i,:)=i_node_compatibilities;
+                obj.edge_compatibilities(i,:)=i_edge_compatibilities;
             end
         end
     end
