@@ -353,13 +353,13 @@ classdef sprMDL < handle & matlab.mixin.Copyable
                                                 z_atrs'*z_atrs*obj.node_match_scores{i,h}(c,o)*obj.node_match_scores{i,h}(d,t);
                                             current_sample_denominator=current_sample_denominator+obj.node_match_scores{i,h}(c,o)*obj.node_match_scores{i,h}(d,t);
                                             %update experiment
-                                            obj.distance(obj.counter)=sqrt(z_atrs'*z_atrs);
-                                            obj.node_ab_match(obj.counter)=obj.node_match_scores{i,h}(c,o);
-                                            obj.node_cd_match(obj.counter)=obj.node_match_scores{i,h}(d,t);
-                                            obj.sample_match(obj.counter)=obj.sample_component_matching_probs(i,h);
-                                            obj.edge_match(obj.counter)=exp(-0.5*(z_atrs)*obj.mdl_ARGs{h}.edges{o,t}.getCovInv()*(z_atrs)')/((2*pi)^(1/2)*sqrt(det(obj.mdl_ARGs{h}.edges{o,t}.getCov())));
-                                            obj.base(obj.counter)=obj.base_counter;
-                                            obj.counter = obj.counter+1;
+%                                             obj.distance(obj.counter)=sqrt(z_atrs'*z_atrs);
+%                                             obj.node_ab_match(obj.counter)=obj.node_match_scores{i,h}(c,o);
+%                                             obj.node_cd_match(obj.counter)=obj.node_match_scores{i,h}(d,t);
+%                                             obj.sample_match(obj.counter)=obj.sample_component_matching_probs(i,h);
+%                                             obj.edge_match(obj.counter)=exp(-0.5*(z_atrs)*obj.mdl_ARGs{h}.edges{o,t}.getCovInv()*(z_atrs)')/((2*pi)^(1/2)*sqrt(det(obj.mdl_ARGs{h}.edges{o,t}.getCov())));
+%                                             obj.base(obj.counter)=obj.base_counter;
+%                                             obj.counter = obj.counter+1;
                                         end
                                     end
                                 end
