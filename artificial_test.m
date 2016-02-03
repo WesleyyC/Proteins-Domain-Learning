@@ -8,8 +8,8 @@ view_pattern = 0;
 %% Set up the testing pattern
 
 % Pattern Size
-pattern_size = 10;
-pattern_connected_rate = 4/pattern_size;
+pattern_size = 20;
+pattern_connected_rate = 0.4;
 % Node 
 node_atr_size = 1;
 node_atr_weight_range =20;
@@ -160,24 +160,6 @@ number_of_random_samples = number_of_testing_samples;
 random_samples=cell([1,number_of_random_samples]);
 
 for i = 1:number_of_random_samples
-
-%     % Generate a random matrix represented the pattern
-%     pattern = triu(rand(pattern_size)*edge_atr_weight_range,1);    %  upper left part of a random matrix with weight_range
-%     connected_nodes = triu(rand(pattern_size)<pattern_connected_rate,1);    % how many are connected
-%     pattern = pattern.*connected_nodes;
-%     pattern = pattern + pattern'; % make it symmetric
-%     % Generate a random vector represented the node atrs
-%     pattern_nodes_atrs = rand([1,pattern_size])*node_atr_weight_range;
-%     
-%     % Permute pattern
-%     % add noise to the pattern
-%     edge_noise = rand(pattern_size)*2-1; %-1~1
-%     edge_noise = edge_noise*0;
-%     sample_pattern = pattern + edge_noise;
-%     % adding noise to node
-%     node_noise = rand([1,pattern_size])*2-1;
-%     node_noise = node_noise*0;
-%     sample_pattern_nodes_atrs = pattern_nodes_atrs+node_noise;
     
     % Build Sample
     % pick a random size
@@ -189,47 +171,7 @@ for i = 1:number_of_random_samples
     sampleM = sampleM + sampleM'; % make it symmetric
     % Generate a random vector represented the node atrs
     sample_nodes_atrs = rand([1,sample_size])*node_atr_weight_range;
-    
-%     % Inject the pattern
-%     inject_starting_index = datasample(1:(sample_size-pattern_size+1),1);
-%     inject_range = inject_starting_index:(inject_starting_index+pattern_size-1);
-%     sampleM(inject_range,inject_range)=sample_pattern;
-%     sample_nodes_atrs(inject_range)=sample_pattern_nodes_atrs;
-%     
-%     % Permutate the sample
-%     idx = randperm(sample_size);
-%     sampleM = sampleM(idx,idx); 
-%     sample_nodes_atrs = sample_nodes_atrs(idx);
-%     
-%     % Generate a random matrix represented the pattern
-%     pattern = triu(rand(pattern_size)*edge_atr_weight_range,1);    %  upper left part of a random matrix with weight_range
-%     connected_nodes = triu(rand(pattern_size)<pattern_connected_rate,1);    % how many are connected
-%     pattern = pattern.*connected_nodes;
-%     pattern = pattern + pattern'; % make it symmetric
-%     % Generate a random vector represented the node atrs
-%     pattern_nodes_atrs = rand([1,pattern_size])*node_atr_weight_range;
-%     
-%     % Permute pattern
-%     % add noise to the pattern
-%     edge_noise = rand(pattern_size)*2-1; %-1~1
-%     edge_noise = edge_noise*0;
-%     sample_pattern = pattern + edge_noise;
-%     % adding noise to node
-%     node_noise = rand([1,pattern_size])*2-1;
-%     node_noise = node_noise*0;
-%     sample_pattern_nodes_atrs = pattern_nodes_atrs+node_noise;
-%     
-%     % Inject the pattern
-%     inject_starting_index = datasample(1:(sample_size-pattern_size+1),1);
-%     inject_range = inject_starting_index:(inject_starting_index+pattern_size-1);
-%     sampleM(inject_range,inject_range)=sample_pattern;
-%     sample_nodes_atrs(inject_range)=sample_pattern_nodes_atrs;
-%     
-%     % Permutate the sample
-%     idx = randperm(sample_size);
-%     sampleM = sampleM(idx,idx); 
-%     sample_nodes_atrs = sample_nodes_atrs(idx);
-%     
+        
     % Create the sample
     random_samples{i} = ARG(sampleM, protein_atr(sample_nodes_atrs));
 end

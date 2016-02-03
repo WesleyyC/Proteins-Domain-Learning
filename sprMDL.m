@@ -1,5 +1,3 @@
-
-
 classdef sprMDL < handle & matlab.mixin.Copyable
     %   SpatialPatternMDL is a generalization model of a kind of spatail
     %   pattern providing by a set of sample ARGs   
@@ -35,6 +33,19 @@ classdef sprMDL < handle & matlab.mixin.Copyable
         % BLOSUM Matrix
         BLOSUM = NaN;
         
+        
+        %exp
+        counter = 1
+        base_counter = 0;
+        base = zeros(1,2)
+        distance = zeros(1,2)
+        node_ab_match = zeros(1,2)
+        node_cd_match = zeros(1,2)
+        sample_match = zeros(1,2)
+        edge_match = zeros(1,2)
+        node_deleted = 0;
+        
+        
     end
     
     properties (Constant)
@@ -47,7 +58,7 @@ classdef sprMDL < handle & matlab.mixin.Copyable
         % so choose such number carefully
         % e_delete_base - e_delete_iter^iter
         e_delete_base = 1;
-        e_delete_iter = 0.95;
+        e_delete_iter = 0.8;
     end
     
     methods
@@ -225,6 +236,7 @@ classdef sprMDL < handle & matlab.mixin.Copyable
             obj.updateComponentEdgeCov();
             % update the component structure depends on the node frequency
             obj.updateComponentStructure(iter);
+            obj.base_counter = obj.base_counter+1;
             toc(EMRoundStart);
         end
         
@@ -250,6 +262,9 @@ classdef sprMDL < handle & matlab.mixin.Copyable
                 deleteIdx = av_matching_prob < obj.e_delete_base-obj.e_delete_iter^iter;
                 deleteIdx(end)=0; % the null node will always be remained
                 obj.mdl_ARGs{w}.modifyStructure(deleteIdx);
+                
+                %exp
+                obj.node_deleted=obj.node_deleted+length(find(deleteIdx));
             end
         end
         
@@ -337,6 +352,14 @@ classdef sprMDL < handle & matlab.mixin.Copyable
                                             current_sample_cov=current_sample_cov+...
                                                 z_atrs'*z_atrs*obj.node_match_scores{i,h}(c,o)*obj.node_match_scores{i,h}(d,t);
                                             current_sample_denominator=current_sample_denominator+obj.node_match_scores{i,h}(c,o)*obj.node_match_scores{i,h}(d,t);
+                                            %update experiment
+                                            obj.distance(obj.counter)=sqrt(z_atrs'*z_atrs);
+                                            obj.node_ab_match(obj.counter)=obj.node_match_scores{i,h}(c,o);
+                                            obj.node_cd_match(obj.counter)=obj.node_match_scores{i,h}(d,t);
+                                            obj.sample_match(obj.counter)=obj.sample_component_matching_probs(i,h);
+                                            obj.edge_match(obj.counter)=exp(-0.5*(z_atrs)*obj.mdl_ARGs{h}.edges{o,t}.getCovInv()*(z_atrs)')/((2*pi)^(1/2)*sqrt(det(obj.mdl_ARGs{h}.edges{o,t}.getCov())));
+                                            obj.base(obj.counter)=obj.base_counter;
+                                            obj.counter = obj.counter+1;
                                         end
                                     end
                                 end

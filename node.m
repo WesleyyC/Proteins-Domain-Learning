@@ -3,7 +3,7 @@ classdef node < handle
     %   node will have edge (also class) connected to it and its own
     %   attributes value represented with a vector
     
-    properties (GetAccess=public,SetAccess=private)
+    properties (GetAccess=public,SetAccess=public)
         % The attributes
         ID = NaN;   % ID needs to start with 1 and increment by 1 every new nodes
         ARG = NaN

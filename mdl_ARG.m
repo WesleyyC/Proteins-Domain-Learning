@@ -69,9 +69,21 @@ classdef mdl_ARG < handle
         % delete nodes in the model according to the given indexes
         function modifyStructure(obj,deletingNodes)
             obj.nodes(deletingNodes)=[];
+            obj.nodes_vector(deletingNodes)=[];
+            obj.nodes_frequency(deletingNodes)=[];
             obj.edges(deletingNodes,:)=[];
             obj.edges(:,deletingNodes)=[];
+            obj.edges_matrix(deletingNodes,:)=[];
+            obj.edges_matrix(:,deletingNodes)=[];
+            obj.edges_cov(deletingNodes,:)=[];
+            obj.edges_cov(:,deletingNodes)=[];
+            obj.edges_cov_inv(deletingNodes,:)=[];
+            obj.edges_cov_inv(:,deletingNodes)=[];
             obj.num_nodes=obj.num_nodes-length(find(deletingNodes));
+            
+            for i=1:obj.num_nodes
+                obj.nodes{i}.ID=i;
+            end
         end
         
         % return a vector of nodes frequency

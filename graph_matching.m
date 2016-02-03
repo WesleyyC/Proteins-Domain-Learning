@@ -62,7 +62,7 @@
         parfor p = 1:A*A
             % because edge atr is a single number, we can do some
             % modification to our orignal formula
-            C_e(p,:)=(exp(-(edges_atrs(p)-mdl_edges_atrs).*mdl_edges_cov_inv.*(edges_atrs(p)-mdl_edges_atrs))./...
+            C_e(p,:)=(exp(-0.5*(edges_atrs(p)-mdl_edges_atrs).*mdl_edges_cov_inv.*(edges_atrs(p)-mdl_edges_atrs))./...
                 ((2*pi)^(edge_num_atrs/2)*sqrt(mdl_edges_cov)))...
                 .*(edges_atrs(p)>0).*(mdl_edges_atrs>0);      
         end
@@ -194,7 +194,7 @@
             mdl_edge_cov_inv = mdl_edge.cov_inv;
 
             % calculate the score
-            c=exp(-(edge_atrs-mdl_edge_atrs)*mdl_edge_cov_inv*(edge_atrs-mdl_edge_atrs)')/...
+            c=exp(-0.5*(edge_atrs-mdl_edge_atrs)*mdl_edge_cov_inv*(edge_atrs-mdl_edge_atrs)')/...
                 ((2*pi)^(num_atrs/2)*sqrt(det(mdl_edge_cov)));
         end
     end
