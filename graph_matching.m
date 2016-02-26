@@ -17,7 +17,7 @@
     e_B = 0.5;
     e_C=0.05;    
     % node attriubute compatability weight
-    alpha = 1;
+    alpha = 0.01;
     
     flip = 0;
     if ~isa(ARG2,'mdl_ARG')
@@ -32,7 +32,7 @@
     I=ARG2.num_nodes;
     real_size = [A,I];
     % the size of the matrix with slacks
-    augment_size = real_size+1;
+    augment_size = real_size+[1,0];
     
     % set up the matrix
     % init a guest m_Head with 1+e
@@ -41,6 +41,8 @@
     m_Head = m_Init;
     % initial beta to beta_0
     beta = beta_0;
+%     m_Head(end,:)=e/2;
+%     m_Head(:,end)=e/2;
     
     % pre-calculate the node compatability
     % create an function handle for calculating compatibility
@@ -72,6 +74,12 @@
             fill_Ce(floor((p-1)/I)+1,p-(floor((p-1)/I))*I);
         end
     end
+    
+%     figure()
+%     imshow(normr(C_n),'InitialMagnification',2000)
+%     figure()
+%     imshow(normr(C_e))
+%     figure()
 
     % start matching  
     while beta<beta_f   % do A until beta is less than beta_f
@@ -96,7 +104,8 @@
             % Normalize Q to avoid NaN/0 produce from exp()
             Q=normr(Q);
             % Now update m_Head!
-            m_Head(1:A,1:I)=exp(beta*Q);
+%             m_Head(1:A,1:I)=exp(beta*Q);
+            m_Head(1:A,1:I)=normc(exp(beta*Q));
             
             converge_C = 0; % a flag for terminating process B
             I_C = 0;    % counting the iteration of C
@@ -109,14 +118,14 @@
                 
                 %normalize the row
                 s=sum(m_Head,2);
-                n=repmat(s,1,I+1);
-                %n(A+1,:)=ones(size(n(A+1,:)));
+                n=repmat(s,1,I);
+                n(end,:)=ones(size(n(end,:)));
                 m_One=m_Head./n;
                 
                 % normalize the column
                 s=sum(m_One,1);
                 n=repmat(s,A+1,1);
-                %n(:,I+1)=ones(size(n(:,I+1)));
+                n(:,end)=ones(size(n(:,end)));
                 m_Head=m_One./n;
                 
                 % check convergence
@@ -124,6 +133,7 @@
                 convergeC();
             end
             
+%             imshow(m_Head,'InitialMagnification',2000);
             % check convergence
             convergeB();
             

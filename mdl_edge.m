@@ -52,6 +52,7 @@ classdef mdl_edge < edge
             else
                 cov_inv = inv(mat);
             end 
+%             cov_inv = 1/mat;
         end
     end
     

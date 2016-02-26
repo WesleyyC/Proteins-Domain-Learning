@@ -58,7 +58,9 @@ classdef sprMDL < handle & matlab.mixin.Copyable
         % so choose such number carefully
         % e_delete_base - e_delete_iter^iter
         e_delete_base = 1;
-        e_delete_iter = 0.8;
+        e_delete_iter = 0.9;
+        % contribution max
+        max_edge_probability =1;
     end
     
     methods
@@ -349,21 +351,26 @@ classdef sprMDL < handle & matlab.mixin.Copyable
                                     for d =  1:obj.sampleARGs{i}.num_nodes
                                         if any(obj.sampleARGs{i}.edges{c,d}.getAtrs())
                                             z_atrs=obj.sampleARGs{i}.edges{c,d}.getAtrs()-obj.mdl_ARGs{h}.edges{o,t}.getAtrs();
-                                            current_sample_cov=current_sample_cov+...
-                                                z_atrs'*z_atrs*obj.node_match_scores{i,h}(c,o)*obj.node_match_scores{i,h}(d,t);
-                                            current_sample_denominator=current_sample_denominator+obj.node_match_scores{i,h}(c,o)*obj.node_match_scores{i,h}(d,t);
+                                            max_cap = 1-p_sigmf(abs(z_atrs),1,3);
+%                                             max_cap = 1;
+%                                             if abs(z_atrs)<=3
+                                                current_sample_cov=current_sample_cov+...
+                                                    z_atrs'*z_atrs*min(obj.node_match_scores{i,h}(c,o)*obj.node_match_scores{i,h}(d,t)*obj.sample_component_matching_probs(i,h),max_cap);
+                                                current_sample_denominator=current_sample_denominator+obj.node_match_scores{i,h}(c,o)*obj.node_match_scores{i,h}(d,t);
+%                                             end
                                             %update experiment
 %                                             obj.distance(obj.counter)=sqrt(z_atrs'*z_atrs);
 %                                             obj.node_ab_match(obj.counter)=obj.node_match_scores{i,h}(c,o);
 %                                             obj.node_cd_match(obj.counter)=obj.node_match_scores{i,h}(d,t);
 %                                             obj.sample_match(obj.counter)=obj.sample_component_matching_probs(i,h);
-%                                             obj.edge_match(obj.counter)=exp(-0.5*(z_atrs)*obj.mdl_ARGs{h}.edges{o,t}.getCovInv()*(z_atrs)')/((2*pi)^(1/2)*sqrt(det(obj.mdl_ARGs{h}.edges{o,t}.getCov())));
+%                                             obj.edge_match(obj.counter)=min(obj.node_match_scores{i,h}(c,o)*obj.node_match_scores{i,h}(d,t)*obj.sample_component_matching_probs(i,h),max_cap);
 %                                             obj.base(obj.counter)=obj.base_counter;
 %                                             obj.counter = obj.counter+1;
                                         end
                                     end
                                 end
-                                cov=cov+current_sample_cov*obj.sample_component_matching_probs(i,h);
+                                cov=cov+current_sample_cov;
+%                                 cov=cov+current_sample_cov*obj.sample_component_matching_probs(i,h);
                                 denominator = denominator + current_sample_denominator*obj.sample_component_matching_probs(i,h);
                             end
                             % update the value

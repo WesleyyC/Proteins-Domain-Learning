@@ -2,6 +2,31 @@
 
 clear
 
+%%
+BLOSUM_Sigma = 2;
+C=[9,-1,-1,-3,0,-3,-3,-3,-4,-3,-3,-3,-3,-1,-1,-1,-1,-2,-2,-2];
+S=[-1,4,1,-1,1,0,1,0,0,0,-1,-1,0,-1,-2,-2,-2,-2,-2,-3];
+T=[-1,1,4,1,-1,1,0,1,0,0,0,-1,0,-1,-2,-2,-2,-2,-2,-3];
+P=[-3,-1,1,7,-1,-2,-1,-1,-1,-1,-2,-2,-1,-2,-3,-3,-2,-4,-3,-4];
+A=[0,1,-1,-1,4,0,-1,-2,-1,-1,-2,-1,-1,-1,-1,-1,-2,-2,-2,-3];
+G=[-3,0,1,-2,0,6,-2,-1,-2,-2,-2,-2,-2,-3,-4,-4,0,-3,-3,-2];
+N=[-3,1,0,-2,-2,0,6,1,0,0,-1,0,0,-2,-3,-3,-3,-3,-2,-4];
+D=[-3,0,1,-1,-2,-1,1,6,2,0,-1,-2,-1,-3,-3,-4,-3,-3,-3,-4];
+E=[-4,0,0,-1,-1,-2,0,2,5,2,0,0,1,-2,-3,-3,-3,-3,-2,-3];
+Q=[-3,0,0,-1,-1,-2,0,0,2,5,0,1,1,0,-3,-2,-2,-3,-1,-2];
+H=[-3,-1,0,-2,-2,-2,1,1,0,0,8,0,-1,-2,-3,-3,-2,-1,2,-2];
+R=[-3,-1,-1,-2,-1,-2,0,-2,0,1,0,5,2,-1,-3,-2,-3,-3,-2,-3];
+K=[-3,0,0,-1,-1,-2,0,-1,1,1,-1,2,5,-1,-3,-2,-3,-3,-2,-3];
+M=[-1,-1,-1,-2,-1,-3,-2,-3,-2,0,-2,-1,-1,5,1,2,-2,0,-1,-1];
+I=[-1,-2,-2,-3,-1,-4,-3,-3,-3,-3,-3,-3,-3,1,4,2,1,0,-1,-3];
+L=[-1,-2,-2,-3,-1,-4,-3,-4,-3,-2,-3,-2,-2,2,2,4,3,0,-1,-2];
+V=[-1,-2,-2,-2,0,-3,-3,-3,-2,-2,-3,-3,-2,1,3,1,4,-1,-1,-3];
+F=[-2,-2,-2,-4,-2,-3,-3,-3,-3,-3,-1,-3,-3,0,0,0,-1,6,3,1];
+Y=[-2,-2,-2,-3,-2,-3,-2,-3,-2,-1,2,-2,-2,-1,-1,-1,-1,3,7,2];
+W=[-2,-3,-3,-4,-3,-2,-4,-4,-3,-2,-2,-3,-3,-1,-3,-2,-3,1,2,11];
+BLOSUM=[C',S',T',P',A',G',N',D',E',Q',H',R',K',M',I',L',V',F',Y',W'];
+BLOSUM=exp(BLOSUM/BLOSUM_Sigma);
+
 %% Set up testing flags
 view_pattern = 0;
 
@@ -40,7 +65,7 @@ training_samples=cell([1,number_of_training_samples]);
 node_noise_std = 0.3;
 edge_noise_std = 0.5;
 
-
+% figure()
 for i = 1:number_of_training_samples
     % Permute pattern
     % add noise to the pattern
@@ -70,9 +95,22 @@ for i = 1:number_of_training_samples
     sample_nodes_atrs(inject_range)=sample_pattern_nodes_atrs;
     
     % Permutate the sample
-    idx = randperm(sample_size);
-    sampleM = sampleM(idx,idx);
-    sample_nodes_atrs = sample_nodes_atrs(idx);
+%     idx = randperm(sample_size);
+%     clearvars rev;  % the rev memory will mess up the indexes so clear it before we generate the new rev
+%     rev(idx)=1:sample_size;
+%     sampleM = sampleM(idx,idx);
+%     sample_nodes_atrs = sample_nodes_atrs(idx);
+    
+    % matching test
+    % reverse
+    % check diagnol line
+    training = ARG(sampleM, protein_atr(sample_nodes_atrs));
+    original = ARG(pattern,protein_atr(pattern_nodes_atrs));
+    original = mdl_ARG(original);
+    match=graph_matching(training,original,BLOSUM);
+%     match=[match(rev,:);match(end,:)];
+%     imshow(match,'InitialMagnification',2000)
+    
         
     % Build up the sample ARG
     training_samples{i} = ARG(sampleM, protein_atr(sample_nodes_atrs));
@@ -81,7 +119,7 @@ end
 %% Generate a model
 
 % Set up model
-number_of_component =4;
+number_of_component =3;
 trainStart=tic();
 
 mdl = sprMDL(training_samples,number_of_component);
@@ -111,6 +149,7 @@ number_of_testing_samples = 80;
 testing_samples=cell([1,number_of_testing_samples]);
 
 for i = 1:number_of_testing_samples
+    
     % Permute pattern
     % add noise to the pattern
     edge_noise = normrnd(0,1,pattern_size,pattern_size); %-1~1
