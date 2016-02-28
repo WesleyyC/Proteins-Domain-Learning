@@ -33,7 +33,7 @@ view_pattern = 0;
 %% Set up the testing pattern
 
 % Pattern Size
-pattern_size = 20;
+pattern_size = 15;
 pattern_connected_rate = 0.4;
 % Node 
 node_atr_size = 1;
@@ -104,13 +104,18 @@ for i = 1:number_of_training_samples
     % matching test
     % reverse
     % check diagnol line
-    training = ARG(sampleM, protein_atr(sample_nodes_atrs));
-    original = ARG(pattern,protein_atr(pattern_nodes_atrs));
-    original = mdl_ARG(original);
-    match=graph_matching(training,original,BLOSUM);
+%     training = ARG(sampleM, protein_atr(sample_nodes_atrs));
+%     original = ARG(pattern,protein_atr(pattern_nodes_atrs));
+%     original = mdl_ARG(original);
+%     match=graph_matching(training,original,BLOSUM);
 %     match=[match(rev,:);match(end,:)];
 %     imshow(match,'InitialMagnification',2000)
-    
+%     training=mdl_ARG(training);
+%     for k=1:i-1
+%         match=graph_matching(training_samples{k},training,BLOSUM);
+%         imshow(match,'InitialMagnification',2000)
+%     end
+%     
         
     % Build up the sample ARG
     training_samples{i} = ARG(sampleM, protein_atr(sample_nodes_atrs));

@@ -78,8 +78,6 @@
 %     figure()
 %     imshow(normr(C_n),'InitialMagnification',2000)
 %     figure()
-%     imshow(normr(C_e))
-%     figure()
 
     % start matching  
     while beta<beta_f   % do A until beta is less than beta_f
@@ -143,7 +141,8 @@
         
         beta=beta_r*beta;
     end
-    
+%     imshow(m_Head,'InitialMagnification',2000);
+
     % get the match_matrix in real size
     match_matrix = heuristic(m_Head,A,I);
     

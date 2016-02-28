@@ -85,12 +85,12 @@ classdef sprMDL < handle & matlab.mixin.Copyable
             % Assigning Weight to 1
             obj.weight = ones([1,number_of_components])/number_of_components;
             
-            % Randoming pick component from sampleARGs
-            idx = randperm(length(sampleARGs)); % we first permutate the index for randomness
-            idx = idx(1:number_of_components);  % take what we need
-            comp_ARG = sampleARGs(idx);
-            % Now convert it to model ARG
-            obj.mdl_ARGs=cellfun(@mdl_ARG,comp_ARG,'UniformOutput',false); 
+%             % Randoming pick component from sampleARGs
+%             idx = randperm(length(sampleARGs)); % we first permutate the index for randomness
+%             idx = idx(1:number_of_components);  % take what we need
+%             comp_ARG = sampleARGs(idx);
+%             % Now convert it to model ARG
+%             obj.mdl_ARGs=cellfun(@mdl_ARG,comp_ARG,'UniformOutput',false);  
             
             % Build BLOSUM matrix
             BLOSUM_Sigma = 2;
@@ -117,6 +117,20 @@ classdef sprMDL < handle & matlab.mixin.Copyable
             BLOSUM=[C',S',T',P',A',G',N',D',E',Q',H',R',K',M',I',L',V',F',Y',W'];
             BLOSUM=exp(BLOSUM/BLOSUM_Sigma);
             obj.BLOSUM = BLOSUM;
+            
+            % Pick Components
+            scores=zeros(length(sampleARGs));
+            for i = 1:length(sampleARGs)
+                for j = 1:length(sampleARGs)
+                    scores(i,j)=obj.getSampleSimilarity(sampleARGs{i},sampleARGs{j});
+                end
+            end            
+            total_scores=(sum(scores,1)+sum(scores,2)')/2;
+            [~,I]=sort(total_scores,'descend');
+            idx=I(1:number_of_components);
+            comp_ARG = sampleARGs(idx);
+            % Now convert it to model ARG
+            obj.mdl_ARGs=cellfun(@mdl_ARG,comp_ARG,'UniformOutput',false);
             
             % Train the model with the sample
             obj.trainModel();
@@ -163,6 +177,24 @@ classdef sprMDL < handle & matlab.mixin.Copyable
                 pattern = NaN;                
             end
                 
+        end
+        
+        % Get the thredshold score for confimrming pattern
+        function score = getSampleSimilarity(obj,ARG1,ARG2)
+            
+            match=graph_matching(ARG1,mdl_ARG(ARG2),obj.BLOSUM);
+            
+            match=match(:,1:(end-1));
+            if size(match,1)>size(match,2)
+                match=match';
+            end
+%             imshow(match,'InitialMagnification',2000)
+            score=0;
+            for i=1:size(match,1)
+                score=score+max(match(i,:));
+            end
+            
+            score=score/size(match,1);
         end
         
         % Detect if a ARG has the same pattern
