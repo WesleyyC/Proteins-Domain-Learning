@@ -33,7 +33,7 @@ view_pattern = 0;
 %% Set up the testing pattern
 
 % Pattern Size
-pattern_size = 15;
+pattern_size = 20;
 pattern_connected_rate = 0.4;
 % Node 
 node_atr_size = 1;
@@ -52,18 +52,18 @@ pattern_nodes_atrs = rand([1,pattern_size])*node_atr_weight_range;
 
 %% Set up the training sample
 
+% Noise Level
+node_noise_std = 0.3;
+edge_noise_std = 0.5;
 % Number of Sample
 number_of_training_samples = 20;
 % Set up the sample size range
-maximum_sample_size = pattern_size*2;
+maximum_sample_size = pattern_size*1.4;
 size_range = pattern_size:maximum_sample_size;
 % Set up the sample connected rate
 sample_connected_rate = pattern_connected_rate;
 % Preallocate samples cell array
 training_samples=cell([1,number_of_training_samples]);
-% Noise Level
-node_noise_std = 0.3;
-edge_noise_std = 0.5;
 
 % figure()
 for i = 1:number_of_training_samples
@@ -104,18 +104,17 @@ for i = 1:number_of_training_samples
     % matching test
     % reverse
     % check diagnol line
-%     training = ARG(sampleM, protein_atr(sample_nodes_atrs));
-%     original = ARG(pattern,protein_atr(pattern_nodes_atrs));
-%     original = mdl_ARG(original);
-%     match=graph_matching(training,original,BLOSUM);
+    training = ARG(sampleM, protein_atr(sample_nodes_atrs));
+    original = ARG(pattern,protein_atr(pattern_nodes_atrs));
+    original = mdl_ARG(original);
+    match=graph_matching(training,original,BLOSUM);
 %     match=[match(rev,:);match(end,:)];
-%     imshow(match,'InitialMagnification',2000)
-%     training=mdl_ARG(training);
-%     for k=1:i-1
-%         match=graph_matching(training_samples{k},training,BLOSUM);
-%         imshow(match,'InitialMagnification',2000)
-%     end
-%     
+    imshow(match,'InitialMagnification',2000)
+    training=mdl_ARG(training);
+    for k=1:i-1
+        match=graph_matching(training_samples{k},training,BLOSUM);
+        imshow(match,'InitialMagnification',1000)
+    end     
         
     % Build up the sample ARG
     training_samples{i} = ARG(sampleM, protein_atr(sample_nodes_atrs));
@@ -210,7 +209,7 @@ for i = 1:number_of_random_samples
     sample_size = datasample(size_range,1);
     % Generate a Random Matrix
     sampleM = triu(rand(sample_size)*edge_atr_weight_range,1);    %  upper left part of a random matrix with weight_range
-    connected_nodes = triu(rand(sample_size)<sample_connected_rate*0.8,1);    % how many are connected
+    connected_nodes = triu(rand(sample_size)<sample_connected_rate,1);    % how many are connected
     sampleM = sampleM.*connected_nodes;
     sampleM = sampleM + sampleM'; % make it symmetric
     % Generate a random vector represented the node atrs

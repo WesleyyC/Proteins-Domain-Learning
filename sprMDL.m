@@ -33,6 +33,9 @@ classdef sprMDL < handle & matlab.mixin.Copyable
         % BLOSUM Matrix
         BLOSUM = NaN;
         
+        idx=NaN;
+        initial_component_score=NaN;
+        
         
         %exp
         counter = 1
@@ -124,10 +127,18 @@ classdef sprMDL < handle & matlab.mixin.Copyable
                 for j = 1:length(sampleARGs)
                     scores(i,j)=obj.getSampleSimilarity(sampleARGs{i},sampleARGs{j});
                 end
-            end            
+            end
+            obj.initial_component_score=scores;
             total_scores=(sum(scores,1)+sum(scores,2)')/2;
-            [~,I]=sort(total_scores,'descend');
+            
+            ARG_size_handle = @(ARG)ARG.num_nodes;
+            sampleSizes=cellfun(ARG_size_handle,sampleARGs);
+            
+            norm_total_scores=total_scores;%.*sampleSizes;
+            
+            [~,I]=sort(norm_total_scores,'descend');
             idx=I(1:number_of_components);
+            obj.idx=idx;
             comp_ARG = sampleARGs(idx);
             % Now convert it to model ARG
             obj.mdl_ARGs=cellfun(@mdl_ARG,comp_ARG,'UniformOutput',false);

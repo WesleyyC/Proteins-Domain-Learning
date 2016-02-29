@@ -17,11 +17,11 @@ start_sequence_one = 1;
 end_sequence_one = 50;
 
 proteinTwoFile = 'new_4Q59_CH.csv';
-start_sequence_two = 1;
+start_sequence_two = 2;
 end_sequence_two = 50;
 
-[proteinOneARG,p1] = GenerateProteinARGs(start_sequence_one,end_sequence_one, proteinOneFile,distance_cutoff);
-[proteinTwoARG,p2] = GenerateProteinARGs(start_sequence_two,end_sequence_two, proteinTwoFile,distance_cutoff);
+[proteinOneARG,p1,pp1] = GenerateProteinARGs(start_sequence_one,end_sequence_one, proteinOneFile,distance_cutoff);
+[proteinTwoARG,p2,pp2] = GenerateProteinARGs(start_sequence_two,end_sequence_two, proteinTwoFile,distance_cutoff);
 
 
 %% Generate BLOSSUM
@@ -59,8 +59,8 @@ BLOSUM=BLOSUM./n;
 
 %% Match the prote
 
-[match,score] = graph_matching(proteinOneARG, proteinTwoARG,BLOSUM);
-figure; imshow(match);
+[match,score] = graph_matching(proteinOneARG, mdl_ARG(proteinTwoARG),BLOSUM);
+figure; imshow(match*10,'InitialMagnification',2000);
 if(draw_flag)
     draw(p1,p2,match,score);
 end
