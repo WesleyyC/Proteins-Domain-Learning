@@ -12,13 +12,13 @@ save = 0;
 
 %% Set Up Protein
 
-proteinOneFile = 'new_4D1E_CH.csv';
-start_sequence_one = 20;
-end_sequence_one = 100;
+proteinOneFile = 'new_1JYU_5_80.csv';
+start_sequence_one = 1;
+end_sequence_one = 96;
 
-proteinTwoFile = 'new_4Q59_CH.csv';
-start_sequence_two = 2;
-end_sequence_two = 70;
+proteinTwoFile = 'new_1XA6_54_127.csv';
+start_sequence_two = 1;
+end_sequence_two = 200;
 
 [proteinOneARG,p1,pp1] = GenerateProteinARGs(start_sequence_one,end_sequence_one, proteinOneFile,distance_cutoff);
 [proteinTwoARG,p2,pp2] = GenerateProteinARGs(start_sequence_two,end_sequence_two, proteinTwoFile,distance_cutoff);

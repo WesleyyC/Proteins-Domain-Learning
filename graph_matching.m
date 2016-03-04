@@ -9,8 +9,9 @@
     % beta is the converging for getting the maximize number
     beta_0 = 0.5;
     beta_f = 10;
-    beta_f = 100;
+    beta_f = 300;
     beta_r = 1.075;
+    beta_r = 1.05;
     % I control the iteration number for each round
     I_0 = 4;
     I_0 = 100;
@@ -18,10 +19,10 @@
     % e control a range
     e_B = 0.5;
     e_C=0.05; 
-    e_B = 0.1;
-    e_C=0.01; 
+    e_B = 0.01;
+    e_C=0.001; 
     % node attriubute compatability weight
-    alpha = 0.1;
+    alpha = 0.01;
     
     flip = 0;
     if ~isa(ARG2,'mdl_ARG')
@@ -80,7 +81,7 @@
     end
     
 %     figure()
-%     imshow(normr(C_n),'InitialMagnification',2000)
+    imshow(normr(C_n),'InitialMagnification',2000)
 %     figure()
 
     % start matching  
@@ -135,7 +136,7 @@
                 convergeC();
             end
             
-%             imshow(m_Head,'InitialMagnification',2000);
+            imshow(m_Head,'InitialMagnification',2000);
             % check convergence
             convergeB();
             

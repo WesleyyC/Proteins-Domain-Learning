@@ -37,7 +37,7 @@ pattern_size = 20;
 pattern_connected_rate = 0.4;
 % Node 
 node_atr_size = 1;
-node_atr_weight_range =20;
+node_atr_weight_range =19;
 % Edge
 edge_atr_size = 1;
 edge_atr_weight_range =14;
@@ -48,13 +48,14 @@ connected_nodes = triu(rand(pattern_size)<pattern_connected_rate,1);    % how ma
 pattern = pattern.*connected_nodes;
 pattern = pattern + pattern'; % make it symmetric
 % Generate a random vector represented the node atrs
-pattern_nodes_atrs = rand([1,pattern_size])*node_atr_weight_range;
+pattern_nodes_atrs = rand([1,pattern_size])*node_atr_weight_range+1;
 
 %% Set up the training sample
 
 % Noise Level
 node_noise_std = 0;
-edge_noise_std = 0;
+edge_noise_std = 1;
+node_noise_flag = 1;
 % Number of Sample
 number_of_training_samples = 20;
 % Set up the sample size range
@@ -65,7 +66,7 @@ sample_connected_rate = pattern_connected_rate;
 % Preallocate samples cell array
 training_samples=cell([1,number_of_training_samples]);
 
-% figure()
+figure()
 for i = 1:number_of_training_samples
     % Permute pattern
     % add noise to the pattern
@@ -86,7 +87,7 @@ for i = 1:number_of_training_samples
     sampleM = sampleM.*connected_nodes;
     sampleM = sampleM + sampleM'; % make it symmetric
     % Generate a random vector represented the node atrs
-    sample_nodes_atrs = rand([1,sample_size])*node_atr_weight_range;
+    sample_nodes_atrs = rand([1,sample_size])*node_atr_weight_range+1;
     
     % Inject the pattern
     inject_starting_index = datasample(1:(sample_size-pattern_size+1),1);
@@ -104,7 +105,7 @@ for i = 1:number_of_training_samples
     % matching test
     % reverse
     % check diagnol line
-    training = ARG(sampleM, protein_atr(sample_nodes_atrs,0));
+    training = ARG(sampleM, protein_atr(sample_nodes_atrs,node_noise_flag));
     original = ARG(pattern,protein_atr(pattern_nodes_atrs,0));
     original = mdl_ARG(original);
     match=graph_matching(training,original,BLOSUM);
@@ -117,7 +118,7 @@ for i = 1:number_of_training_samples
     end     
         
     % Build up the sample ARG
-    training_samples{i} = ARG(sampleM, protein_atr(sample_nodes_atrs,1));
+    training_samples{i} = ARG(sampleM, protein_atr(sample_nodes_atrs,node_noise_flag));
 end
 
 %% Generate a model
@@ -133,7 +134,7 @@ toc(trainStart);
 %% Test Result
 
 % check if the model can detect the base pattern
-detect_pattern = mdl.checkSamePattern(ARG(pattern,protein_atr(pattern_nodes_atrs)))
+detect_pattern = mdl.checkSamePattern(ARG(pattern,protein_atr(pattern_nodes_atrs,0)))
 
 % show the pattern and model pattern if the flag is up
 if view_pattern
@@ -173,7 +174,7 @@ for i = 1:number_of_testing_samples
     sampleM = sampleM.*connected_nodes;
     sampleM = sampleM + sampleM'; % make it symmetric
     % Generate a random vector represented the node atrs
-    sample_nodes_atrs = rand([1,sample_size])*node_atr_weight_range;
+    sample_nodes_atrs = rand([1,sample_size])*node_atr_weight_range+1;
     
     % Inject the pattern
     inject_starting_index = datasample(1:(sample_size-pattern_size+1),1);
@@ -187,7 +188,7 @@ for i = 1:number_of_testing_samples
     sample_nodes_atrs = sample_nodes_atrs(idx);
         
     % Build up the sample ARG
-    testing_samples{i} = ARG(sampleM, protein_atr(sample_nodes_atrs));
+    testing_samples{i} = ARG(sampleM, protein_atr(sample_nodes_atrs,node_noise_flag));
 end
 
 % check the testing sample
@@ -213,10 +214,10 @@ for i = 1:number_of_random_samples
     sampleM = sampleM.*connected_nodes;
     sampleM = sampleM + sampleM'; % make it symmetric
     % Generate a random vector represented the node atrs
-    sample_nodes_atrs = rand([1,sample_size])*node_atr_weight_range;
+    sample_nodes_atrs = rand([1,sample_size])*node_atr_weight_range+1;
         
     % Create the sample
-    random_samples{i} = ARG(sampleM, protein_atr(sample_nodes_atrs));
+    random_samples{i} = ARG(sampleM, protein_atr(sample_nodes_atrs,node_noise_flag));
 end
 
 % check the random sample

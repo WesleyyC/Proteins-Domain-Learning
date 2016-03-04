@@ -41,16 +41,6 @@ function [ output_args ] = protein_atr( input_args, noise )
     for i = 1 : length(input_args)
         
         k = input_args(i);
-        if k<1
-            k=1;
-        elseif k>20
-            k = 20;
-        end
-        
-%         start_i = 1;
-%         if k>1 
-%             start_i = k-1;
-%         end
 
         if noise
             row=BLOSUM(k,:);
