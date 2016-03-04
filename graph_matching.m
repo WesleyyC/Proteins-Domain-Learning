@@ -9,15 +9,17 @@
     % beta is the converging for getting the maximize number
     beta_0 = 0.5;
     beta_f = 10;
-%     beta_f = 50;
+    beta_f = 100;
     beta_r = 1.075;
     % I control the iteration number for each round
     I_0 = 4;
-%     I_0 = 50;
+    I_0 = 100;
     I_1 = 30;
     % e control a range
     e_B = 0.5;
-    e_C=0.05;    
+    e_C=0.05; 
+    e_B = 0.1;
+    e_C=0.01; 
     % node attriubute compatability weight
     alpha = 0.1;
     

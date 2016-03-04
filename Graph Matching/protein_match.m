@@ -1,6 +1,6 @@
 %% Script for matching the protein
 tic();
-draw_flag = 0;
+draw_flag = 1;
 
 %% Set Up Edge and Node Attribute
 
@@ -12,11 +12,11 @@ save = 0;
 
 %% Set Up Protein
 
-proteinOneFile = 'new_4KXT_Piwi.csv';
+proteinOneFile = 'new_4D1E_CH.csv';
 start_sequence_one = 1;
 end_sequence_one = 100;
 
-proteinTwoFile = 'new_4W5N_Piwi.csv';
+proteinTwoFile = 'new_4Q59_CH.csv';
 start_sequence_two = 1;
 end_sequence_two = 100;
 

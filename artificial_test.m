@@ -53,12 +53,12 @@ pattern_nodes_atrs = rand([1,pattern_size])*node_atr_weight_range;
 %% Set up the training sample
 
 % Noise Level
-node_noise_std = 0.3;
-edge_noise_std = 0.5;
+node_noise_std = 0;
+edge_noise_std = 0;
 % Number of Sample
 number_of_training_samples = 20;
 % Set up the sample size range
-maximum_sample_size = pattern_size*1.4;
+maximum_sample_size = pattern_size*2;
 size_range = pattern_size:maximum_sample_size;
 % Set up the sample connected rate
 sample_connected_rate = pattern_connected_rate;
@@ -75,7 +75,7 @@ for i = 1:number_of_training_samples
     % adding noise to node
     node_noise = normrnd(0,1,1,pattern_size);
     node_noise = node_noise*node_noise_std;
-    sample_pattern_nodes_atrs = pattern_nodes_atrs+node_noise;
+    sample_pattern_nodes_atrs = pattern_nodes_atrs;%+node_noise;
     
     % Build Sample
     % pick a random size
@@ -104,8 +104,8 @@ for i = 1:number_of_training_samples
     % matching test
     % reverse
     % check diagnol line
-    training = ARG(sampleM, protein_atr(sample_nodes_atrs));
-    original = ARG(pattern,protein_atr(pattern_nodes_atrs));
+    training = ARG(sampleM, protein_atr(sample_nodes_atrs,0));
+    original = ARG(pattern,protein_atr(pattern_nodes_atrs,0));
     original = mdl_ARG(original);
     match=graph_matching(training,original,BLOSUM);
 %     match=[match(rev,:);match(end,:)];
@@ -113,11 +113,11 @@ for i = 1:number_of_training_samples
     training=mdl_ARG(training);
     for k=1:i-1
         match=graph_matching(training_samples{k},training,BLOSUM);
-        imshow(match,'InitialMagnification',1000)
+        imshow(match,'InitialMagnification',2000)
     end     
         
     % Build up the sample ARG
-    training_samples{i} = ARG(sampleM, protein_atr(sample_nodes_atrs));
+    training_samples{i} = ARG(sampleM, protein_atr(sample_nodes_atrs,1));
 end
 
 %% Generate a model

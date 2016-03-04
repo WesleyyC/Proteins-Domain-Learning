@@ -1,4 +1,4 @@
-function [ output_args ] = protein_atr( input_args )
+function [ output_args ] = protein_atr( input_args, noise )
 %UNTITLED2 Summary of this function goes here
 %   Detailed explanation goes here
 
@@ -26,8 +26,10 @@ function [ output_args ] = protein_atr( input_args )
     W=[-2,-3,-3,-4,-3,-2,-4,-4,-3,-2,-2,-3,-3,-1,-3,-2,-3,1,2,11];
     BLOSUM=[C',S',T',P',A',G',N',D',E',Q',H',R',K',M',I',L',V',F',Y',W'];
     BLOSUM=exp(BLOSUM/BLOSUM_Sigma);
-
-    BLOSUM=normr(BLOSUM);
+    
+    s=sum(BLOSUM,2);
+    n=repmat(s,1,20);
+    BLOSUM=BLOSUM./n;
 
     for i = 2:20
         BLOSUM(:,i)=BLOSUM(:,i)+BLOSUM(:,i-1);
@@ -49,15 +51,17 @@ function [ output_args ] = protein_atr( input_args )
 %         if k>1 
 %             start_i = k-1;
 %         end
-% 
-%         row=BLOSUM(k,:);
-%         for j = start_i:20
-%             r=rand();
-%             if r<row(j)
-%                 k=j;
-%                 break;
-%             end
-%         end    
+
+        if noise
+            row=BLOSUM(k,:);
+            for j = 1:20
+                r=rand();
+                if r<row(j)
+                    k=j;
+                    break;
+                end
+            end  
+        end
         
         atr = zeros(1,20);
         atr(k) = 1;
