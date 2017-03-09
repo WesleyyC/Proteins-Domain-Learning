@@ -1,2 +1,3 @@
-# Graph-Sequence-Alignment
-Sequence Alignment under Graph Matching
+# Protein Domain Learning
+
+Pattern learning for protein domain
