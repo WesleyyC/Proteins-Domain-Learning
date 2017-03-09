@@ -22,7 +22,7 @@
     e_B = 0.01;
     e_C=0.001; 
     % node attriubute compatability weight
-    alpha = 0.01;
+    alpha = 1;
     
     flip = 0;
     if ~isa(ARG2,'mdl_ARG')
@@ -80,8 +80,8 @@
         end
     end
     
-%     figure()
-    imshow(normr(C_n),'InitialMagnification',2000)
+    figure()
+    imshow(normr(C_n),'InitialMagnification',800)
 %     figure()
 
     % start matching  
@@ -136,7 +136,7 @@
                 convergeC();
             end
             
-            imshow(m_Head,'InitialMagnification',2000);
+%             imshow(m_Head,'InitialMagnification',2000);
             % check convergence
             convergeB();
             

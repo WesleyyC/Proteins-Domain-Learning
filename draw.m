@@ -1,4 +1,4 @@
-function [] = draw(p1,p2,match,score,matchStart,matchEnd)
+function [] = draw(p1,p2,match,score,matchStart,matchEnd,highlight)
 
     % pre-processed
     if(size(p1,1)<size(p2,1))
@@ -7,6 +7,9 @@ function [] = draw(p1,p2,match,score,matchStart,matchEnd)
         p2=tmp;
         match=match';
     end
+    
+    match=match(:,1:end-1);
+    score=score(:,1:end-1);
     
     % shift to the center
     p1(:,3)=p1(:,3)-mean(p1(:,3));
@@ -55,7 +58,7 @@ function [] = draw(p1,p2,match,score,matchStart,matchEnd)
         x1=p1(i,3);
         y1=p1(i,4);
         z1=p1(i,5);
-        p2i = find(match(i,:));
+        p2i = find(match(i,:)>0.5);
         color_depth = score(i, p2i);
         % round color_depth to 0.33/0.66/0.99
         color_depth = ceil(3*color_depth)/3;
@@ -70,9 +73,30 @@ function [] = draw(p1,p2,match,score,matchStart,matchEnd)
             plot3([x2,x2],[y2,y2],[z2,z2],'.g','MarkerSize',20);
             plot3(X,Y,Z,':','LineWidth',0.8,'Color',[color_depth color_depth color_depth]);
             hold on
-        end
+        end   
     end
-   
+
+    for i=highlight
+        x1=p1(i,3);
+        y1=p1(i,4);
+        z1=p1(i,5);
+        p2i = find(match(i,:)>0.5);
+        color_depth = score(i, p2i);
+        % round color_depth to 0.33/0.66/0.99
+        if ~isempty(p2i)
+            x2=p2(p2i,3);
+            y2=p2(p2i,4);
+            z2=p2(p2i,5);
+            X=[x1,x2]';
+            Y=[y1,y2]';
+            Z=[z1,z2]';
+            plot3([x1,x1],[y1,y1],[z1,z1],'.r','MarkerSize',20);
+            plot3([x2,x2],[y2,y2],[z2,z2],'.g','MarkerSize',20);
+            plot3(X,Y,Z,':','LineWidth',1 ,'Color',[1 1 1]);
+            hold on
+        end   
+    end
+    
     set(gca,'Color',[0 0 0]);
 
 end

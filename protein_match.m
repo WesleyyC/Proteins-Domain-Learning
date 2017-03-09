@@ -1,6 +1,8 @@
 %% Script for matching the protein
+clear
 tic();
 draw_flag = 0;
+
 
 %% Set Up Edge and Node Attribute
 
@@ -12,16 +14,16 @@ save = 0;
 
 %% Set Up Protein
 
-proteinOneFile = 'new_1JYU_5_80.csv';
+proteinOneFile = 'new_4D1E_CH_2.csv';
 start_sequence_one = 1;
-end_sequence_one = 96;
+end_sequence_one = 150;
 
-proteinTwoFile = 'new_1XA6_54_127.csv';
+proteinTwoFile = 'new_4Q59_CH.csv';
 start_sequence_two = 1;
-end_sequence_two = 200;
+end_sequence_two = 150;
 
-[proteinOneARG,p1,pp1] = GenerateProteinARGs(start_sequence_one,end_sequence_one, proteinOneFile,distance_cutoff);
-[proteinTwoARG,p2,pp2] = GenerateProteinARGs(start_sequence_two,end_sequence_two, proteinTwoFile,distance_cutoff);
+[proteinOneARG,p1] = GenerateProteinARGs(start_sequence_one,end_sequence_one, proteinOneFile,distance_cutoff);
+[proteinTwoARG,p2] = GenerateProteinARGs(start_sequence_two,end_sequence_two, proteinTwoFile,distance_cutoff);
 
 
 %% Generate BLOSSUM
@@ -57,12 +59,22 @@ s=sum(BLOSUM,2);
 n=repmat(s,1,20);
 BLOSUM=BLOSUM./n;
 
+
+%%
+load('result.mat')
+% BLOSUM=norm_similarity;
+
+% BLOSUM=rand(20);
+% s=sum(BLOSUM,2);
+% n=repmat(s,1,20);
+% BLOSUM=BLOSUM./n;
+
 %% Match the prote
 
 [match,score] = graph_matching(proteinOneARG, mdl_ARG(proteinTwoARG),BLOSUM);
-figure; imshow(match,'InitialMagnification',2000);
+figure; imshow(match,'InitialMagnification',800);
 if(draw_flag)
-    draw(p1,p2,match,score);
+    draw(p1,p2,match,score,highlight);
 end
 
 %% Save the result
