@@ -1,2 +1,2 @@
-# ProteinDomainMatching
-Pattern/Domain matching for protein strucutre
+# Graph-Sequence-Alignment
+Sequence Alignment under Graph Matching

@@ -1,169 +1,196 @@
- function [ match_matrix, C_n, C_e] = graph_matching( ARG1,ARG2,BLOSUM )
+ function [ match_matrix, C_n, C_e ] = graph_matching( ARG1, ARG2, train )
 %   GRADUATED_ASSIGN_ALGORITHM is a function that compute the best match
 %   matrix with two ARGs
 
-    % parallel computing flag
-    pFlag=1;
-
+    % show procedure flag
+    sFlag=0;
+    
     % set up condition and variable
     % beta is the converging for getting the maximize number
-    beta_0 = 0.5;
-    beta_f = 10;
-    beta_f = 300;
-    beta_r = 1.075;
-    beta_r = 1.05;
+    beta_0 = 0.1;
+    beta_f = 20;   % original is 10
+    beta_r = 1.025; % original is 1.075
+    
     % I control the iteration number for each round
-    I_0 = 4;
-    I_0 = 100;
-    I_1 = 30;
+    I_0 = 20;  % original is 4
+    I_1 = 200;   % original is 30
+    
     % e control a range
-    e_B = 0.5;
-    e_C=0.05; 
-    e_B = 0.01;
-    e_C=0.001; 
+    e_B = 0.5;  % original is 0.5
+    e_C = 0.05;   % original is 0.05
+    
+    % e_cov to handle singularity
+    e_cov = 0.01;
+    
     % node attriubute compatability weight
     alpha = 1;
     
-    flip = 0;
-    if ~isa(ARG2,'mdl_ARG')
-        tmp = ARG1;
-        ARG1 = ARG2;
-        ARG2 = tmp;
-        flip=1;
-    end
-    
     % the size of the real matchin matrix
     A=ARG1.num_nodes;
-    I=ARG2.num_nodes;
+    I=ARG2.num_nodes-1;
     real_size = [A,I];
-    % the size of the matrix with slacks
-    augment_size = real_size+[1,0];
     
-    % set up the matrix
-    % init a guest m_Head with 1+e
-    e=1.5;
-    m_Init = rand(augment_size)*e;
-    m_Head = m_Init;
+    % adjust ARG1
+    M = ARG2.edges_matrix(1:I,1:I,:);
+    M_C = ARG2.edges_cov(1:I,1:I,:);
+    V = ARG2.nodes_vector(1:I,:);
+    
+    % the size of the matrix with slacks
+    augment_size = real_size+[1,1];
+    
     % initial beta to beta_0
     beta = beta_0;
-%     m_Head(end,:)=e/2;
-%     m_Head(:,end)=e/2;
+    
+    % nil node compatibility percentage
+    prct = 100;
+    
+    % stochastic level
+    s_level = 1;
+    
+    % load BLOSUM
+    B = BLOSUM();
     
     % pre-calculate the node compatability
+    C_n=zeros(A+1,I+1);
+    
     % create an function handle for calculating compatibility
-    node_compat_handle=@(node1,node2)inner_node_compatibility(node1,node2);
     % calculate the compatibility
-    C_n=cellfun(node_compat_handle,repmat(ARG1.nodes',1,I),repmat(ARG2.nodes,A,1));
+    for a = 1:A
+        for i = 1:I
+            C_n(a,i) = node_compatibility(ARG1.nodes_vector(a,:),V(i,:));
+        end
+    end
+    
+    C_n(1:A,1:I) = normalize_compatibility(C_n(1:A,1:I));
+    
+    % calculate nil compatibility
+    C_n(A+1, 1:I)=prctile(C_n(1:A,1:I),prct,1);
+    C_n(1:A, I+1)=prctile(C_n(1:A,1:I),prct,2);
+    C_n(A+1, I+1)=0;
     % times the alpha weight
     C_n=alpha*C_n;
     
     % pre-calculate the edge compatability
-    C_e = zeros(A*A,I*I);  
+    C_e = zeros((A+1)^2,(I+1)^2); 
     
-    if pFlag
-        edges_atrs = flattern_matrix_weight(ARG1.edges);
-        mdl_edges_atrs = flattern_matrix_weight(ARG2.edges);
-        mdl_edges_cov = flattern_matrix_cov(ARG2.edges);
-        mdl_edges_cov_inv = flattern_matrix_cov_inv(ARG2.edges);
-        edge_num_atrs = 1;
-        parfor p = 1:A*A
-            % because edge atr is a single number, we can do some
-            % modification to our orignal formula
-            C_e(p,:)=(exp(-0.5*(edges_atrs(p)-mdl_edges_atrs).*mdl_edges_cov_inv.*(edges_atrs(p)-mdl_edges_atrs))./...
-                ((2*pi)^(edge_num_atrs/2)*sqrt(mdl_edges_cov)))...
-                .*(edges_atrs(p)>0).*(mdl_edges_atrs>0);      
-        end
-        
-    else
-        for p = 1:A*I
-            fill_Ce(floor((p-1)/I)+1,p-(floor((p-1)/I))*I);
+    tmp_edges = NaN(A+1,A+1,size(ARG1.edges_matrix,3));
+    tmp_edges(1:A,1:A,:) = ARG1.edges_matrix;
+    tmp_edges(A+1,A+1,:) = Inf;
+    edge_atr_1 = reshape(tmp_edges,(A+1)^2,[]);
+    
+    tmp_edges = NaN(I+1,I+1,size(M,3));
+    tmp_edges(1:I,1:I,:) = M;
+    tmp_edges(I+1,I+1,:) = Inf;
+    edge_atr_2 = reshape(tmp_edges,(I+1)^2,[]);
+    
+    tmp_edges_cov = ones(I+1,I+1,size(M_C,3));
+    tmp_edges_cov(1:I,1:I,:) = M_C;
+    tmp_edges_cov(I+1,1:I,:) = mean(M_C);
+    tmp_edges_cov(1:I,I+1,:) = mean(M_C,2);
+    tmp_edges_cov(I+1,I+1,:) = mean(M_C(:));
+    edges_cov = reshape(tmp_edges_cov,(I+1)^2,[]);
+
+    for i = 1:(A+1)^2
+        for j = 1:(I+1)^2
+            C_e(i,j) = edge_compatibility(edge_atr_1(i,:),edge_atr_2(j,:),edges_cov(j,:));
         end
     end
     
-    figure()
-    imshow(normr(C_n),'InitialMagnification',800)
-%     figure()
+    nan_idx = isnan(C_e);
+    inf_idx = isinf(C_e);
 
+    C_e = normalize_compatibility(C_e);
+
+    % nil<->a
+    C_e(nan_idx) = 0;
+    % nil<->nil
+    C_e(inf_idx) = prctile(reshape(C_e(0~=C_e),1,[]),prct);
+        
+    % set up the matrix
+    m_Head = rand(augment_size);
+    m_Head(A+1, I+1)=0;
+    
+    if sFlag
+        figure()
+    end
     % start matching  
     while beta<beta_f   % do A until beta is less than beta_f
         
         converge_B = 0; % a flag for terminating process B
         I_B = 0;    % counting the iteration of B
-        
+
         while ~converge_B && I_B <= I_0 % do B until B is converge or iteration exceeds
+            
+            m_Head = m_Head + s_level*(2*rand(size(m_Head))-1)*(1/A);
             
             old_B=m_Head;   % get the old matrix
             I_B = I_B+1;    % increment the iteration counting
             
+            
             % Build the partial derivative matrix Q
-            m_Head_realsize = m_Head(1:A,1:I);
-            % sum up the terms for partial differentiation
-            sum_fun=@(a,i)sum(sum(full(C_e(((a-1)*A+1):((a-1)*A+A),((i-1)*I+1):((i-1)*I+I))).*m_Head_realsize));
-            Q=cellfun(sum_fun,num2cell(repmat((1:A)',1,I)),num2cell(repmat((1:I),A,1)));
+            m_Head_aug = repmat(m_Head,A+1,I+1);
+            Q_aug = C_e.*m_Head_aug;
+            Q = squeeze(sum(sum(reshape(Q_aug,A+1,A+1,I+1,I+1),1),3));
             
             %add node attribute
             Q=Q+C_n;
             
-            % Normalize Q to avoid NaN/0 produce from exp()
-            Q=normr(Q);
             % Now update m_Head!
-%             m_Head(1:A,1:I)=exp(beta*Q);
-            m_Head(1:A,1:I)=normc(exp(beta*Q));
-            
+            m_Head=exp(beta*Q);
+            m_Head(A+1, I+1)=0;
+
+            % Setup converge in C step
             converge_C = 0; % a flag for terminating process B
             I_C = 0;    % counting the iteration of C
-            %m_One = zeros(size(m_Head));    % a middleware for doing normalization
             
             while ~converge_C && I_C <= I_1    % Begin C
-                
                 I_C=I_C+1;  % increment C
                 old_C=m_Head;   % get the m_Head before processing to determine convergence
                 
-                %normalize the row
-                s=sum(m_Head,2);
-                n=repmat(s,1,I);
-                n(end,:)=ones(size(n(end,:)));
-                m_One=m_Head./n;
-                
-                % normalize the column
-                s=sum(m_One,1);
-                n=repmat(s,A+1,1);
-                n(:,end)=ones(size(n(:,end)));
-                m_Head=m_One./n;
+                normalized_match()
                 
                 % check convergence
-               
                 convergeC();
             end
-            
-%             imshow(m_Head,'InitialMagnification',2000);
+                        
             % check convergence
+            if sFlag
+                subplot(1,2,1)
+                imshow(m_Head,'InitialMagnification',1000);       
+                drawnow;
+                subplot(1,2,2)
+                imshow(C_n/alpha,'InitialMagnification',1000); 
+                drawnow;
+            end
             convergeB();
-            
         end
         
         % increment beta
-        
         beta=beta_r*beta;
     end
-%     imshow(m_Head,'InitialMagnification',2000);
 
+    % Set up return
+    
     % get the match_matrix in real size
-    match_matrix = heuristic(m_Head,A,I);
+    match_matrix = heuristic(m_Head,A,I,train);
     
-    if(flip)
-        match_matrix=match_matrix';
-        C_n = C_n';
-        C_e = C_e';
-        tmp=A;
-        A=I;
-        I=tmp;
-    end
+    % modify compatibility
     C_n = C_n/alpha;
-    C_e = mat2cell(full(C_e),ones([1,A])*A,ones([1,I])*I);
+    C_n = C_n(1:A,1:I+1);
+    for p = A+1:A+1:(A+1)*A
+        C_e(p,:)=NaN;      
+    end
+    C_e((A+1)*A+1:(A+1)*(A+1),:)=NaN;
+    C_e = C_e(~any(isnan(C_e),2),:);
     
+    % debug purpose
+    if sFlag
+        close()
+    end
     
+
     
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
     
     % INNER FUNCTION SECTION
     function [] = convergeC()
@@ -174,74 +201,41 @@
         converge_B = abs(sum(sum(m_Head(1:A,1:I)-old_B(1:A,1:I))))<e_B;
     end
 
-    function [c] = inner_node_compatibility(node1, node2)
+    function [] = normalized_match()
+        m_Head = bsxfun(@rdivide,m_Head,sqrt(sum(m_Head.^2,2)));
+        m_Head = m_Head.^2;
+        m_Head = bsxfun(@rdivide,m_Head,sqrt(sum(m_Head.^2,1)));
+        m_Head = m_Head.^2;
+%         m_Head = bsxfun(@rdivide,m_Head,sqrt(sum(m_Head.^2,2))).*bsxfun(@rdivide,m_Head,sqrt(sum(m_Head.^2,1)));
+    end 
 
-        c=0;
+    function [score] = node_compatibility(atr1, atr2)
+        score = B(atr1,atr2);
+    end
 
-        if ~node1.hasAtrs()||~node2.hasAtrs()
-            return;  % if either of the nodes has NaN attribute, set similarity to 0
-        else
-            c=node2.getAtrs()*BLOSUM*node1.getAtrs()';
-            % same thing
-            %c=sum(sum(BLOSUM.*(node2.atrs'*node1.atrs)));
+    function [score] = edge_compatibility(atr1, atr2, cov)
+        
+        if ~any(atr1) || ~any(atr2)
+            score = 0;
+            return
+        elseif any(isnan(atr1)) || any(isnan(atr2))
+            score = NaN;
+            return
+        elseif any(isinf(atr1)) || any(isinf(atr2))
+            score = Inf;
+            return
         end
+        
+        cov = reshape(cov, length(atr2), length(atr2));
+        cov = cov+eye(size(cov))*e_cov;
+        score = exp(-0.5*(atr1-atr2)*(cov\(atr1-atr2)'))/(sqrt(det(cov))*(2*pi)^(length(atr2)/2));
     end
 
-    function [c] = inner_edge_compatibility(edge, mdl_edge)
-    % node_compatibility function is used to calculate the similarity
-    % between node1 and node2
-    
-        c=0;
-
-        if ~edge.trueEdge()||~mdl_edge.trueEdge()
-            return;  % if either of the edge does not exist or has NaN attribute
-        else
-
-            % get number of attributes
-            num_atrs = mdl_edge.numberOfAtrs();
-
-            % get the mean of attributes
-            edge_atrs = edge.weight;
-            mdl_edge_atrs = mdl_edge.weight;
-            % get the covariance matrix of model node
-            mdl_edge_cov = mdl_edge.cov;
-            mdl_edge_cov_inv = mdl_edge.cov_inv;
-
-            % calculate the score
-            c=exp(-0.5*(edge_atrs-mdl_edge_atrs)*mdl_edge_cov_inv*(edge_atrs-mdl_edge_atrs)')/...
-                ((2*pi)^(num_atrs/2)*sqrt(det(mdl_edge_cov)));
-        end
+    function M = normalize_compatibility(M)
+            M = normr(M).*normr(M);
+            M = normc(M).*normc(M);
+            M = normr(M).*normr(M);
     end
 
-    function [] = fill_Ce(a,i)
-        edge_compat_handle=@(edge1,edge2)inner_edge_compatibility(edge1,edge2);
-        C_e(((a-1)*A+1):((a-1)*A+A),((i-1)*I+1):((i-1)*I+I))=cellfun(edge_compat_handle,...
-            repmat(ARG1.edges(a,:)',1,I),...
-            repmat(ARG2.edges(i,:),A,1));
-    end
-
-    function [flat] = flattern_matrix_weight(edges)
-        len = length(edges);
-        flat = zeros (1, len*len);
-        for flat_p = 1:len*len
-            flat(flat_p)=edges{floor((flat_p-1)/len)+1,flat_p-(floor((flat_p-1)/len))*len}.getAtrs();
-        end
-    end
-
-    function [flat] = flattern_matrix_cov(edges)
-        len = length(edges);
-        flat = zeros (1, len*len);
-        for flat_p = 1:len*len
-            flat(flat_p)=edges{floor((flat_p-1)/len)+1,flat_p-(floor((flat_p-1)/len))*len}.getCov();
-        end
-    end
-
-    function [flat] = flattern_matrix_cov_inv(edges)
-        len = length(edges);
-        flat = zeros (1, len*len);
-        for flat_p = 1:len*len
-            flat(flat_p)=edges{floor((flat_p-1)/len)+1,flat_p-(floor((flat_p-1)/len))*len}.getCovInv();
-        end
-    end
 end
 

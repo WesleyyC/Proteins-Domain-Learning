@@ -2,120 +2,100 @@ classdef mdl_ARG < handle
     %   mdl_ARG represetns a component in our model
     properties (GetAccess=public,SetAccess=public)
         num_nodes = NaN;
-        
+        nodes_freq = NaN;
         nodes = {};
-        nodes_vector = NaN;
-        nodes_frequency = NaN;
-        
         edges = {};
+        nodes_vector = NaN;
         edges_matrix = NaN;
         edges_cov = NaN;
-        edges_cov_inv = NaN;
     end
     
     methods
+        
         % setting up constructor which will take an sample ARG and build a
         % new component for the model.
-        function self = mdl_ARG(ARG)
+        function self = mdl_ARG(A)
+            
+            M = A.edges_matrix;
+            nodes_atrs = A.nodes_vector;
+            
             % Throw error if not enough argument
             if nargin < 1
                 error "NotEnoughArgument";
             end
             
+            % Throw error if the matrix is not a square
+            if size(M,1)~=size(M,2)
+                error "MisNotSquare";
+            end
+            
+            % Throw error if the graph matrix and the nodes_atrs does not
+            % match
+            if length(M)~=length(nodes_atrs)
+                error "AtrributeArrasySizeNotMatch";
+            end
+            
             % Get the number of nodes
-            self.num_nodes=ARG.num_nodes+1;
+            self.num_nodes=length(M)+1;
             
-            % Build the nodes cell
+            % Build null node
+            nodes_atrs(self.num_nodes,:) = mean(nodes_atrs);
+            M(self.num_nodes,:,:) = mean(M);
+            M(:,self.num_nodes,:) = mean(M,2);
+            
+            % Allocate memory for nodes and edges
             self.nodes = cell(1,self.num_nodes);
-            mdl_node_handle=@(node)mdl_node(node.ID,self);
-            self.nodes(1:self.num_nodes-1) = cellfun(mdl_node_handle,ARG.nodes,'UniformOutput',false);
-            self.nodes{self.num_nodes} = mdl_node(self.num_nodes, self);
-            % Build the nodes_vector
-            self.nodes_vector = cell(1,self.num_nodes);
-            self.nodes_vector(1:self.num_nodes-1)=ARG.nodes_vector;
-            self.nodes_vector{self.num_nodes}=zeros(1,20);
-            % Buil the nodes_frequency
-            freq = 1/self.num_nodes;
-            self.nodes_frequency = ones(1,self.num_nodes)*freq;
-            
-            % Build the edges cell
+            self.nodes_vector = zeros(self.num_nodes, size(nodes_atrs,2));
             self.edges = cell(self.num_nodes,self.num_nodes);
-            mdl_edge_handle=@(edge)mdl_edge(self,self.nodes{edge.node1.ID},self.nodes{edge.node2.ID});
-            self.edges(1:self.num_nodes-1,1:self.num_nodes-1) = cellfun(mdl_edge_handle,ARG.edges,'UniformOutput',false);
-            for i=1:self.num_nodes
-                self.edges{self.num_nodes,i}=mdl_edge(self,self.nodes{self.num_nodes},self.nodes{i});
-                self.edges{i,self.num_nodes}=mdl_edge(self,self.nodes{i},self.nodes{self.num_nodes});
+            self.edges_matrix = zeros(self.num_nodes, self.num_nodes, size(M,3));
+            self.edges_cov = zeros(self.num_nodes, self.num_nodes, size(M,3)^2);
+            
+            
+            % Create Nodes
+            for ID = 1:self.num_nodes
+                self.nodes{ID}=node(ID,self);
+                self.nodes_vector(ID,:)=nodes_atrs(ID,:);
+                self.nodes_freq(ID)=1/self.num_nodes;
             end
-            % Build the edges_matrix
-            self.edges_matrix = ARG.edges_matrix;
-            for i=1:self.num_nodes
-                self.edges_matrix(self.num_nodes,i)=0;
-                self.edges_matrix(i,self.num_nodes)=0;
-            end
-            % Build the edges_cov
-            mdl_edge_cov_handle = @(edge)eye(length(edge.getAtrs()));
-            self.edges_cov = cell2mat(cellfun(mdl_edge_cov_handle,self.edges,'UniformOutput',false));
-            % Build the edges_cov_inv
-            mdl_edge_cov_inv_handle = @(edge)inv(edge.getCov());
-            self.edges_cov_inv = cell2mat(cellfun(mdl_edge_cov_inv_handle,self.edges,'UniformOutput',false));
-                
-        end
-        
-        % update the nodes frequency in the model
-        function updateNodeFrequency(obj,frequencies)
-            obj.nodes_frequency = frequencies;
+            
+            % Create Edge
+            for i = 1:self.num_nodes
+                for j = 1:self.num_nodes
+                    self.edges{i,j}=edge(self,self.nodes{i},self.nodes{j});
+                    self.edges_matrix(i,j,:) = M(i,j,:);
+                    self.edges_cov(i,j,:) = reshape(eye(size(M, 3)),size(self.edges_cov(i,j,:)));
+                end
+            end  
         end
         
         % delete nodes in the model according to the given indexes
         function modifyStructure(obj,deletingNodes)
-            obj.nodes(deletingNodes)=[];
-            obj.nodes_vector(deletingNodes)=[];
-            obj.nodes_frequency(deletingNodes)=[];
-            obj.edges(deletingNodes,:)=[];
-            obj.edges(:,deletingNodes)=[];
-            obj.edges_matrix(deletingNodes,:)=[];
-            obj.edges_matrix(:,deletingNodes)=[];
-            obj.edges_cov(deletingNodes,:)=[];
-            obj.edges_cov(:,deletingNodes)=[];
-            obj.edges_cov_inv(deletingNodes,:)=[];
-            obj.edges_cov_inv(:,deletingNodes)=[];
-            obj.num_nodes=obj.num_nodes-length(find(deletingNodes));
-            
-            for i=1:obj.num_nodes
-                obj.nodes{i}.ID=i;
-            end
+            obj.num_nodes = obj.num_nodes-length(find(deletingNodes));
+            obj.nodes_freq(deletingNodes) = [];
+            obj.nodes(deletingNodes) = [];
+            obj.edges(deletingNodes,:) = [];
+            obj.edges(:,deletingNodes) = [];
+            obj.nodes_vector(deletingNodes,:) = [];
+            obj.edges_matrix(deletingNodes,:,:) = [];
+            obj.edges_matrix(:,deletingNodes,:) = [];
+            obj.edges_cov(deletingNodes,:,:) = [];
+            obj.edges_cov(:,deletingNodes,:) = [];
+            % update ID
+                for i = 1:obj.num_nodes
+                    obj.nodes{i}.ID=i;
+                    for j = 1:obj.num_nodes
+                        obj.edges{i,j}.node1=i;
+                        obj.edges{i,j}.node2=j;
+                    end
+                end
         end
         
-        % return a vector of nodes frequency
-        function frequencies = getNodeFrequency(obj)
-           frequencies = obj.nodes_frequency;
+        % show ARG in matrix
+        function pattern_bg = showARG(obj)
+            pattern_bg = biograph(sparse(triu(any(obj.edges_matrix,3))),[],'ShowArrows','off','ShowWeights','off');
+            view(pattern_bg)
         end
         
-        % show the model ARG in matrix
-        function model_struct = showARG(obj)
-            % get the nodes frequencies
-            nodes_frequence = obj.getNodeFrequency();
-            
-            % get the nodes attributes
-            getNodeAttributes = @(node)node.atrs;
-            nodes_attributes = cellfun(getNodeAttributes,obj.nodes);
-            if~iscell(nodes_attributes)
-                nodes_attributes=num2cell(nodes_attributes);
-            end
-            % build the matrix
-            getEdgeAttributes = @(edge)edge.atrs;
-            M = cellfun(getEdgeAttributes,obj.edges);
-            
-            % draw it out
-            bg = biograph(triu(M(1:end-1,1:end-1)),[],'ShowArrows','off','ShowWeights','on');
-
-            model_struct = struct(  'Nf',nodes_frequence,... % the node frequency
-                                    'M', M, ... % the matrix
-                                    'bg', bg...% the graph
-                                    );
-            model_struct.Na = nodes_attributes;
-        end
-            
     end
     
 end
