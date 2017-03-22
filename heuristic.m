@@ -12,7 +12,7 @@ function [ M ] = heuristic( M, A, I, train )
         M = M + (2*rand(size(M))-1)*(1/A);
     end
 
-    M(1:A,:)=normr(M(1:A,:)).*normr(M(1:A,:));
+    M(1:A,:)=normc(M(1:A,:)).*normr(M(1:A,:));
 
     % get the right size
     M=M(1:A,:);

@@ -35,14 +35,18 @@ classdef sprMDL < handle & matlab.mixin.Copyable
         % debug var
         c_idx = NaN;
         
+        % matching prob debugger
+        mp = NaN;
+        
+        
     end
     
     properties (Constant)
         % debug mode
-        debug = 1;
+        debug = 0;
         
         % Maximum EM rounds
-        iteration_EM = 30;
+        iteration_EM = 60;
         
         % Converging epsilon
         e_mdl_converge = 1e-4;
@@ -52,7 +56,7 @@ classdef sprMDL < handle & matlab.mixin.Copyable
         % so choose such number carefully
         % e_delete_base - e_delete_iter^iter
         e_delete_base = 1;
-        e_delete_iter = 0.95;
+        e_delete_iter = 0.85;
 
         % z_test properties
         z_test_alpha = 0.01;
@@ -90,6 +94,9 @@ classdef sprMDL < handle & matlab.mixin.Copyable
             % Now convert it to model ARG
             generate_mdl_ARG=@(A)mdl_ARG(A);
             obj.mdl_ARGs=cellfun(generate_mdl_ARG,comp_ARG,'UniformOutput',false); 
+            
+            % mp
+            obj.mp = cell([1,number_of_components]);
             
             % Train the model with the sample
             obj.trainModel();
@@ -210,6 +217,25 @@ classdef sprMDL < handle & matlab.mixin.Copyable
         
         % update the atrs for each component node
         function updateComponentNodeAtrs(obj)
+            % for each component
+            for h = 1:obj.number_of_components
+                % for each node
+                for n = 1:obj.mdl_ARGs{h}.num_nodes
+                    atrs = 0;
+                    denominator=0;
+                    % we go over the sample
+                    for i = 1:obj.number_of_sample
+                        [v, a] = max(obj.node_match_scores{i,h}(:,n));
+                        if v > denominator
+                            atrs = obj.sampleARGs{i}.nodes_vector(a,:);
+                        end
+                    end
+                    % udpate the value
+                    obj.mdl_ARGs{h}.nodes_vector(n,:)=atrs;
+                end
+            end       
+        end
+        function updateComponentNodeAtrsMean(obj)
             % for each component
             for h = 1:obj.number_of_components
                 % for each node
@@ -354,54 +380,38 @@ classdef sprMDL < handle & matlab.mixin.Copyable
                 end
                 % get the average matching probability
                 av_matching_prob = av_frequency/prob_sum;
+                obj.mp{w}(end+1,:) = av_matching_prob;
                 % delet the node that is less tha the threshold 1-e^iter
                 deleteIdx = av_matching_prob < obj.e_delete_base-obj.e_delete_iter^iter;
                 deleteIdx(end)=0; % the null node will always be remained
-                obj.mdl_ARGs{w}.modifyStructure(deleteIdx);
+%                 obj.mdl_ARGs{w}.modifyStructure(deleteIdx);
             end
         end
                 
         % Get the thredshold score for confimrming pattern
-        function getThredsholdScore(obj)            
-            g_size = 0;
-            for i = 1:obj.number_of_sample
-                g_size = g_size + obj.sampleARGs{i}.num_nodes;
-            end
-            g_size = ceil(g_size / obj.number_of_sample);
-            
-            edge_atrs = [];
-            for i = 1:obj.number_of_sample
-                edge_atrs = [edge_atrs, obj.sampleARGs{i}.edges_matrix(:)'];
-            end
-                        
-            connected_rate = length(find(edge_atrs))/length(edge_atrs);
-            
-            number_of_random_samples = obj.z_test_sample_number;
-            random_sample_scores=zeros([1,number_of_random_samples]);
+        function getThredsholdScore(obj)                
+            random_sample_number = obj.z_test_sample_number;
+            random_score = zeros([1,length(random_sample_number)]);
 
-            for i = 1:number_of_random_samples
-                % setup sample
-                M1_size = round((1+rand*0.2)*g_size);
-                M1 = cell(M1_size);
-                for x = 1:M1_size
-                    for y = x+1:M1_size
-                        if rand() < connected_rate
-                            M1{x,y} = rand([1,size(obj.sampleARGs{1}.edges_matrix,3)])*8;
-                            M1{y,x} = M1{x,y};
-                        end
-                    end
-                end
-                V1 = cell([1, M1_size]);
-                for n = 1:M1_size
-                    V1{n} = randi(20);
-                end
+            count = 1;
 
-                % Create the sample
-                random_sample_scores(i) = obj.scorePattern(ARG(M1, V1));
+            for i = 1:length(obj.sampleARGs)
+                for j = 1:random_sample_number/length(obj.sampleARGs)
+                    tmpARG = obj.sampleARGs{i}.copy;
+                    n_idx = randperm(tmpARG.num_nodes);
+                    e_idx = randperm(tmpARG.num_nodes);
+                    tmpARG.nodes = tmpARG.nodes(n_idx);
+                    tmpARG.nodes_vector = tmpARG.nodes_vector(n_idx, :);
+                    tmpARG.edges = tmpARG.edges(e_idx, e_idx);
+                    tmpARG.edges_matrix = tmpARG.edges_matrix(e_idx, e_idx, :);
+                    score = obj.scorePattern(tmpARG);
+                    random_score(count) = score;
+                    count = count + 1;
+                end
             end
             
-            obj.z_test_mean = mean(random_sample_scores);
-            obj.z_test_sigma = std(random_sample_scores);
+            obj.z_test_mean = mean(random_score);
+            obj.z_test_sigma = std(random_score);
             obj.thredshold_score = obj.z_test_mean + 3 * obj.z_test_sigma;
             
         end
@@ -468,31 +478,14 @@ classdef sprMDL < handle & matlab.mixin.Copyable
                 end
             end
             
-%             for i = 1:obj.number_of_sample
-%                 for j = 1:obj.number_of_components
-%                     subplot(fig_x, fig_y, f_count);
-%                     imshow(obj.edge_compatibilities{i,j})
-%                     f_count = f_count + 1;
-%                 end
-%             end
+            figure;
+            fig_x = 1;
+            fig_y = obj.number_of_components;
+            for i = 1:obj.number_of_components
+                subplot(fig_x,fig_y,i);
+                imshow(obj.mp{i})
+            end
             
-%             figure;
-%             f_count = 1;
-%             fig_x = 2;
-%             fig_y = obj.number_of_components;
-%             
-%             for i = 1:obj.number_of_components
-%                 subplot(fig_x, fig_y, f_count);
-%                 imshow(obj.mdl_ARGs{i}.nodes_cov)
-%                 f_count = f_count + 1;
-%             end
-%             for i = 1:obj.number_of_components
-%                 subplot(fig_x, fig_y, f_count);
-%                 c = reshape(obj.mdl_ARGs{i}.edges_cov, obj.mdl_ARGs{i}.num_nodes^2,size(obj.mdl_ARGs{i}.edges_cov,3));
-%                 idx = reshape(any(obj.mdl_ARGs{i}.edges_matrix,3), obj.mdl_ARGs{i}.num_nodes^2,1);
-%                 imshow(c(idx,:))
-%                 f_count = f_count + 1;
-%             end
         end
     end
     
