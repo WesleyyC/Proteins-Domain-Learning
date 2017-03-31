@@ -59,7 +59,7 @@ classdef sprMDL < handle & matlab.mixin.Copyable
         e_delete_iter = 0.85;
 
         % z_test properties
-        z_test_alpha = 0.01;
+        z_test_alpha = 0.05;
         z_test_sample_number = 50;
     end
     

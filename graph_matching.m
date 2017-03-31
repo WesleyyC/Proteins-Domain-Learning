@@ -24,6 +24,7 @@
     
     % node attriubute compatability weight
     alpha = 1;
+    linear_alpha = 1;
     
     % the size of the real matchin matrix
     A=ARG1.num_nodes;
@@ -105,7 +106,7 @@
     C_e(nan_idx) = 0;
     % nil<->nil
     C_e(inf_idx) = prctile(reshape(C_e(0~=C_e),1,[]),prct);
-        
+    
     % set up the matrix
     m_Head = rand(augment_size);
     m_Head(A+1, I+1)=0;
@@ -134,6 +135,19 @@
             
             %add node attribute
             Q=Q+C_n;
+            
+            % add linear encouragement
+            linear_score = zeros(size(Q));
+            non_null = m_Head(1:end-1,1:end-1);
+            non_null_linear = non_null(3:end,3:end).*non_null(1:end-2,1:end-2);
+            linear_score(2:end-2,2:end-2)=non_null_linear;
+            null_v = m_Head(:,end);
+            null_v_linear = null_v(3:end).*null_v(1:end-2);
+            null_h = m_Head(end,:);
+            null_h_linear = null_h(3:end).*null_h(1:end-2);
+            linear_score(2:end-1,end)=null_v_linear;
+            linear_score(end,2:end-1)=null_h_linear;
+            Q=Q+linear_score*linear_alpha;
             
             % Now update m_Head!
             m_Head=exp(beta*Q);
