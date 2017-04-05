@@ -15,6 +15,7 @@ proteinARGs{end+1} = GenerateProteinARG(42,72,'protein/CH1/1wku.csv');
 proteinARGs{end+1} = GenerateProteinARG(26,56,'protein/CH1/2eyi.csv');
 proteinARGs{end+1} = GenerateProteinARG(34,64,'protein/CH1/4d1e.csv');
 
+
 %% load the helper function
 
 mdl = sprMDL(proteinARGs, 2);
@@ -115,3 +116,7 @@ hold on
 line([mdl.thredshold_score mdl.thredshold_score],get(hax,'YLim'),'Color','g','LineWidth', 2)
 hold on
 legend('original','reverse','partition','random')
+
+%% visual   
+% visual(32,57,32,40,'protein/CH1/1sjj.csv',45,70,45,53,'protein/CH1/1wku.csv',mdl.node_match_scores{1,1})
+% visual(32,57,NaN,NaN,'protein/CH1/1sjj.csv',45,70,NaN,NaN,'protein/CH1/1wku.csv',mdl.node_match_scores{1,1})

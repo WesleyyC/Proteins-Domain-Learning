@@ -24,7 +24,7 @@
     
     % node attriubute compatability weight
     alpha = 1;
-    linear_alpha = 1;
+    linear_alpha = 10;
     
     % the size of the real matchin matrix
     A=ARG1.num_nodes;

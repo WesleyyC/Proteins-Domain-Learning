@@ -1,4 +1,4 @@
-function [ proteinARG, protein] = GenerateProteinARG( start_sequence,end_sequence, fileName)
+function [ proteinARG, protein] = GenerateProteinARG( start_sequence, end_sequence, fileName)
     
     cutoff = 8;
 
@@ -8,9 +8,11 @@ function [ proteinARG, protein] = GenerateProteinARG( start_sequence,end_sequenc
     end_idx = NaN;
     
     for i = 1:size(protein,1)
-        if start_sequence == protein(i,1)
+        if start_sequence == protein(i,1) && isnan(start_idx)
             start_idx = i;
-        elseif end_sequence==protein(i,1)
+        end
+        
+        if end_sequence==protein(i,1) && isnan(end_idx)
             end_idx= i;
         end
     end
