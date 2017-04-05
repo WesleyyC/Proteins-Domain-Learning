@@ -6,6 +6,7 @@ classdef mdl_ARG < handle
         nodes = {};
         edges = {};
         nodes_vector = NaN;
+        nodes_aa_index = NaN;
         edges_matrix = NaN;
         edges_cov = NaN;
     end
@@ -15,6 +16,8 @@ classdef mdl_ARG < handle
         % setting up constructor which will take an sample ARG and build a
         % new component for the model.
         function self = mdl_ARG(A)
+            
+            B = BLOSUM();
             
             M = A.edges_matrix;
             nodes_atrs = A.nodes_vector;
@@ -39,13 +42,14 @@ classdef mdl_ARG < handle
             self.num_nodes=length(M)+1;
             
             % Build null node
-            nodes_atrs(self.num_nodes,:) = mean(nodes_atrs);
+            nodes_atrs(self.num_nodes,:) = round(mean(nodes_atrs));
             M(self.num_nodes,:,:) = mean(M);
             M(:,self.num_nodes,:) = mean(M,2);
             
             % Allocate memory for nodes and edges
             self.nodes = cell(1,self.num_nodes);
-            self.nodes_vector = zeros(self.num_nodes, size(nodes_atrs,2));
+            self.nodes_aa_index = zeros(self.num_nodes, size(nodes_atrs,2));
+            self.nodes_vector = zeros(self.num_nodes, 20);
             self.edges = cell(self.num_nodes,self.num_nodes);
             self.edges_matrix = zeros(self.num_nodes, self.num_nodes, size(M,3));
             self.edges_cov = zeros(self.num_nodes, self.num_nodes, size(M,3)^2);
@@ -54,7 +58,8 @@ classdef mdl_ARG < handle
             % Create Nodes
             for ID = 1:self.num_nodes
                 self.nodes{ID}=node(ID,self);
-                self.nodes_vector(ID,:)=nodes_atrs(ID,:);
+                self.nodes_aa_index(ID,:)=nodes_atrs(ID,:);
+                self.nodes_vector(ID,:)=B(self.nodes_aa_index(ID,:),:);
                 self.nodes_freq(ID)=1/self.num_nodes;
             end
             
@@ -75,6 +80,7 @@ classdef mdl_ARG < handle
             obj.nodes(deletingNodes) = [];
             obj.edges(deletingNodes,:) = [];
             obj.edges(:,deletingNodes) = [];
+            obj.nodes_aa_index(deletingNodes,:) = [];
             obj.nodes_vector(deletingNodes,:) = [];
             obj.edges_matrix(deletingNodes,:,:) = [];
             obj.edges_matrix(:,deletingNodes,:) = [];

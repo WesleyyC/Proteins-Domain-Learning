@@ -29,8 +29,6 @@ function [ BLOSUM ] = BLOSUM()
 
     % normalize the symmetric matrix
     BLOSUM = normr(BLOSUM).^2;
-    BLOSUM = normc(BLOSUM).^2;
-    BLOSUM = normr(BLOSUM).^2;
 
 end
 

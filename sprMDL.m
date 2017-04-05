@@ -139,10 +139,8 @@ classdef sprMDL < handle & matlab.mixin.Copyable
             obj.updateComponentNodeFrequency();
             
             % update the atrs for each component node
-            obj.updateComponentNodeAtrs();
-            
-            % update the covariance matrix for each component node
-%             obj.updateComponentNodeCov();
+            obj.updateComponentNodeAAIndex();
+            obj.updateComponentNodeVector();
             
             % update the atrs for each component edge
             obj.updateComponentEdgeAtrs();
@@ -216,7 +214,7 @@ classdef sprMDL < handle & matlab.mixin.Copyable
         end
         
         % update the atrs for each component node
-        function updateComponentNodeAtrs(obj)
+        function updateComponentNodeAAIndex(obj)
             % for each component
             for h = 1:obj.number_of_components
                 % for each node
@@ -231,32 +229,54 @@ classdef sprMDL < handle & matlab.mixin.Copyable
                         end
                     end
                     % udpate the value
-                    obj.mdl_ARGs{h}.nodes_vector(n,:)=atrs;
+                    obj.mdl_ARGs{h}.nodes_aa_index(n,:)=atrs;
                 end
             end       
         end
-        function updateComponentNodeAtrsMean(obj)
+        
+        % update the covariance matrix for each component node
+        function updateComponentNodeVector(obj)
+            % compute local distribution
             % for each component
             for h = 1:obj.number_of_components
                 % for each node
                 for n = 1:obj.mdl_ARGs{h}.num_nodes
-                    atrs = 0;
-                    denominator=0;
-                    % we go over the sample
-                    for i = 1:obj.number_of_sample
-                        current_sample_atrs = obj.sampleARGs{i}.nodes_vector.*repmat(obj.node_match_scores{i,h}(:,n),1,size(obj.sampleARGs{i}.nodes_vector,2));
-                        current_sample_denominator = obj.node_match_scores{i,h}(:,n);
-
-                        current_sample_atrs = sum(current_sample_atrs);
-                        current_sample_denominator = sum(current_sample_denominator);
-
-                        atrs = atrs + current_sample_atrs*obj.sample_component_matching_probs(i,h);
-                        denominator = denominator + current_sample_denominator*obj.sample_component_matching_probs(i,h);
+                    if any(obj.mdl_ARGs{h}.nodes_vector(n,:))
+                        vec = 0;
+                        % we go over the sample
+                        for i = 1:obj.number_of_sample
+                            current_vec = zeros(1,20);
+                            for j = 1:length(obj.node_match_scores{i,h}(:,n))
+                                current_vec(obj.sampleARGs{i}.nodes_vector(j,:))=current_vec(obj.sampleARGs{i}.nodes_vector(j,:))+obj.node_match_scores{i,h}(j,n);
+                            end
+                            vec  = vec + current_vec*obj.sample_component_matching_probs(i,h);
+                        end
+                        % udpate the value
+                        new_vec = normr(vec).*normr(vec);
+                        obj.mdl_ARGs{h}.nodes_vector(n,:) = new_vec;
                     end
-                    % udpate the value
-                    obj.mdl_ARGs{h}.nodes_vector(n,:)=round(atrs/denominator);
                 end
-            end       
+            end    
+            
+            % compute global distribution
+            global_vec = zeros(20,20);
+            for h = 1:obj.number_of_components
+                for n = 1:obj.mdl_ARGs{h}.num_nodes
+                    global_vec(obj.mdl_ARGs{h}.nodes_aa_index(n,:),:)=global_vec(obj.mdl_ARGs{h}.nodes_aa_index(n,:),:)+obj.mdl_ARGs{h}.nodes_vector(n,:)*obj.weight(h);
+                end
+            end
+            global_vec = normr(global_vec).*normr(global_vec);
+            
+            % update local distribution
+            for h = 1:obj.number_of_components
+                for n = 1:obj.mdl_ARGs{h}.num_nodes
+                    new_vec = obj.mdl_ARGs{h}.nodes_vector(n,:)./global_vec(obj.mdl_ARGs{h}.nodes_aa_index(n,:));
+                    new_vec = log(new_vec);
+                    new_vec = normr(new_vec).*normr(new_vec);
+                    obj.mdl_ARGs{h}.nodes_vector(n,:) = new_vec;
+                end
+            end
+                
         end
         
         % update the covariance matrix for each component node

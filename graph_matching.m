@@ -224,7 +224,7 @@
     end 
 
     function [score] = node_compatibility(atr1, atr2)
-        score = B(atr1,atr2);
+        score = atr2(atr1);
     end
 
     function [score] = edge_compatibility(atr1, atr2, cov)
