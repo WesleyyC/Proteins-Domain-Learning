@@ -279,37 +279,6 @@ classdef sprMDL < handle & matlab.mixin.Copyable
                 
         end
         
-        % update the covariance matrix for each component node
-        function updateComponentNodeCov(obj)
-            get_cov_time=@(r) reshape(r'*r,1,[]);
-            % for each component
-            for h = 1:obj.number_of_components
-                % for each node
-                for n = 1:obj.mdl_ARGs{h}.num_nodes
-                    if any(obj.mdl_ARGs{h}.nodes_vector(n,:))
-                        cov = 0;
-                        denominator=0;
-                        % we go over the sample
-                        for i = 1:obj.number_of_sample
-                            x_atrs = obj.sampleARGs{i}.nodes_vector-repmat(obj.mdl_ARGs{h}.nodes_vector(n,:),size(obj.sampleARGs{i}.nodes_vector,1),1);
-                            current_sample_cov = table2array(rowfun(get_cov_time, table(x_atrs))).*repmat(obj.node_match_scores{i,h}(:,n),1,size(x_atrs,2)^2);
-                            current_sample_denominator = obj.node_match_scores{i,h}(:,n);
-                            
-                            current_sample_cov = sum(current_sample_cov);
-                            current_sample_denominator = sum(current_sample_denominator);
-                            
-                            cov = cov + current_sample_cov*obj.sample_component_matching_probs(i,h);
-                            denominator = denominator + current_sample_denominator*obj.sample_component_matching_probs(i,h);
-                        end
-                        % udpate the value
-                        new_cov = cov/denominator;
-                        new_cov = sprMDL.normalize_cov(new_cov);
-                        obj.mdl_ARGs{h}.nodes_cov(n,:) = new_cov;
-                    end
-                end
-            end       
-        end
-        
         % update the atrs for each component edge
         function updateComponentEdgeAtrs(obj)
             %for each component
