@@ -57,6 +57,7 @@ classdef sprMDL < handle & matlab.mixin.Copyable
         % e_delete_base - e_delete_iter^iter
         e_delete_base = 1;
         e_delete_iter = 0.85;
+        e_delete_thredshold=0.9;
 
         % z_test properties
         z_test_alpha = 0.05;
@@ -114,16 +115,21 @@ classdef sprMDL < handle & matlab.mixin.Copyable
                 % get the old obj before iteration for testing converging
                 old_obj = obj.copy();
                 % go through one EM iteration
-                obj.EM(iter);
+                obj.EM();
                 % check converging condition
                 converge = sprMDL.mdl_converge(old_obj,obj,obj.e_mdl_converge);
             end
+            
+            % update the component structure depends on the node frequency
+            obj.updateComponentStructure(true);
+            obj.EM();
+            
             % get the thredshold minimum score
             obj.getThredsholdScore();
         end
         
         % The EM-alogirthem procedure
-        function EM(obj,iter)    
+        function EM(obj)    
             trainRound=tic();
             
             % get the node matching score
@@ -148,8 +154,8 @@ classdef sprMDL < handle & matlab.mixin.Copyable
             % update the covariance matrix for each component edge
             obj.updateComponentEdgeCov();
             
-            % update the component structure depends on the node frequency
-            obj.updateComponentStructure(iter);
+            % monitor component strucutre
+            obj.updateComponentStructure(false);
             
             toc(trainRound)
         end
@@ -354,7 +360,7 @@ classdef sprMDL < handle & matlab.mixin.Copyable
         end
         
         % update the component structure depends on the node frequency
-        function updateComponentStructure(obj,iter)
+        function updateComponentStructure(obj,modify)
             % for each component
             for w = 1:obj.number_of_components
                 av_frequency=0;
@@ -369,11 +375,13 @@ classdef sprMDL < handle & matlab.mixin.Copyable
                 end
                 % get the average matching probability
                 av_matching_prob = av_frequency/prob_sum;
-                obj.mp{w}(end+1,:) = av_matching_prob;
-                % delet the node that is less tha the threshold 1-e^iter
-                deleteIdx = av_matching_prob < obj.e_delete_base-obj.e_delete_iter^iter;
-                deleteIdx(end)=0; % the null node will always be remained
-%                 obj.mdl_ARGs{w}.modifyStructure(deleteIdx);
+                obj.mp{w}(end+1,1:length(av_matching_prob)) = av_matching_prob;
+                if modify
+                    % delet the node that is less tha the threshold 1-e^iter
+                    deleteIdx = av_matching_prob < obj.e_delete_thredshold;
+                    deleteIdx(end)=0; % the null node will always be remained
+                    obj.mdl_ARGs{w}.modifyStructure(deleteIdx);
+                end
             end
         end
                 
