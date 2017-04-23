@@ -38,6 +38,9 @@ classdef sprMDL < handle & matlab.mixin.Copyable
         % matching prob debugger
         mp = NaN;
         
+        % global vec
+        global_vec = NaN;
+        e_global_vec = 1e-4;
         
     end
     
@@ -98,6 +101,15 @@ classdef sprMDL < handle & matlab.mixin.Copyable
             
             % mp
             obj.mp = cell([1,number_of_components]);
+            
+            % global vec
+            obj.global_vec=zeros(1,20);
+            for i = 1:obj.number_of_sample
+                for j = 1:obj.sampleARGs{i}.num_nodes
+                    obj.global_vec(obj.sampleARGs{i}.nodes_vector(j,:))=obj.global_vec(obj.sampleARGs{i}.nodes_vector(j,:))+1;
+                end
+            end
+            obj.global_vec = obj.global_vec/sum(obj.global_vec);
             
             % Train the model with the sample
             obj.trainModel();
@@ -264,20 +276,13 @@ classdef sprMDL < handle & matlab.mixin.Copyable
                 end
             end    
             
-            % compute global distribution
-            global_vec = zeros(20,20);
-            for h = 1:obj.number_of_components
-                for n = 1:obj.mdl_ARGs{h}.num_nodes
-                    global_vec(obj.mdl_ARGs{h}.nodes_aa_index(n,:),:)=global_vec(obj.mdl_ARGs{h}.nodes_aa_index(n,:),:)+obj.mdl_ARGs{h}.nodes_vector(n,:)*obj.weight(h);
-                end
-            end
-            global_vec = normr(global_vec).*normr(global_vec);
-            
             % update local distribution
             for h = 1:obj.number_of_components
                 for n = 1:obj.mdl_ARGs{h}.num_nodes
-                    new_vec = obj.mdl_ARGs{h}.nodes_vector(n,:)./global_vec(obj.mdl_ARGs{h}.nodes_aa_index(n,:));
+                    new_vec = (obj.mdl_ARGs{h}.nodes_vector(n,:)+obj.e_global_vec)./(obj.global_vec+obj.e_global_vec);
                     new_vec = log(new_vec);
+                    new_vec_diff = 0-min(new_vec);
+                    new_vec = new_vec + new_vec_diff;
                     new_vec = normr(new_vec).*normr(new_vec);
                     obj.mdl_ARGs{h}.nodes_vector(n,:) = new_vec;
                 end

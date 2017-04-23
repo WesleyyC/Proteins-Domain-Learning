@@ -9,11 +9,11 @@ proteinARGs = cell(0);
 % proteinARGs = [proteinARGs, GenerateProteinARG(45,150,'protein/CH1/1wku.csv')];
 % proteinARGs = [proteinARGs, GenerateProteinARG(31,136,'protein/CH1/2eyi.csv')];
 % proteinARGs = [proteinARGs, GenerateProteinARG(38,143,'protein/CH1/4d1e.csv')];
-proteinARGs{end+1} = GenerateProteinARG(26,70,'protein/CH1/1sjj.csv');
-proteinARGs{end+1} = GenerateProteinARG(42,85,'protein/CH1/1tjt.csv');
-proteinARGs{end+1} = GenerateProteinARG(42,85,'protein/CH1/1wku.csv');
-proteinARGs{end+1} = GenerateProteinARG(26,70,'protein/CH1/2eyi.csv');
-proteinARGs{end+1} = GenerateProteinARG(34,75,'protein/CH1/4d1e.csv');
+proteinARGs{end+1} = GenerateProteinARG(26,50,'protein/CH1/1sjj.csv');
+proteinARGs{end+1} = GenerateProteinARG(42,65,'protein/CH1/1tjt.csv');
+proteinARGs{end+1} = GenerateProteinARG(42,65,'protein/CH1/1wku.csv');
+proteinARGs{end+1} = GenerateProteinARG(26,50,'protein/CH1/2eyi.csv');
+proteinARGs{end+1} = GenerateProteinARG(34,55,'protein/CH1/4d1e.csv');
 
 
 %% load the helper function
