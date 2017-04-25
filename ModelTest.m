@@ -4,17 +4,29 @@ clear
 %% build protiens
 
 proteinARGs = cell(0);
+
+% entire CH1
 % proteinARGs = [proteinARGs, GenerateProteinARG(32,137,'protein/CH1/1sjj.csv')];
 % proteinARGs = [proteinARGs, GenerateProteinARG(45,150,'protein/CH1/1tjt.csv')];
 % proteinARGs = [proteinARGs, GenerateProteinARG(45,150,'protein/CH1/1wku.csv')];
 % proteinARGs = [proteinARGs, GenerateProteinARG(31,136,'protein/CH1/2eyi.csv')];
 % proteinARGs = [proteinARGs, GenerateProteinARG(38,143,'protein/CH1/4d1e.csv')];
+
+% partial CH1
 proteinARGs{end+1} = GenerateProteinARG(26,50,'protein/CH1/1sjj.csv');
 proteinARGs{end+1} = GenerateProteinARG(42,65,'protein/CH1/1tjt.csv');
 proteinARGs{end+1} = GenerateProteinARG(42,65,'protein/CH1/1wku.csv');
 proteinARGs{end+1} = GenerateProteinARG(26,50,'protein/CH1/2eyi.csv');
 proteinARGs{end+1} = GenerateProteinARG(34,55,'protein/CH1/4d1e.csv');
 
+% mix sequence
+% proteinARGs{end+1} = GenerateProteinARG(1,50,'protein/Mix/2nch.csv');
+% proteinARGs{end+1} = GenerateProteinARG(11,61 ,'protein/Mix/3jcu.csv');
+% proteinARGs{end+1} = GenerateProteinARG(123,159 ,'protein/Mix/3wtq.csv');
+% proteinARGs{end+1} = GenerateProteinARG(61,111,'protein/Mix/4pc7.csv');
+% proteinARGs{end+1} = GenerateProteinARG(24,75 ,'protein/Mix/5fzi.csv');
+% proteinARGs{end+1} = GenerateProteinARG(3,63,'protein/Mix/5h9l.csv');
+% proteinARGs{end+1} = GenerateProteinARG(3,63,'protein/Mix/5tlq.csv');
 
 %% load the helper function
 
