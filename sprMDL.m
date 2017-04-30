@@ -83,7 +83,7 @@ classdef sprMDL < handle & matlab.mixin.Copyable
             
             % Get the number of components
             obj.number_of_components = number_of_components;
-            obj.number_of_sample=length(sampleARGs);
+            obj.number_of_sample = length(sampleARGs);
             obj.mdl_ARGs = cell(1,number_of_components);
             
             % Assigning Weight to 1
@@ -281,9 +281,6 @@ classdef sprMDL < handle & matlab.mixin.Copyable
                 for n = 1:obj.mdl_ARGs{h}.num_nodes
                     new_vec = (obj.mdl_ARGs{h}.nodes_vector(n,:)+obj.e_global_vec)./(obj.global_vec+obj.e_global_vec);
                     new_vec = log(new_vec);
-                    new_vec_diff = 0-min(new_vec);
-                    new_vec = new_vec + new_vec_diff;
-                    new_vec = normr(new_vec).*normr(new_vec);
                     obj.mdl_ARGs{h}.nodes_vector(n,:) = new_vec;
                 end
             end
@@ -464,16 +461,16 @@ classdef sprMDL < handle & matlab.mixin.Copyable
             fig_y = obj.number_of_sample;
             
             % match score
-            for i = 1:obj.number_of_sample
-                for j = 1:obj.number_of_components
+            for j = 1:obj.number_of_components
+                for i = 1:obj.number_of_sample
                     subplot(fig_x, fig_y, f_count);
                     imshow(obj.node_match_scores{i,j})
                     f_count = f_count + 1;
                 end
             end
             
-            for i = 1:obj.number_of_sample
-                for j = 1:obj.number_of_components
+            for j = 1:obj.number_of_components
+                for i = 1:obj.number_of_sample
                     subplot(fig_x, fig_y, f_count);
                     imshow(obj.node_compatibilities{i,j})
                     f_count = f_count + 1;

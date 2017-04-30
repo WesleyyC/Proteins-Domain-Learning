@@ -17,7 +17,14 @@ proteinARGs{end+1} = GenerateProteinARG(26,50,'protein/CH1/1sjj.csv');
 proteinARGs{end+1} = GenerateProteinARG(42,65,'protein/CH1/1tjt.csv');
 proteinARGs{end+1} = GenerateProteinARG(42,65,'protein/CH1/1wku.csv');
 proteinARGs{end+1} = GenerateProteinARG(26,50,'protein/CH1/2eyi.csv');
-proteinARGs{end+1} = GenerateProteinARG(34,55,'protein/CH1/4d1e.csv');
+proteinARGs{end+1} = GenerateProteinARG(34,60,'protein/CH1/4d1e.csv');
+
+% partial CH1 play around
+% proteinARGs{end+1} = GenerateProteinARG(26,50,'protein/CH1/1sjj.csv');
+% proteinARGs{end+1} = GenerateProteinARG(52,75,'protein/CH1/1tjt.csv');
+% proteinARGs{end+1} = GenerateProteinARG(42,65,'protein/CH1/1wku.csv');
+% proteinARGs{end+1} = GenerateProteinARG(26,50,'protein/CH1/2eyi.csv');
+% proteinARGs{end+1} = GenerateProteinARG(34,60,'protein/CH1/4d1e.csv');
 
 % mix sequence
 % proteinARGs{end+1} = GenerateProteinARG(1,50,'protein/Mix/2nch.csv');

@@ -23,8 +23,9 @@
     e_cov = 0.01;
     
     % node attriubute compatability weight
-    alpha = 1;
-    linear_alpha = 10;
+    alpha = 0.1; % edge
+    delta = 1; % node
+    gamma = 1; %linear
     
     % the size of the real matchin matrix
     A=ARG1.num_nodes;
@@ -43,13 +44,10 @@
     beta = beta_0;
     
     % nil node compatibility percentage
-    prct = 100;
+    prct = 105;
     
     % stochastic level
     s_level = 1;
-    
-    % load BLOSUM
-    B = BLOSUM();
     
     % pre-calculate the node compatability
     C_n=zeros(A+1,I+1);
@@ -61,15 +59,11 @@
             C_n(a,i) = node_compatibility(ARG1.nodes_vector(a,:),V(i,:));
         end
     end
-    
-    C_n(1:A,1:I) = normalize_compatibility(C_n(1:A,1:I));
-    
+        
     % calculate nil compatibility
-    C_n(A+1, 1:I)=prctile(C_n(1:A,1:I),prct,1);
-    C_n(1:A, I+1)=prctile(C_n(1:A,1:I),prct,2);
+    C_n(A+1, 1:I)=prctile(C_n(1:A,1:I),min(prct,100),1)*max(prct/100,1);
+    C_n(1:A, I+1)=prctile(C_n(1:A,1:I),min(prct,100),2)*max(prct/100,1);
     C_n(A+1, I+1)=0;
-    % times the alpha weight
-    C_n=alpha*C_n;
     
     % pre-calculate the edge compatability
     C_e = zeros((A+1)^2,(I+1)^2); 
@@ -100,12 +94,12 @@
     nan_idx = isnan(C_e);
     inf_idx = isinf(C_e);
 
-    C_e = normalize_compatibility(C_e);
-
     % nil<->a
     C_e(nan_idx) = 0;
     % nil<->nil
-    C_e(inf_idx) = prctile(reshape(C_e(0~=C_e),1,[]),prct);
+    tmp = C_e(0~=C_e);
+    tmp = tmp(Inf~=tmp);
+    C_e(inf_idx) = prctile(tmp(:),min(prct,100))*max(prct/100,1);
     
     % set up the matrix
     m_Head = rand(augment_size);
@@ -134,7 +128,7 @@
             Q = squeeze(sum(sum(reshape(Q_aug,A+1,A+1,I+1,I+1),1),3));
             
             %add node attribute
-            Q=Q+C_n;
+            Q=alpha*Q+delta*C_n;
             
             % add linear encouragement
             linear_score = zeros(size(Q));
@@ -147,7 +141,7 @@
             null_h_linear = null_h(3:end).*null_h(1:end-2);
             linear_score(2:end-1,end)=null_v_linear;
             linear_score(end,2:end-1)=null_h_linear;
-            Q=Q+linear_score*linear_alpha;
+            Q=Q+gamma*linear_score;
             
             % Now update m_Head!
             m_Head=exp(beta*Q);
@@ -173,7 +167,7 @@
                 imshow(m_Head,'InitialMagnification',1000);       
                 drawnow;
                 subplot(1,2,2)
-                imshow(C_n/alpha,'InitialMagnification',1000); 
+                imshow(C_n,'InitialMagnification',1000); 
                 drawnow;
             end
             convergeB();
@@ -189,7 +183,6 @@
     match_matrix = heuristic(m_Head,A,I,train);
     
     % modify compatibility
-    C_n = C_n/alpha;
     C_n = C_n(1:A,1:I+1);
     for p = A+1:A+1:(A+1)*A
         C_e(p,:)=NaN;      

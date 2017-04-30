@@ -1,7 +1,5 @@
 function [ BLOSUM ] = BLOSUM()
 
-    BLOSUM_Sigma = 10;   % node attribute
-
     C=[9,-1,-1,-3,0,-3,-3,-3,-4,-3,-3,-3,-3,-1,-1,-1,-1,-2,-2,-2];
     S=[-1,4,1,-1,1,0,1,0,0,0,-1,-1,0,-1,-2,-2,-2,-2,-2,-3];
     T=[-1,1,4,1,-1,1,0,1,0,0,0,-1,0,-1,-2,-2,-2,-2,-2,-3];
@@ -24,11 +22,6 @@ function [ BLOSUM ] = BLOSUM()
     W=[-2,-3,-3,-4,-3,-2,-4,-4,-3,-2,-2,-3,-3,-1,-3,-2,-3,1,2,11];
 
     BLOSUM=[C',S',T',P',A',G',N',D',E',Q',H',R',K',M',I',L',V',F',Y',W'];
-
-    BLOSUM=exp(BLOSUM/BLOSUM_Sigma);
-
-    % normalize the symmetric matrix
-    BLOSUM = normr(BLOSUM).^2;
 
 end
 
