@@ -61,8 +61,8 @@
     end
         
     % calculate nil compatibility
-    C_n(A+1, 1:I)=prctile(C_n(1:A,1:I),min(prct,100),1)*max(prct/100,1);
-    C_n(1:A, I+1)=prctile(C_n(1:A,1:I),min(prct,100),2)*max(prct/100,1);
+    C_n(A+1, 1:I)=max(0,prctile(C_n(1:A,1:I),min(prct,100),1)*max(prct/100,1));
+    C_n(1:A, I+1)=max(0,prctile(C_n(1:A,1:I),min(prct,100),2)*max(prct/100,1));
     C_n(A+1, I+1)=0;
     
     % pre-calculate the edge compatability
