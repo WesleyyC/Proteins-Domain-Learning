@@ -110,6 +110,9 @@ function [] = visual(start_sequence_1, end_sequence_1, start_highlight_sequence_
         y1=protein_1(i,4);
         z1=protein_1(i,5);
         p2i = find(match(i,:));
+        if length(p2i)>1
+            p2i = p2i(1);
+        end
         color_depth = score(i, p2i);
         % round color_depth to 0.33/0.66/0.99
         color_depth = ceil(3*color_depth)/3;
