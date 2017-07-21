@@ -11,20 +11,18 @@ proteinARGs = cell(0);
 % proteinARGs = [proteinARGs, GenerateProteinARG(45,150,'protein/CH1/1wku.csv')];
 % proteinARGs = [proteinARGs, GenerateProteinARG(31,136,'protein/CH1/2eyi.csv')];
 % proteinARGs = [proteinARGs, GenerateProteinARG(38,143,'protein/CH1/4d1e.csv')];
+% proteinARGs{end+1} = GenerateProteinARG(26,140,'protein/CH1/1sjj.csv');
+% proteinARGs{end+1} = GenerateProteinARG(42,150,'protein/CH1/1tjt.csv');
+% proteinARGs{end+1} = GenerateProteinARG(42,150,'protein/CH1/1wku.csv');
+% proteinARGs{end+1} = GenerateProteinARG(26,140,'protein/CH1/2eyi.csv');
+% proteinARGs{end+1} = GenerateProteinARG(34,150,'protein/CH1/4d1e.csv');
 
-% partial CH1
-proteinARGs{end+1} = GenerateProteinARG(26,50,'protein/CH1/1sjj.csv');
-proteinARGs{end+1} = GenerateProteinARG(42,65,'protein/CH1/1tjt.csv');
-proteinARGs{end+1} = GenerateProteinARG(42,65,'protein/CH1/1wku.csv');
-proteinARGs{end+1} = GenerateProteinARG(26,50,'protein/CH1/2eyi.csv');
-proteinARGs{end+1} = GenerateProteinARG(34,60,'protein/CH1/4d1e.csv');
-
-% partial CH1 play around
-% proteinARGs{end+1} = GenerateProteinARG(26,50,'protein/CH1/1sjj.csv');
-% proteinARGs{end+1} = GenerateProteinARG(52,75,'protein/CH1/1tjt.csv');
-% proteinARGs{end+1} = GenerateProteinARG(42,65,'protein/CH1/1wku.csv');
-% proteinARGs{end+1} = GenerateProteinARG(26,50,'protein/CH1/2eyi.csv');
-% proteinARGs{end+1} = GenerateProteinARG(34,60,'protein/CH1/4d1e.csv');
+% partial SH3
+proteinARGs{end+1} = GenerateProteinARG(140,230,'protein/SH2/1ad5.csv');
+proteinARGs{end+1} = GenerateProteinARG(1,90,'protein/SH2/1aou.csv');
+proteinARGs{end+1} = GenerateProteinARG(1,90,'protein/SH2/1fbz.csv');
+proteinARGs{end+1} = GenerateProteinARG(140,230,'protein/SH2/1qcf.csv');
+proteinARGs{end+1} = GenerateProteinARG(120,210,'protein/SH2/4d8k.csv');
 
 % mix sequence
 % proteinARGs{end+1} = GenerateProteinARG(1,40,'protein/Mix/2nch.csv');
