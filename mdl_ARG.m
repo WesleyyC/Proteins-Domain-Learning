@@ -5,8 +5,8 @@ classdef mdl_ARG < handle
         nodes_freq = NaN;
         nodes = {};
         edges = {};
-        nodes_vector = NaN;
         nodes_aa_index = NaN;
+        nodes_vector = NaN;
         edges_matrix = NaN;
         edges_cov = NaN;
     end

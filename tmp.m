@@ -88,4 +88,12 @@ end
 surf(range, range, z);colorbar
 
 %%
-        
+
+histogram(y, 'BinWidth',1)
+xlim([0,50])
+xticks(0:4:50)
+xlabel('Distance(Å)')
+ylabel('Number of Instances')
+title('Sample Distance between all Amino Acids')
+set(findall(gca,'-property','FontSize'),'FontSize',32)
+

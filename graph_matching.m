@@ -23,9 +23,9 @@
     e_cov = 0.01;
     
     % node attriubute compatability weight
-    alpha = 0.1; % edge
+    alpha = 1; % edge
     delta = 1; % node
-    gamma = 1; %linear
+    gamma = 0; %linear
     
     % the size of the real matchin matrix
     A=ARG1.num_nodes;
@@ -44,7 +44,7 @@
     beta = beta_0;
     
     % nil node compatibility percentage
-    prct = 105;
+    prct = 50;
     
     % stochastic level
     s_level = 1;
@@ -167,7 +167,7 @@
                 imshow(m_Head,'InitialMagnification',1000);       
                 drawnow;
                 subplot(1,2,2)
-                imshow(C_n,'InitialMagnification',1000); 
+                imshow(C_n/10,'InitialMagnification',1000); 
                 drawnow;
             end
             convergeB();

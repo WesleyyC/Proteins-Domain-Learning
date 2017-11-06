@@ -136,8 +136,8 @@ classdef sprMDL < handle & matlab.mixin.Copyable
             obj.updateComponentStructure(true);
             obj.EM();
             
-            % get the thredshold minimum score
-            obj.getThredsholdScore();
+%             % get the thredshold minimum score
+%             obj.getThredsholdScore();
         end
         
         % The EM-alogirthem procedure
@@ -433,6 +433,9 @@ classdef sprMDL < handle & matlab.mixin.Copyable
                score = score + ...
                     sprMDL.component_score(node_match_score,node_compatibility,edge_compatibility) * obj.weight(i);
             end
+            
+%             score = score/ARG.num_nodes;
+            
             if obj.debug
                 figure;
                 f_count = 1;
