@@ -44,7 +44,7 @@
     beta = beta_0;
     
     % nil node compatibility percentage
-    prct = 50;
+    prct = 105;
     
     % stochastic level
     s_level = 1;
